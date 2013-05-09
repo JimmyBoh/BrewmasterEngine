@@ -35,7 +35,15 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Game1.cs" />
+    <Compile Include="Framework\CurrentGame.cs" />
+    <Compile Include="Framework\Game2D.cs" />
+    <Compile Include="Framework\GameEngine.cs" />
+    <Compile Include="Framework\GameManager.cs" />
+    <Compile Include="Framework\GameObject.cs" />
+    <Compile Include="Scenes\Scene.cs" />
+    <Compile Include="Input\InputManager.cs" />
+    <Compile Include="Scenes\SceneManager.cs" />
+    <Compile Include="TestGame.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
