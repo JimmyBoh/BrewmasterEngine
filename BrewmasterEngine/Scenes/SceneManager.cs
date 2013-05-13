@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using BrewmasterEngine.Debug;
 using BrewmasterEngine.Framework;
 using Microsoft.Xna.Framework;
 
@@ -6,29 +9,117 @@ namespace BrewmasterEngine.Scenes
 {
     public class SceneManager : GameManager
     {
-        public override void Update(GameTime gameTime)
+        #region Constructors
+
+        public SceneManager()
         {
-            //throw new System.NotImplementedException();
+            Scenes = new Dictionary<string, Scene>();
+            CurrentSceneName = "";
+            DefaultScene = "";
+            DebugMode = false;
         }
 
-        public override void Draw(GameTime gameTime)
+        #endregion
+
+        #region Properties
+
+        public Dictionary<string, Scene> Scenes { get; set; }
+        public string[] SceneNames
         {
-            //throw new System.NotImplementedException();
+            get { return Scenes.Select(s => s.Key).ToArray(); }
         }
 
-        public override void Unload()
+        public string DefaultScene { get; set; }
+        public string CurrentSceneName { get; private set; }
+
+        public Scene CurrentScene
         {
-            //throw new System.NotImplementedException();
+            get
+            {
+                var currScene = !string.IsNullOrEmpty(CurrentSceneName) && Scenes.ContainsKey(CurrentSceneName) ? Scenes[CurrentSceneName]
+                        : !string.IsNullOrEmpty(DefaultScene) && Scenes.ContainsKey(DefaultScene) ? Scenes[DefaultScene]
+                        : null;
+
+                if (currScene == null)
+                    throw new Exception("Failed to retrieve current scene.");
+
+                return currScene;
+            }
+        }
+
+        #endregion
+
+        #region Methods
+
+        public void Load(string sceneName, Action<Scene> callback = null)
+        {
+            var previousScene = CurrentSceneName;
+
+            if (string.IsNullOrEmpty(sceneName) || string.IsNullOrWhiteSpace(sceneName) || !Scenes.ContainsKey(sceneName))
+            {
+                Debugger.Log("Tried to load empty scene name: \"" + sceneName + "\"");
+                return;
+            }
+
+            CurrentSceneName = sceneName;
+
+            if (!string.IsNullOrEmpty(previousScene) && Scenes.ContainsKey(previousScene))
+                Scenes[previousScene].Unload();
+
+            CurrentScene.LoadScene((scene) =>
+            {
+                if (callback != null) callback(scene);
+            });
+        }
+
+        public void LoadNextScene(Action<Scene> callback = null)
+        {
+            var nextIndex = (Array.IndexOf(SceneNames, CurrentSceneName) + 1) % SceneNames.Length;
+            Load(SceneNames[nextIndex], callback);
+        }
+
+        public void LoadDefaultScene(Action<Scene> callback = null)
+        {
+            Load(DefaultScene, callback);
+        }
+
+        public void AddScene(Scene scene)
+        {
+            if (Scenes.Count == 0 || string.IsNullOrEmpty(DefaultScene))
+                DefaultScene = scene.Name;
+
+            Scenes.Add(scene.Name, scene);
         }
 
         public void AddScenes(IEnumerable<Scene> scenes)
         {
-            //throw new System.NotImplementedException();
+            foreach (var scene in scenes)
+                AddScene(scene);
         }
 
-        public void LoadDefaultScene()
+        public void RemoveScene(string sceneName)
         {
-            //throw new System.NotImplementedException();
+            Scenes.Remove(sceneName);
         }
+
+        public override void Update(GameTime gameTime)
+        {
+            CurrentScene.Update(gameTime);
+        }
+
+        public override void Draw(GameTime gameTime)
+        {
+            CurrentScene.Draw(gameTime);
+        }
+
+        public override void Unload()
+        {
+            Scenes.Clear();
+            Scenes = null;
+            DefaultScene = null;
+            CurrentSceneName = null;
+        }
+
+        #endregion
     }
 }

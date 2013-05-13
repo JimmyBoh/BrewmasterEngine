@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{873CE1AC-A2CF-424D-A44D-CB4EEA9CCC0F}</ProjectGuid>
-    <OutputType>Library</OutputType>
+    <ProjectGuid>{D4E23096-2164-499B-BABB-D903043C92F7}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>BrewmasterEngine</RootNamespace>
-    <AssemblyName>BrewmasterEngine</AssemblyName>
+    <RootNamespace>SampleGame</RootNamespace>
+    <AssemblyName>SampleGame</AssemblyName>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -34,25 +34,14 @@
   <PropertyGroup>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
-  <PropertyGroup>
-    <StartupObject />
-  </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Debug\Debugger.cs" />
-    <Compile Include="Extensions\MathExtensions.cs" />
-    <Compile Include="Extensions\PrimitivesExtension.cs" />
-    <Compile Include="Extensions\XnaExtenions.cs" />
-    <Compile Include="Framework\CurrentGame.cs" />
-    <Compile Include="Framework\Game2D.cs" />
-    <Compile Include="Framework\GameEngine.cs" />
-    <Compile Include="Framework\GameManager.cs" />
-    <Compile Include="Framework\GameObject.cs" />
-    <Compile Include="Graphics\Core\Sprite.cs" />
-    <Compile Include="Graphics\Core\Sprite2D.cs" />
-    <Compile Include="Graphics\Core\SpriteText.cs" />
-    <Compile Include="Scenes\Scene.cs" />
-    <Compile Include="Scenes\SceneManager.cs" />
+    <Compile Include="GUI\MenuButton.cs" />
+    <Compile Include="GUI\MenuText.cs" />
+    <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SampleGame.cs" />
+    <Compile Include="Scenes\IntroScene.cs" />
+    <Compile Include="Scenes\MainMenuScene.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="OpenTK">
@@ -72,10 +61,18 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
-    <Content Include="SDL.dll" />
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\BrewmasterEngine\BrewmasterEngine.csproj">
+      <Project>{873ce1ac-a2cf-424d-a44d-cb4eea9ccc0f}</Project>
+      <Name>BrewmasterEngine</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Content\" />
+    <None Include="Content\DebugFont.xnb">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

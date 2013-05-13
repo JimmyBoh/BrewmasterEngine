@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
-using System.Text;
-using BrewmasterEngine.Input;
 using BrewmasterEngine.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -30,11 +28,6 @@ namespace BrewmasterEngine.Framework
         public static SceneManager SceneManager
         {
             get { return Game.SceneManager; }
-        }
-
-        public static InputManager Input
-        {
-            get { return Game.InputManager; }
         }
 
         public static GameWindow Window

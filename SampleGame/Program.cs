@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 #endregion
 
-namespace BrewmasterEngine
+namespace SampleGame
 {
 #if WINDOWS || LINUX
     /// <summary>
@@ -18,7 +18,7 @@ namespace BrewmasterEngine
         [STAThread]
         static void Main()
         {
-            using (var game = new TestGame())
+            using (var game = new SampleGame())
                 game.Run();
         }
     }

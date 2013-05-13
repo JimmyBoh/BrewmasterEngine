@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BrewmasterEngine.Input;
 using BrewmasterEngine.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -29,7 +28,6 @@ namespace BrewmasterEngine.Framework
             Graphics.ApplyChanges();
 
             SceneManager = new SceneManager();
-            InputManager = new InputManager();
             globalObjects = new Dictionary<string, GameObject>();
         }
 
@@ -40,7 +38,6 @@ namespace BrewmasterEngine.Framework
         public Color BackgroundColor { get; set; }
 
         public SceneManager SceneManager { get; set; }
-        public InputManager InputManager { get; set; }
 
         private readonly Dictionary<string, GameObject> globalObjects;
         private readonly Game2D game;
@@ -75,14 +72,11 @@ namespace BrewmasterEngine.Framework
             base.UnloadContent();
 
             SceneManager.Unload();
-            InputManager.Unload();
         }
 
         protected override void Update(GameTime gameTime)
         {
             base.Update(gameTime);
-
-            InputManager.Update(gameTime);
 
             var keys = globalObjects.Keys;
             foreach (var k in keys)
@@ -100,7 +94,6 @@ namespace BrewmasterEngine.Framework
 
             SpriteBatch.Begin();
             SceneManager.Draw(gameTime);
-            InputManager.Draw(gameTime);
 
             var keys = globalObjects.Keys;
             foreach (var k in keys)
