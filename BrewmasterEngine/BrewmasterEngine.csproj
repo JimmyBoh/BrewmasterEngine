@@ -39,6 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Debug\Debugger.cs" />
+    <Compile Include="Debug\Profiler.cs" />
     <Compile Include="Extensions\MathExtensions.cs" />
     <Compile Include="Extensions\PrimitivesExtension.cs" />
     <Compile Include="Extensions\XnaExtenions.cs" />
@@ -47,6 +48,7 @@
     <Compile Include="Framework\GameEngine.cs" />
     <Compile Include="Framework\GameManager.cs" />
     <Compile Include="Framework\GameObject.cs" />
+    <Compile Include="Graphics\Content\Gradient.cs" />
     <Compile Include="Graphics\Core\Sprite.cs" />
     <Compile Include="Graphics\Core\Sprite2D.cs" />
     <Compile Include="Graphics\Core\SpriteText.cs" />

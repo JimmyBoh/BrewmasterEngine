@@ -60,7 +60,6 @@ namespace BrewmasterEngine.Extensions
                 spriteBatch.DrawString(spriteText.Font, spriteText.Text, spriteText.Position + bgOffset, spriteText.BackgroundColor, spriteText.Rotation, spriteText.Origin, spriteText.Scale, spriteText.SpriteEffect, 0);
             }
 
-
             spriteBatch.DrawString(spriteText.Font, spriteText.Text, spriteText.Position, spriteText.ForegroundColor, spriteText.Rotation, spriteText.Origin, spriteText.Scale, spriteText.SpriteEffect, 0);
         }
 

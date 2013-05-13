@@ -16,7 +16,7 @@ namespace SampleGame
             ScreenWidth = 1366;
             ScreenHeight = 768;
 
-            BackgroundColor = Color.Black;
+            BackgroundColor = Color.Orange;
             DebugMode = true;
         }
 

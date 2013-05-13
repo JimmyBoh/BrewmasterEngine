@@ -56,7 +56,7 @@ namespace BrewmasterEngine.Scenes
 
         private void ForEach(IEnumerable<string> entityNames, Action<GameObject> action)
         {
-            foreach (var e in entityNames) //.Where(e => entities.ContainsKey(e)))
+            foreach (var e in entityNames.Where(e => entities.ContainsKey(e)))
                 action(entities[e]);
         }
 

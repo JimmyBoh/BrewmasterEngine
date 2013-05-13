@@ -1,6 +1,4 @@
-﻿using BrewmasterEngine.Extensions;
-using BrewmasterEngine.Framework;
-using BrewmasterEngine.Graphics.Core;
+﻿using BrewmasterEngine.Graphics.Core;
 using Microsoft.Xna.Framework;
 
 namespace SampleGame.GUI

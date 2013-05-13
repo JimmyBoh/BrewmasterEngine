@@ -15,10 +15,12 @@ namespace BrewmasterEngine.Framework
         {
             DebugMode = false;
             nextObjectID = 0;
+            Random = new Random();
         }
 
-        public static bool DebugMode { get; set; }
+        public static Random Random { get; private set; }
 
+        public static bool DebugMode { get; set; }
         private static GameEngine Game;
         public static void SetGame(GameEngine engine)
         {
@@ -49,6 +51,11 @@ namespace BrewmasterEngine.Framework
         public static string GetNextObjectID()
         {
             return (nextObjectID++).ToString(CultureInfo.InvariantCulture);
+        }
+
+        public static void Exit()
+        {
+            Game.Exit();
         }
     }
 }

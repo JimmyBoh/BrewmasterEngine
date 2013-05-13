@@ -218,7 +218,7 @@ namespace BrewmasterEngine.Extensions
                              null,
                              color,
                              angle,
-                             Vector2.Zero,
+                             size/2,
                              size,
                              SpriteEffects.None,
                              0);

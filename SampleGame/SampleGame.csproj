@@ -35,6 +35,7 @@
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="GUI\GradientBackground.cs" />
     <Compile Include="GUI\MenuButton.cs" />
     <Compile Include="GUI\MenuText.cs" />
     <Compile Include="Program.cs" />

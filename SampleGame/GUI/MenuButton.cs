@@ -4,7 +4,6 @@ using System.Linq;
 using BrewmasterEngine.Framework;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
-using Microsoft.Xna.Framework.Input.Touch;
 using BrewmasterEngine.Extensions;
 
 namespace SampleGame.GUI
@@ -13,19 +12,21 @@ namespace SampleGame.GUI
     {
         #region Constructor
 
-        public MenuButton(string text, Vector2 position, string targetScene = "", float resize = 1.2f): base(text, position)
+        public MenuButton(string text, Vector2 position, Action<MenuButton, bool> onUp, Action<MenuButton> onDown = null) : base(text, position)
         {
-            this.TargetScene = targetScene;
-            Resize = resize;
-            ForegroundColor = Color.Black;
+            OnUp = onUp;
+            OnDown = onDown;
+            Rotation = CurrentGame.Random.Next(-4, 4)/100.0f;
         }
 
         #endregion
 
         #region Properties
 
-        public string TargetScene { get; set; }
-        public float Resize { get; private set; }
+        public Action<MenuButton, bool> OnUp { get; set; }
+        public Action<MenuButton> OnDown { get; set; }
+        private bool wasClicked;
+
         #endregion
 
         #region Methods
@@ -35,12 +36,22 @@ namespace SampleGame.GUI
         {
             var mouseState = Mouse.GetState();
 
-            Scale = Bounds.Contains(mouseState.X, mouseState.Y)
-                        ? new Vector2(Resize)
-                        : Vector2.One;
+            if (mouseState.LeftButton == ButtonState.Pressed && prevState.LeftButton == ButtonState.Released && Bounds.Contains(mouseState.X, mouseState.Y))
+            {
+                if (OnDown != null)
+                    OnDown(this);
 
-            if (Bounds.Contains(mouseState.X, mouseState.Y) && mouseState.LeftButton == ButtonState.Released && prevState.LeftButton == ButtonState.Pressed)
-                CurrentGame.SceneManager.Load(TargetScene);
+                wasClicked = true;
+            }
+
+
+            if (mouseState.LeftButton == ButtonState.Released && prevState.LeftButton == ButtonState.Pressed)
+            {
+                if (OnUp != null)
+                    OnUp(this, Bounds.Contains(mouseState.X, mouseState.Y) && wasClicked);
+
+                wasClicked = false;
+            }
 
             prevState = mouseState;
         }
@@ -49,7 +60,7 @@ namespace SampleGame.GUI
         {
             var newBounds = new Rectangle(Bounds.X + 5, Bounds.Y + 5, Bounds.Width, Bounds.Height);
             spriteBatch.FillRectangle(newBounds, Color.Gray);
-            spriteBatch.FillRectangle(Bounds,Color.DarkGray,-0.03f);
+            spriteBatch.FillRectangle(Bounds, Color.DarkGray, Rotation);
             spriteBatch.Draw(this);
         }
 

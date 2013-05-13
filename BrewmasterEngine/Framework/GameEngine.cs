@@ -14,6 +14,7 @@ namespace BrewmasterEngine.Framework
             this.game = game;
             CurrentGame.SetGame(this);
 
+            BackgroundColor = game.BackgroundColor;
             Graphics = new GraphicsDeviceManager(this);
             SpriteBatch = new SpriteBatch(GraphicsDevice);
             Content.RootDirectory = game.ContentRoot;
