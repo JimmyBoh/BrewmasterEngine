@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BrewmasterEngine.Debug;
 using BrewmasterEngine.Framework;
 using BrewmasterEngine.Scenes;
 using Microsoft.Xna.Framework;
-using SampleGame.GUI;
+using SampleGame.Menu;
+using SampleGame.Menu.Widgets;
 using SampleGame.Scenes;
 
 namespace SampleGame
@@ -36,7 +38,7 @@ namespace SampleGame
             {
                 return new GameObject[]
                     {
-                        new GradientBackground(Color.Orange, Color.Blue, 800, 100.0f)
+                        //new GradientBackground(Color.Orange, Color.Blue, 800, 1000.0f)
                     };
             }
         }
@@ -47,7 +49,7 @@ namespace SampleGame
             {
                 return new GameObject[]
                     {
-
+                        new FpsCounter("DebugFont"), 
                     };
             }
         }

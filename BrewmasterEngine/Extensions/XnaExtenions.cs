@@ -26,11 +26,34 @@ namespace BrewmasterEngine.Extensions
 
         #endregion
 
-        #region Rectangle
+        #region Rectangle and Vector2
 
         public static bool Contains(this Rectangle rect, Vector2 point)
         {
             return rect.Contains((int)point.X, (int)point.Y);
+        }
+
+        public static Point ToPoint(this Vector2 point)
+        {
+            return new Point((int)point.X, (int)point.Y);
+        }
+
+        public static Vector2 Herd(this Vector2 pos, Rectangle rect)
+        {
+            var x = pos.X;
+            var y = pos.Y;
+
+            if (x < rect.X)
+                x = rect.X;
+            else if (x > rect.Right)
+                x = rect.Right;
+
+            if (y < rect.Y)
+                y = rect.Y;
+            else if (y > rect.Bottom)
+                y = rect.Bottom;
+
+            return new Vector2(x, y);
         }
 
         #endregion

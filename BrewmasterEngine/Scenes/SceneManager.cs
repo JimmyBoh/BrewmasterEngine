@@ -83,6 +83,24 @@ namespace BrewmasterEngine.Scenes
             Load(DefaultScene, callback);
         }
 
+        public void PauseCurrentScene()
+        {
+            CurrentScene.PauseScene();
+        }
+        
+        public void UnpauseCurrentScene()
+        {
+            CurrentScene.UnpauseScene();
+        }
+
+        public void TogglePauseCurrentScene()
+        {
+            if (CurrentScene.IsPaused)
+                UnpauseCurrentScene();
+            else
+                PauseCurrentScene();
+        }
+
         public void AddScene(Scene scene)
         {
             if (Scenes.Count == 0 || string.IsNullOrEmpty(DefaultScene))

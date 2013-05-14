@@ -39,6 +39,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="Debug\Debugger.cs" />
+    <Compile Include="Debug\FpsCounter.cs" />
     <Compile Include="Debug\Profiler.cs" />
     <Compile Include="Extensions\MathExtensions.cs" />
     <Compile Include="Extensions\PrimitivesExtension.cs" />
@@ -52,6 +53,7 @@
     <Compile Include="Graphics\Core\Sprite.cs" />
     <Compile Include="Graphics\Core\Sprite2D.cs" />
     <Compile Include="Graphics\Core\SpriteText.cs" />
+    <Compile Include="Scenes\INotPausable.cs" />
     <Compile Include="Scenes\Scene.cs" />
     <Compile Include="Scenes\SceneManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

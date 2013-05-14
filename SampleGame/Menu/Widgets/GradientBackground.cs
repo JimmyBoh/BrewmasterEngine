@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using BrewmasterEngine.Framework;
 using BrewmasterEngine.Graphics.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using BrewmasterEngine.Extensions;
 
-namespace SampleGame.GUI
+namespace SampleGame.Menu.Widgets
 {
     public class GradientBackground : GameObject
     {
@@ -38,7 +37,7 @@ namespace SampleGame.GUI
 
 
             texture = isHorizontal
-                ? Gradient.CreateHorizontal(Bounds.Width + scrollAmount, startColor, stopColor) 
+                ? Gradient.CreateHorizontal(Bounds.Width + scrollAmount, startColor, stopColor)
                 : Gradient.CreateVertical(Bounds.Height + scrollAmount, startColor, stopColor);
         }
 
@@ -64,8 +63,6 @@ namespace SampleGame.GUI
                     scrollDir = 1;
 
                 position += new Vector2((float)(scrollSpeed * gameTime.ElapsedGameTime.TotalSeconds * scrollDir), 0.0f);
-
-                Console.WriteLine("{0}", position.X);
             }
             else
             {
@@ -75,17 +72,18 @@ namespace SampleGame.GUI
                     scrollDir = 1;
 
                 position += new Vector2(0.0f, (float)(scrollSpeed * gameTime.ElapsedGameTime.TotalSeconds * scrollDir));
-
-                Console.WriteLine("{0}", position.Y);
             }
-
-            Bounds.Location = new Point((int) position.X, (int) position.Y);
+            var clampedX = MathHelper.Clamp(position.X, CurrentGame.Window.ClientBounds.Width - Bounds.Width, 0.0f);
+            var clampedY = MathHelper.Clamp(position.Y, CurrentGame.Window.ClientBounds.Height - Bounds.Height, 0.0f);
+            
+            position = new Vector2(clampedX, clampedY);
+            
+            Bounds.Location = position.ToPoint();
         }
 
         public override void Draw(GameTime elapsedTime)
         {
             spriteBatch.Draw(texture, Bounds, Color.White);
-
         }
     }
 }

@@ -1,7 +1,7 @@
 ﻿using BrewmasterEngine.Graphics.Core;
 using Microsoft.Xna.Framework;
 
-namespace SampleGame.GUI
+namespace SampleGame.Menu.Widgets
 {
     public class MenuText : SpriteText
     {

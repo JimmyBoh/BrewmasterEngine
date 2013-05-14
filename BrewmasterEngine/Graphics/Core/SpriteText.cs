@@ -13,7 +13,6 @@ namespace BrewmasterEngine.Graphics.Core
         {
             Font = CurrentGame.Content.Load<SpriteFont>(fontPath);
             Text = text;
-            Origin = Bounds.Center.ToVector2();
             BackgroundColor = Color.Transparent;
         }
 
@@ -22,7 +21,18 @@ namespace BrewmasterEngine.Graphics.Core
         #region Properties
 
         public SpriteFont Font { get; set; }
-        public string Text { get; set; }
+        private string text;
+
+        public string Text
+        {
+            get { return text; }
+            set
+            {
+                text = value;
+                Origin = Size/2.0f;
+            }
+        }
+
         public Color BackgroundColor { get; set; }
 
         public override Vector2 Size

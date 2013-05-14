@@ -1,14 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using BrewmasterEngine.Framework;
+using BrewmasterEngine.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input;
 using BrewmasterEngine.Extensions;
 
-namespace SampleGame.GUI
+namespace SampleGame.Menu.Widgets
 {
-    public class MenuButton : MenuText
+    public class MenuButton : MenuText, INotPausable
     {
         #region Constructor
 
@@ -44,7 +43,6 @@ namespace SampleGame.GUI
                 wasClicked = true;
             }
 
-
             if (mouseState.LeftButton == ButtonState.Released && prevState.LeftButton == ButtonState.Pressed)
             {
                 if (OnUp != null)
@@ -59,12 +57,21 @@ namespace SampleGame.GUI
         public override void Draw(GameTime elapsedTime)
         {
             var newBounds = new Rectangle(Bounds.X + 5, Bounds.Y + 5, Bounds.Width, Bounds.Height);
-            spriteBatch.FillRectangle(newBounds, Color.Gray);
+            spriteBatch.FillRectangle(newBounds, Color.Gray * 0.5f, Rotation);
             spriteBatch.FillRectangle(Bounds, Color.DarkGray, Rotation);
             spriteBatch.Draw(this);
         }
 
         #endregion
 
+        public void OnPause()
+        {
+            
+        }
+
+        public void OnUnpause()
+        {
+            
+        }
     }
 }

@@ -4,7 +4,7 @@ using System.Linq;
 using BrewmasterEngine.Framework;
 using BrewmasterEngine.Scenes;
 using Microsoft.Xna.Framework;
-using SampleGame.GUI;
+using SampleGame.Menu.Widgets;
 
 namespace SampleGame.Scenes
 {
@@ -21,7 +21,7 @@ namespace SampleGame.Scenes
             var windowSize = new Vector2(windowBounds.Width, windowBounds.Height);
 
             this.Add(new MenuText("Loading...", windowSize*new Vector2(0.5f, 0.2f)));
-            this.Add(new MenuButton("Press Start!", windowSize*new Vector2(0.5f, 0.8f), (button, releasedOn) =>
+            this.Add(new MenuButton("Go to Main Menu", windowSize*new Vector2(0.5f, 0.8f), (button, releasedOn) =>
                 {
                     if (releasedOn)
                         CurrentGame.SceneManager.Load("main");
