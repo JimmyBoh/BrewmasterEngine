@@ -19,7 +19,6 @@ namespace SampleGame.Scenes
             var windowBounds = CurrentGame.Window.ClientBounds;
             var windowSize = new Vector2(windowBounds.Width, windowBounds.Height);
 
-            this.Add(new GradientBackground(Color.White, Color.CornflowerBlue));
             this.Add(new MenuText("Main Menu", windowSize * new Vector2(0.5f, 0.2f)));
             this.Add(new MenuButton("New Game", windowSize*new Vector2(0.5f, 0.7f), onButtonUp("intro"), onButtonDown()));
 

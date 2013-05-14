@@ -4,7 +4,7 @@ using System.Linq;
 using BrewmasterEngine.Framework;
 using BrewmasterEngine.Scenes;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input.Touch;
+using SampleGame.GUI;
 using SampleGame.Scenes;
 
 namespace SampleGame
@@ -28,6 +28,28 @@ namespace SampleGame
         public override IEnumerable<string> PreloadFonts
         {
             get { return new [] {"DebugFont"}; }
+        }
+
+        public override IEnumerable<GameObject> BackgroundObjects
+        {
+            get
+            {
+                return new GameObject[]
+                    {
+                        new GradientBackground(Color.Orange, Color.Blue, 800, 100.0f)
+                    };
+            }
+        }
+
+        public override IEnumerable<GameObject> ForegroundObjects
+        {
+            get
+            {
+                return new GameObject[]
+                    {
+
+                    };
+            }
         }
 
         public override void Init()

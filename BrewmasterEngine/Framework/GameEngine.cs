@@ -29,7 +29,8 @@ namespace BrewmasterEngine.Framework
             Graphics.ApplyChanges();
 
             SceneManager = new SceneManager();
-            globalObjects = new Dictionary<string, GameObject>();
+            backgroundObjects = new Dictionary<string, GameObject>();
+            foregroundObjects = new Dictionary<string, GameObject>();
         }
 
         #region Properties
@@ -40,7 +41,8 @@ namespace BrewmasterEngine.Framework
 
         public SceneManager SceneManager { get; set; }
 
-        private readonly Dictionary<string, GameObject> globalObjects;
+        private readonly Dictionary<string, GameObject> backgroundObjects;
+        private readonly Dictionary<string, GameObject> foregroundObjects;
         private readonly Game2D game;
 
         #endregion
@@ -50,6 +52,12 @@ namespace BrewmasterEngine.Framework
         protected override void Initialize()
         {
             game.Init();
+
+            foreach (var obj in game.BackgroundObjects)
+                backgroundObjects.Add(obj.Name, obj);
+            
+            foreach (var obj in game.ForegroundObjects)
+                foregroundObjects.Add(obj.Name, obj);
 
             SceneManager.AddScenes(game.Scenes);
             
@@ -79,11 +87,15 @@ namespace BrewmasterEngine.Framework
         {
             base.Update(gameTime);
 
-            var keys = globalObjects.Keys;
-            foreach (var k in keys)
-                globalObjects[k].Update(gameTime);
+            var bgKeys = backgroundObjects.Keys;
+            foreach (var k in bgKeys)
+                backgroundObjects[k].Update(gameTime);
 
             SceneManager.Update(gameTime);
+
+            var fgKeys = foregroundObjects.Keys;
+            foreach (var k in fgKeys)
+                foregroundObjects[k].Update(gameTime);
         }
 
         protected override void Draw(GameTime gameTime)
@@ -94,11 +106,19 @@ namespace BrewmasterEngine.Framework
             GraphicsDevice.SamplerStates[0] = SamplerState.PointWrap;
 
             SpriteBatch.Begin();
+
+            // Draw backround objects...
+            var keys = backgroundObjects.Keys;
+            foreach (var k in keys)
+                backgroundObjects[k].Draw(gameTime);
+
+            // Draw current scene...
             SceneManager.Draw(gameTime);
 
-            var keys = globalObjects.Keys;
-            foreach (var k in keys)
-                globalObjects[k].Draw(gameTime);
+            // Draw foreground objects.
+            var fgKeys = foregroundObjects.Keys;
+            foreach (var k in fgKeys)
+                foregroundObjects[k].Draw(gameTime);
 
             SpriteBatch.End();
         }

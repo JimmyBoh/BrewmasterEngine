@@ -16,7 +16,7 @@ namespace SampleGame.GUI
         {
             OnUp = onUp;
             OnDown = onDown;
-            Rotation = CurrentGame.Random.Next(-4, 4)/100.0f;
+            Rotation = CurrentGame.Random.Next(-3, 3)/100.0f;
         }
 
         #endregion

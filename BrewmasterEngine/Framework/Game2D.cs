@@ -35,6 +35,8 @@ namespace BrewmasterEngine.Framework
 
         public abstract IEnumerable<string> PreloadTextures { get; }
         public abstract IEnumerable<string> PreloadFonts { get; }
+        public abstract IEnumerable<GameObject> BackgroundObjects { get; }
+        public abstract IEnumerable<GameObject> ForegroundObjects { get; }
 
         private GameEngine gameEngine;
 
