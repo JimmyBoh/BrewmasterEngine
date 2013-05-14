@@ -18,7 +18,7 @@ namespace SampleGame
             ScreenWidth = 1366;
             ScreenHeight = 768;
 
-            BackgroundColor = Color.Orange;
+            BackgroundColor = Color.Black;
             DebugMode = true;
         }
 
@@ -66,7 +66,8 @@ namespace SampleGame
                 return new Scene[]
                     {
                         new IntroScene(),
-                        new MainMenuScene()
+                        new MainMenuScene(),
+                        new GameScene()
                     };
             }
         }

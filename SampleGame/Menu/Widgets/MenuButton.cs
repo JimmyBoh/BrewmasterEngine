@@ -66,12 +66,12 @@ namespace SampleGame.Menu.Widgets
 
         public void OnPause()
         {
-            
+            // Do nothing...
         }
 
         public void OnUnpause()
         {
-            
+            // Do nothing...
         }
     }
 }

@@ -18,7 +18,7 @@ namespace BrewmasterEngine.Framework
 
             Name = name;
             IsActive = true;
-            IsVisible = false;
+            IsVisible = true;
             SpriteEffect = SpriteEffects.None;
         }
 

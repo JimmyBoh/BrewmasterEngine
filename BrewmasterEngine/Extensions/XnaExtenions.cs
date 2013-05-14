@@ -28,6 +28,11 @@ namespace BrewmasterEngine.Extensions
 
         #region Rectangle and Vector2
 
+        public static Vector2 GetRandomPoint(this Rectangle rect)
+        {
+            return new Vector2(CurrentGame.Random.Next(rect.Width), CurrentGame.Random.Next(rect.Height));
+        }
+
         public static bool Contains(this Rectangle rect, Vector2 point)
         {
             return rect.Contains((int)point.X, (int)point.Y);
@@ -98,13 +103,6 @@ namespace BrewmasterEngine.Extensions
         public static Vector2 GetSize(this GameWindow window)
         {
             return new Vector2(window.ClientBounds.Width, window.ClientBounds.Height);
-        }
-
-        public static Vector2 GetRandomPoint(this GameWindow window)
-        {
-            var rand = new Random();
-
-            return new Vector2(rand.Next(window.ClientBounds.Width), rand.Next(window.ClientBounds.Height));
         }
 
         //public static void SetPosition(this GameWindow window, Point position)

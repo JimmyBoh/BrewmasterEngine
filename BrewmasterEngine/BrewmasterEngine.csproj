@@ -53,6 +53,7 @@
     <Compile Include="Graphics\Core\Sprite.cs" />
     <Compile Include="Graphics\Core\Sprite2D.cs" />
     <Compile Include="Graphics\Core\SpriteText.cs" />
+    <Compile Include="Helpers\Callback.cs" />
     <Compile Include="Scenes\INotPausable.cs" />
     <Compile Include="Scenes\Scene.cs" />
     <Compile Include="Scenes\SceneManager.cs" />

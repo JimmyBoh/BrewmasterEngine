@@ -89,6 +89,7 @@ namespace BrewmasterEngine.Scenes
             Load(() =>
             {
                 IsActive = true;
+                IsPaused = false;
                 if (callback != null) callback(this);
             });
         }
@@ -140,6 +141,7 @@ namespace BrewmasterEngine.Scenes
             }
 
             entities.Clear();
+            IsPaused = false;
             IsActive = false;
         }
 
