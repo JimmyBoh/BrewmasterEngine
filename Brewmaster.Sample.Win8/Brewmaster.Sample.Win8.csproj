@@ -127,28 +127,28 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\SampleGame\Entities\Ball.cs">
+    <Compile Include="..\Brewmaster.Sample.PC\Entities\Ball.cs">
       <Link>Entities\Ball.cs</Link>
     </Compile>
-    <Compile Include="..\SampleGame\Menu\Widgets\GradientBackground.cs">
+    <Compile Include="..\Brewmaster.Sample.PC\Menu\Widgets\GradientBackground.cs">
       <Link>Menu\Widgets\GradientBackground.cs</Link>
     </Compile>
-    <Compile Include="..\SampleGame\Menu\Widgets\MenuButton.cs">
+    <Compile Include="..\Brewmaster.Sample.PC\Menu\Widgets\MenuButton.cs">
       <Link>Menu\Widgets\MenuButton.cs</Link>
     </Compile>
-    <Compile Include="..\SampleGame\Menu\Widgets\MenuText.cs">
+    <Compile Include="..\Brewmaster.Sample.PC\Menu\Widgets\MenuText.cs">
       <Link>Menu\Widgets\MenuText.cs</Link>
     </Compile>
-    <Compile Include="..\SampleGame\SampleGame.cs">
+    <Compile Include="..\Brewmaster.Sample.PC\SampleGame.cs">
       <Link>SampleGame.cs</Link>
     </Compile>
-    <Compile Include="..\SampleGame\Scenes\GameScene.cs">
+    <Compile Include="..\Brewmaster.Sample.PC\Scenes\GameScene.cs">
       <Link>Scenes\GameScene.cs</Link>
     </Compile>
-    <Compile Include="..\SampleGame\Scenes\IntroScene.cs">
+    <Compile Include="..\Brewmaster.Sample.PC\Scenes\IntroScene.cs">
       <Link>Scenes\IntroScene.cs</Link>
     </Compile>
-    <Compile Include="..\SampleGame\Scenes\MainMenuScene.cs">
+    <Compile Include="..\Brewmaster.Sample.PC\Scenes\MainMenuScene.cs">
       <Link>Scenes\MainMenuScene.cs</Link>
     </Compile>
     <Compile Include="Program.cs" />
@@ -158,7 +158,7 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <Content Include="..\SampleGame\Content\DebugFont.xnb">
+    <Content Include="..\Brewmaster.Sample.PC\Content\DebugFont.xnb">
       <Link>Content\DebugFont.xnb</Link>
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
