@@ -1,9 +1,8 @@
-﻿using BrewmasterEngine.Extensions;
-using BrewmasterEngine.Framework;
+﻿using BrewmasterEngine.Framework;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace BrewmasterEngine.Graphics.Core
+namespace BrewmasterEngine.Graphics
 {
     public abstract class SpriteText : Sprite
     {

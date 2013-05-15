@@ -5,15 +5,14 @@ using BrewmasterEngine.Debug;
 using BrewmasterEngine.Framework;
 using BrewmasterEngine.Scenes;
 using Microsoft.Xna.Framework;
-using SampleGame.Menu;
-using SampleGame.Menu.Widgets;
 using SampleGame.Scenes;
 
 namespace SampleGame
 {
-    public class SampleGame : Game2D
+    public class BrewGame : Game2D
     {
-        public SampleGame() : base()
+        public BrewGame()
+            : base()
         {
             ScreenWidth = 1366;
             ScreenHeight = 768;

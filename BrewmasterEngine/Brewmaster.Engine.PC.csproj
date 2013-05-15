@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{D4E23096-2164-499B-BABB-D903043C92F7}</ProjectGuid>
-    <OutputType>WinExe</OutputType>
+    <ProjectGuid>{873CE1AC-A2CF-424D-A44D-CB4EEA9CCC0F}</ProjectGuid>
+    <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>SampleGame</RootNamespace>
-    <AssemblyName>SampleGame</AssemblyName>
+    <RootNamespace>BrewmasterEngine</RootNamespace>
+    <AssemblyName>BrewmasterEngine</AssemblyName>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
@@ -34,41 +34,51 @@
   <PropertyGroup>
     <ApplicationIcon>Icon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject />
+  </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Entities\Ball.cs" />
-    <Compile Include="Menu\Widgets\GradientBackground.cs" />
-    <Compile Include="Menu\Widgets\MenuButton.cs" />
-    <Compile Include="Menu\Widgets\MenuText.cs" />
-    <Compile Include="Program.cs" />
+    <Compile Include="Debug\Debugger.cs" />
+    <Compile Include="Debug\FpsCounter.cs" />
+    <Compile Include="Debug\Profiler.cs" />
+    <Compile Include="Extensions\MathExtensions.cs" />
+    <Compile Include="Extensions\PrimitivesExtension.cs" />
+    <Compile Include="Extensions\XnaExtenions.cs" />
+    <Compile Include="Framework\CurrentGame.cs" />
+    <Compile Include="Framework\Game2D.cs" />
+    <Compile Include="Framework\GameManager.cs" />
+    <Compile Include="Framework\GameObject.cs" />
+    <Compile Include="Graphics\Content\Gradient.cs" />
+    <Compile Include="Graphics\Sprite.cs" />
+    <Compile Include="Graphics\Sprite2D.cs" />
+    <Compile Include="Graphics\SpriteText.cs" />
+    <Compile Include="Helpers\Callback.cs" />
+    <Compile Include="Scenes\INotPausable.cs" />
+    <Compile Include="Scenes\Scene.cs" />
+    <Compile Include="Scenes\SceneManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SampleGame.cs" />
-    <Compile Include="Scenes\GameScene.cs" />
-    <Compile Include="Scenes\IntroScene.cs" />
-    <Compile Include="Scenes\MainMenuScene.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Reference Include="MonoGame.Framework, Version=3.0.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\Program Files (x86)\MonoGame\v3.0\Assemblies\WindowsGL\MonoGame.Framework.dll</HintPath>
+    <Reference Include="OpenTK">
+      <HintPath>$(MSBuildExtensionsPath)\..\MonoGame\v3.0\Assemblies\WindowsGL\OpenTK.dll</HintPath>
+    </Reference>
+    <Reference Include="MonoGame.Framework">
+      <HintPath>$(MSBuildExtensionsPath)\..\MonoGame\v3.0\Assemblies\WindowsGL\MonoGame.Framework.dll</HintPath>
+    </Reference>
+    <Reference Include="Lidgren.Network">
+      <HintPath>$(MSBuildExtensionsPath)\..\MonoGame\v3.0\Assemblies\WindowsGL\Lidgren.Network.dll</HintPath>
+    </Reference>
+    <Reference Include="Tao.Sdl">
+      <HintPath>$(MSBuildExtensionsPath)\..\MonoGame\v3.0\Assemblies\WindowsGL\Tao.Sdl.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Icon.ico" />
+    <Content Include="SDL.dll" />
   </ItemGroup>
   <ItemGroup />
-  <ItemGroup>
-    <ProjectReference Include="..\BrewmasterEngine\BrewmasterEngine.csproj">
-      <Project>{873ce1ac-a2cf-424d-a44d-cb4eea9ccc0f}</Project>
-      <Name>BrewmasterEngine</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Content\DebugFont.xnb">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

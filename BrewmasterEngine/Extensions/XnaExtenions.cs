@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using BrewmasterEngine.Framework;
 using BrewmasterEngine.Graphics;
-using BrewmasterEngine.Graphics.Core;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -15,11 +14,6 @@ namespace BrewmasterEngine.Extensions
         #region Point and Mouse.POINT
 
         public static Vector2 ToVector2(this Point point)
-        {
-            return new Vector2(point.X, point.Y);
-        }
-
-        public static Vector2 ToVector2(this Mouse.POINT point)
         {
             return new Vector2(point.X, point.Y);
         }

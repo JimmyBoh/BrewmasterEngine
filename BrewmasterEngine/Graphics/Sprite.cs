@@ -2,7 +2,7 @@
 using BrewmasterEngine.Framework;
 using Microsoft.Xna.Framework;
 
-namespace BrewmasterEngine.Graphics.Core
+namespace BrewmasterEngine.Graphics
 {
     public abstract class Sprite : GameObject
     {

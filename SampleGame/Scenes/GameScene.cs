@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BrewmasterEngine.Debug;
 using BrewmasterEngine.Framework;
 using BrewmasterEngine.Scenes;
 using Microsoft.Xna.Framework;
@@ -49,7 +50,7 @@ namespace SampleGame.Scenes
                 this.Add(new Ball(CurrentGame.Random.Next(32, 48), CurrentGame.Random.Next(200, 800)));
 
             ballCount += count;
-            Console.WriteLine(ballCount);
+            Debugger.Log(ballCount);
         }
     }
 }

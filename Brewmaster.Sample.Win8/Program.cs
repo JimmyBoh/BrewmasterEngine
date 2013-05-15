@@ -1,12 +1,8 @@
-﻿#region Using Statements
-using System;
-using System.Collections.Generic;
-using System.Linq;
-#endregion
+﻿using System;
+using SampleGame;
 
-namespace SampleGame
+namespace Brewmaster.Sample.Win8
 {
-#if WINDOWS || LINUX
     /// <summary>
     /// The main class.
     /// </summary>
@@ -15,12 +11,10 @@ namespace SampleGame
         /// <summary>
         /// The main entry point for the application.
         /// </summary>
-        [STAThread]
         static void Main()
         {
-            using (var game = new BrewGame())
-                game.Run();
+            var factory = new MonoGame.Framework.GameFrameworkViewSource<BrewGame>();
+            Windows.ApplicationModel.Core.CoreApplication.Run(factory);
         }
     }
-#endif
 }

@@ -1,4 +1,4 @@
-﻿using BrewmasterEngine.Graphics.Core;
+﻿using BrewmasterEngine.Graphics;
 using Microsoft.Xna.Framework;
 
 namespace SampleGame.Menu.Widgets

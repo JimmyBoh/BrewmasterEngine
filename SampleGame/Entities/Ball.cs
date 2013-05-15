@@ -4,7 +4,6 @@ using System.Linq;
 using System.Text;
 using BrewmasterEngine.Extensions;
 using BrewmasterEngine.Framework;
-using BrewmasterEngine.Graphics.Core;
 using Microsoft.Xna.Framework;
 
 namespace SampleGame.Entities

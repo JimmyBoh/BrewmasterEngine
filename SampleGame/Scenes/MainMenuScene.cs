@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using BrewmasterEngine.Framework;
-using BrewmasterEngine.Helpers;
 using BrewmasterEngine.Scenes;
 using Microsoft.Xna.Framework;
 using SampleGame.Menu.Widgets;

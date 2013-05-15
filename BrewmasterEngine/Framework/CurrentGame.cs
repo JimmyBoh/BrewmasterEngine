@@ -21,8 +21,8 @@ namespace BrewmasterEngine.Framework
         public static Random Random { get; private set; }
 
         public static bool DebugMode { get; set; }
-        private static GameEngine Game;
-        public static void SetGame(GameEngine engine)
+        private static Game2D Game;
+        public static void SetGame(Game2D engine)
         {
             Game = engine;
         }
