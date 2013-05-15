@@ -38,9 +38,10 @@
     <StartupObject />
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Debug\Debugger.cs" />
-    <Compile Include="Debug\FpsCounter.cs" />
-    <Compile Include="Debug\Profiler.cs" />
+    <Compile Include="Components\Callback.cs" />
+    <Compile Include="Debugging\Debugger.cs" />
+    <Compile Include="Debugging\FpsCounter.cs" />
+    <Compile Include="Debugging\Profiler.cs" />
     <Compile Include="Extensions\MathExtensions.cs" />
     <Compile Include="Extensions\PrimitivesExtension.cs" />
     <Compile Include="Extensions\XnaExtenions.cs" />

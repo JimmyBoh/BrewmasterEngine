@@ -1,22 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BrewmasterEngine.Debug;
+using BrewmasterEngine.Debugging;
 using BrewmasterEngine.Framework;
 using BrewmasterEngine.Scenes;
 using Microsoft.Xna.Framework;
+using SampleGame.Menu.Widgets;
 using SampleGame.Scenes;
 
 namespace SampleGame
 {
     public class BrewGame : Game2D
     {
-        public BrewGame()
-            : base()
+        public BrewGame() : base()
         {
-            ScreenWidth = 1366;
-            ScreenHeight = 768;
-
             BackgroundColor = Color.Black;
             DebugMode = true;
         }

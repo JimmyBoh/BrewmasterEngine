@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using BrewmasterEngine.Debug;
+using BrewmasterEngine.Debugging;
 using BrewmasterEngine.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -15,17 +15,24 @@ namespace BrewmasterEngine.Framework
 
         protected Game2D()
         {
-            ScreenWidth = 800;
-            ScreenHeight = 480;
+            CurrentGame.SetGame(this);
+
+#if WINDOWS || LINUX || MAC
+            ScreenWidth = 1024;
+            ScreenHeight = 800;
+#else
+            ScreenHeight = Window.ClientBounds.Height;
+            ScreenWidth = Window.ClientBounds.Width;
+#endif
             ContentRoot = "Content";
             DefaultFontPath = string.Empty;
             Fullscreen = false;
             DebugMode = false;
 
+            IsMouseVisible = true;
+
             Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = ContentRoot;
-
-            CurrentGame.SetGame(this);
         }
 
         #endregion
@@ -88,18 +95,6 @@ namespace BrewmasterEngine.Framework
 
             #endregion
 
-            #region Content Setup
-
-            backgroundObjects = new Dictionary<string, GameObject>();
-            foreach (var obj in BackgroundObjects)
-                backgroundObjects.Add(obj.Name, obj);
-
-            foregroundObjects = new Dictionary<string, GameObject>();
-            foreach (var obj in ForegroundObjects)
-                foregroundObjects.Add(obj.Name, obj);
-
-            #endregion
-
             Init();
 
             base.Initialize();
@@ -113,6 +108,14 @@ namespace BrewmasterEngine.Framework
                 Preload<Texture2D>(PreloadTextures.ToArray());
             if (PreloadFonts != null)
                 Preload<SpriteFont>(PreloadFonts.ToArray());
+
+            backgroundObjects = new Dictionary<string, GameObject>();
+            foreach (var obj in BackgroundObjects)
+                backgroundObjects.Add(obj.Name, obj);
+
+            foregroundObjects = new Dictionary<string, GameObject>();
+            foreach (var obj in ForegroundObjects)
+                foregroundObjects.Add(obj.Name, obj);
 
             SceneManager.LoadDefaultScene();
         }

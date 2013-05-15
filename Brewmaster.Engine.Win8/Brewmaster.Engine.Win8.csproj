@@ -127,14 +127,14 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Brewmaster.Engine.PC\Debug\Debugger.cs">
-      <Link>Debug\Debugger.cs</Link>
+    <Compile Include="..\Brewmaster.Engine.PC\Debugging\Debugger.cs">
+      <Link>Debugging\Debugger.cs</Link>
     </Compile>
-    <Compile Include="..\Brewmaster.Engine.PC\Debug\FpsCounter.cs">
-      <Link>Debug\FpsCounter.cs</Link>
+    <Compile Include="..\Brewmaster.Engine.PC\Debugging\FpsCounter.cs">
+      <Link>Debugging\FpsCounter.cs</Link>
     </Compile>
-    <Compile Include="..\Brewmaster.Engine.PC\Debug\Profiler.cs">
-      <Link>Debug\Profiler.cs</Link>
+    <Compile Include="..\Brewmaster.Engine.PC\Debugging\Profiler.cs">
+      <Link>Debugging\Profiler.cs</Link>
     </Compile>
     <Compile Include="..\Brewmaster.Engine.PC\Extensions\MathExtensions.cs">
       <Link>Extensions\MathExtensions.cs</Link>
