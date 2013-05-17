@@ -3,6 +3,9 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using BrewmasterEngine.Debugging;
+using BrewmasterEngine.Extensions;
+using BrewmasterEngine.Graphics;
+using BrewmasterEngine.Graphics.Content;
 using BrewmasterEngine.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
@@ -33,6 +36,15 @@ namespace BrewmasterEngine.Framework
 
             Graphics = new GraphicsDeviceManager(this);
             Content.RootDirectory = ContentRoot;
+
+            if (ScreenWidth > 0)
+                Graphics.PreferredBackBufferWidth = ScreenWidth;
+            if (ScreenHeight > 0)
+                Graphics.PreferredBackBufferHeight = ScreenHeight;
+
+            this.IsFixedTimeStep = false;
+            Graphics.SynchronizeWithVerticalRetrace = false;
+            Graphics.ApplyChanges();
         }
 
         #endregion
@@ -56,10 +68,10 @@ namespace BrewmasterEngine.Framework
         public SceneManager SceneManager { get; set; }
 
 
-        private Dictionary<string, GameObject> backgroundObjects;
+        private PriorityDictionary<string, GameObject, int> backgroundObjects;
         public abstract IEnumerable<GameObject> BackgroundObjects { get; }
 
-        private Dictionary<string, GameObject> foregroundObjects; 
+        private PriorityDictionary<string, GameObject, int> foregroundObjects; 
         public abstract IEnumerable<GameObject> ForegroundObjects { get; }
 
         #endregion
@@ -75,25 +87,10 @@ namespace BrewmasterEngine.Framework
 
         protected override void Initialize()
         {
-            #region XNA Setup
-
-            if (ScreenWidth > 0)
-                Graphics.PreferredBackBufferWidth = ScreenWidth;
-            if (ScreenHeight > 0)
-                Graphics.PreferredBackBufferHeight = ScreenHeight;
-
-            this.IsFixedTimeStep = false;
-            Graphics.SynchronizeWithVerticalRetrace = false;
-            Graphics.ApplyChanges();
-
-            #endregion
-
-            #region Manager Setup
+            CurrentGame.Window.SetInitialSize();
 
             SceneManager = new SceneManager();
             SceneManager.AddScenes(Scenes);
-
-            #endregion
 
             Init();
 
@@ -105,15 +102,15 @@ namespace BrewmasterEngine.Framework
             SpriteBatch = new SpriteBatch(GraphicsDevice);
 
             if (PreloadTextures != null)
-                Preload<Texture2D>(PreloadTextures.ToArray());
+                ContentHandler.Preload<Texture2D>(PreloadTextures);
             if (PreloadFonts != null)
-                Preload<SpriteFont>(PreloadFonts.ToArray());
+                ContentHandler.Preload<SpriteFont>(PreloadFonts);
 
-            backgroundObjects = new Dictionary<string, GameObject>();
+            backgroundObjects = new PriorityDictionary<string, GameObject, int>(o => o.ZIndex);
             foreach (var obj in BackgroundObjects)
                 backgroundObjects.Add(obj.Name, obj);
 
-            foregroundObjects = new Dictionary<string, GameObject>();
+            foregroundObjects = new PriorityDictionary<string, GameObject, int>(o => o.ZIndex);
             foreach (var obj in ForegroundObjects)
                 foregroundObjects.Add(obj.Name, obj);
 
@@ -127,15 +124,14 @@ namespace BrewmasterEngine.Framework
 
         protected override void Update(GameTime gameTime)
         {
-            var bgKeys = backgroundObjects.Keys;
-            foreach (var k in bgKeys)
-                backgroundObjects[k].Update(gameTime);
+            // Update the background objects.
+            backgroundObjects.ForEach(o => o.Update(gameTime));
 
+            // Update the current scene.
             SceneManager.Update(gameTime);
 
-            var fgKeys = foregroundObjects.Keys;
-            foreach (var k in fgKeys)
-                foregroundObjects[k].Update(gameTime);
+            // Update the foreground objects.
+            foregroundObjects.ForEach(o => o.Update(gameTime));
 
             base.Update(gameTime);
         }
@@ -148,40 +144,17 @@ namespace BrewmasterEngine.Framework
             SpriteBatch.Begin();
 
             // Draw backround objects...
-            var keys = backgroundObjects.Keys;
-            foreach (var k in keys)
-                backgroundObjects[k].Draw(gameTime);
+            backgroundObjects.ForEach(o => o.Draw(gameTime));
 
             // Draw current scene...
             SceneManager.Draw(gameTime);
 
             // Draw foreground objects.
-            var fgKeys = foregroundObjects.Keys;
-            foreach (var k in fgKeys)
-                foregroundObjects[k].Draw(gameTime);
+            foregroundObjects.ForEach(o => o.Draw(gameTime));
 
             SpriteBatch.End();
 
-            base.Draw(gameTime);
-        }
-
-        #endregion
-
-        #region Helpers
-
-        public void Preload<T>(string[] assets)
-        {
-            foreach (var asset in assets)
-            {
-                try
-                {
-                    Content.Load<T>(asset);
-                }
-                catch
-                {
-                    Debugger.Log("! Failed to preload Texture2D[{0}]...", asset);
-                }
-            }
+            base.Draw(gameTime); 
         }
 
         #endregion

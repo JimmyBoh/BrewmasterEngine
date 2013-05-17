@@ -4,6 +4,7 @@ using System.Linq;
 using BrewmasterEngine.Debugging;
 using BrewmasterEngine.Framework;
 using Microsoft.Xna.Framework;
+using BrewmasterEngine.Helpers;
 
 namespace BrewmasterEngine.Scenes
 {
@@ -14,7 +15,7 @@ namespace BrewmasterEngine.Scenes
         protected Scene(string name)
         {
             Name = name;
-            entities = new Dictionary<string, GameObject>();
+            entities = new PriorityDictionary<string, GameObject, int>(o => o.ZIndex);
         }
 
         #endregion
@@ -25,9 +26,9 @@ namespace BrewmasterEngine.Scenes
         public bool IsActive { get; private set; }
         public bool IsPaused { get; private set; }
 
-        private readonly Dictionary<string, GameObject> entities;
-        public Dictionary<string, GameObject> EntityIndex { get { return entities; } }
-        public GameObject[] Entities { get { return entities.Select(e => e.Value).ToArray(); } }
+        private readonly PriorityDictionary<string, GameObject, int> entities;
+        public Dictionary<string, GameObject> EntityIndex { get { return entities.ToDictionary(); } }
+        public GameObject[] Entities { get { return entities.ToArray(); } }
 
         #endregion
 
@@ -60,31 +61,30 @@ namespace BrewmasterEngine.Scenes
                 Remove(gameObject);
         }
 
-        private void ForEach(IEnumerable<string> entityNames, Action<GameObject> action)
-        {
-            foreach (var e in entityNames.Where(e => entities.ContainsKey(e)))
-                action(entities[e]);
-        }
         public void ForEachEntity(Action<GameObject> action)
         {
-            ForEach(entities.Keys, action);
+            entities.ForEach(action);
+        }
+        public void ForEachEntity(Func<GameObject, bool> predicate, Action<GameObject> action)
+        {
+            entities.ForEach(predicate, action);
         }
         public void ForEachActiveEntity(Action<GameObject> action)
         {
-            ForEach(entities.Where(e => e.Value.IsActive).Select(e => e.Key).ToArray(), action);
+            ForEachEntity(o => o.IsActive, action);
         }
         public void ForEachVisibleEntity(Action<GameObject> action)
         {
-            ForEach(entities.Where(e => e.Value.IsVisible).Select(e => e.Key).ToArray(), action);
+            ForEachEntity(o => o.IsVisible, action);
         }
         public void ForEachNonpausableEntity(Action<GameObject> action)
         {
-            ForEach(entities.Where(e => e.Value is INotPausable).Select(e => e.Key).ToArray(), action);
+            ForEachEntity(o => o is INotPausable, action);
         }
 
         internal void LoadScene(Action<Scene> callback = null)
         {
-            Debugger.Log("Loading Scene[" + Name + "]...");
+            DebugConsole.Log("Loading Scene[" + Name + "]...");
 
             Load(() =>
             {
@@ -131,7 +131,7 @@ namespace BrewmasterEngine.Scenes
 
         public void Unload()
         {
-            Debugger.Log("Unloading Scene[" + Name + "]...");
+            DebugConsole.Log("Unloading Scene[" + Name + "]...");
 
             var entityNames = Entities.Select(e => e.Name);
             foreach (var e in entityNames)

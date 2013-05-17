@@ -32,28 +32,48 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>Icon.ico</ApplicationIcon>
+    <ApplicationIcon>
+    </ApplicationIcon>
   </PropertyGroup>
   <PropertyGroup>
     <StartupObject />
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ARM Debug|x86'">
+    <DebugSymbols>true</DebugSymbols>
+    <OutputPath>bin\x86\ARM Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'ARM Release|x86'">
+    <OutputPath>bin\x86\ARM Release\</OutputPath>
+    <DefineConstants>TRACE;WINDOWS</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x86</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Components\Callback.cs" />
-    <Compile Include="Debugging\Debugger.cs" />
+    <Compile Include="Debugging\DebugConsole.cs" />
     <Compile Include="Debugging\FpsCounter.cs" />
     <Compile Include="Debugging\Profiler.cs" />
     <Compile Include="Extensions\MathExtensions.cs" />
     <Compile Include="Extensions\PrimitivesExtension.cs" />
-    <Compile Include="Extensions\XnaExtenions.cs" />
+    <Compile Include="Extensions\XnaExtensions.cs" />
     <Compile Include="Framework\CurrentGame.cs" />
     <Compile Include="Framework\Game2D.cs" />
     <Compile Include="Framework\GameManager.cs" />
     <Compile Include="Framework\GameObject.cs" />
+    <Compile Include="Graphics\Content\ContentHandler.cs" />
     <Compile Include="Graphics\Content\Gradient.cs" />
     <Compile Include="Graphics\Sprite.cs" />
     <Compile Include="Graphics\Sprite2D.cs" />
     <Compile Include="Graphics\SpriteText.cs" />
     <Compile Include="Helpers\Callback.cs" />
+    <Compile Include="Helpers\PriorityDictionary.cs" />
     <Compile Include="Scenes\INotPausable.cs" />
     <Compile Include="Scenes\Scene.cs" />
     <Compile Include="Scenes\SceneManager.cs" />
@@ -74,10 +94,6 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Xml" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Icon.ico" />
-    <Content Include="SDL.dll" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -2,6 +2,7 @@
 using BrewmasterEngine.Graphics;
 using BrewmasterEngine.Extensions;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace BrewmasterEngine.Debugging
 {
@@ -12,7 +13,7 @@ namespace BrewmasterEngine.Debugging
             Position = new Vector2(70, 20);
             ForegroundColor = Color.Red;
             BackgroundColor = Color.DarkRed;
-
+            ZIndex = 9999;
             _frameRate = 0;
             _frameCounter = 0;
             _elapsedTime = TimeSpan.Zero;

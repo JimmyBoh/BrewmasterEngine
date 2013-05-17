@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using BrewmasterEngine.Framework;
 using BrewmasterEngine.Graphics;
+using BrewmasterEngine.Graphics.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 
 namespace BrewmasterEngine.Extensions
 {
-    public static class XnaExtenions
+    public static class XnaExtensions
     {
         #region Point and Mouse.POINT
 
@@ -69,20 +70,31 @@ namespace BrewmasterEngine.Extensions
 
         public static void Draw(this SpriteBatch spriteBatch, Sprite2D sprite2D)
         {
-            spriteBatch.Draw(sprite2D.Texture, sprite2D.Position, null, sprite2D.ForegroundColor, sprite2D.Rotation, sprite2D.Origin, sprite2D.Scale, sprite2D.SpriteEffect, 0);
+            spriteBatch.Draw(ContentHandler.Retrieve<Texture2D>(sprite2D.TextureName), sprite2D.Position, null, sprite2D.ForegroundColor, sprite2D.Rotation, sprite2D.Origin, sprite2D.Scale, sprite2D.SpriteEffect, 0);
         }
 
         public static void Draw(this SpriteBatch spriteBatch, SpriteText spriteText)
         {
+            // Draw the text once as a shadow/background...
             if (spriteText.BackgroundColor != Color.Transparent)
             {
                 var center = CurrentGame.Window.GetCenter();
                 var bgOffset = new Vector2(spriteText.Position.X < center.X ? -1 : 1, spriteText.Position.Y < center.Y ? -1 : 1);
 
-                spriteBatch.DrawString(spriteText.Font, spriteText.Text, spriteText.Position + bgOffset, spriteText.BackgroundColor, spriteText.Rotation, spriteText.Origin, spriteText.Scale, spriteText.SpriteEffect, 0);
+                spriteBatch.DrawString(ContentHandler.Retrieve<SpriteFont>(spriteText.FontName), spriteText.Text, spriteText.Position + bgOffset, spriteText.BackgroundColor, spriteText.Rotation, spriteText.Origin, spriteText.Scale, spriteText.SpriteEffect, 0);
             }
 
-            spriteBatch.DrawString(spriteText.Font, spriteText.Text, spriteText.Position, spriteText.ForegroundColor, spriteText.Rotation, spriteText.Origin, spriteText.Scale, spriteText.SpriteEffect, 0);
+            // Draw the text for real...
+            spriteBatch.DrawString(ContentHandler.Retrieve<SpriteFont>(spriteText.FontName), spriteText.Text, spriteText.Position, spriteText.ForegroundColor, spriteText.Rotation, spriteText.Origin, spriteText.Scale, spriteText.SpriteEffect, 0);
+        }
+
+        #endregion
+
+        #region Texture2D
+
+        public static Vector2 Size(this Texture2D texture)
+        {
+            return new Vector2(texture.Width, texture.Height);
         }
 
         #endregion
@@ -98,6 +110,17 @@ namespace BrewmasterEngine.Extensions
         {
             return new Vector2(window.ClientBounds.Width, window.ClientBounds.Height);
         }
+
+        private static Vector2 initialWindowSize;
+        public static Vector2 GetInitialSize(this GameWindow window)
+        {
+            return initialWindowSize;
+        }
+        public static void SetInitialSize(this GameWindow window)
+        {
+            initialWindowSize = window.GetSize();
+        }
+
 
         //public static void SetPosition(this GameWindow window, Point position)
         //{

@@ -1,6 +1,7 @@
 ﻿using BrewmasterEngine.Extensions;
 using BrewmasterEngine.Framework;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace BrewmasterEngine.Graphics
 {
@@ -16,6 +17,7 @@ namespace BrewmasterEngine.Graphics
             Origin = Bounds.Center.ToVector2();
             Scale = Vector2.One;
             ForegroundColor = Color.White;
+            SpriteEffect = SpriteEffects.None;
         }
 
         #endregion
@@ -40,6 +42,7 @@ namespace BrewmasterEngine.Graphics
         public Vector2 Origin { get; set; }
         public Vector2 Scale { get; set; }
         public Color ForegroundColor { get; set; }
+        public SpriteEffects SpriteEffect { get; set; }
         
         #endregion
 

@@ -12,6 +12,7 @@ namespace SampleGame.Scenes
     {
         public MainMenuScene() : base("main")
         {
+
         }
 
         protected override void Load(Action done)
@@ -19,33 +20,29 @@ namespace SampleGame.Scenes
             var windowBounds = CurrentGame.Window.ClientBounds;
             var windowSize = new Vector2(windowBounds.Width, windowBounds.Height);
 
-            this.Add(new GradientBackground(Color.Orange, Color.Blue, 2000, 100.0f));
+            this.Add(new GradientBackground("OrangeBlueVertical", Color.Orange, Color.Blue, 500.0f));
             this.Add(new MenuText("Main Menu", windowSize * new Vector2(0.5f, 0.2f)));
-            this.Add(new MenuButton("Start Game", windowSize*new Vector2(0.5f, 0.7f), onButtonUp("game"), onButtonDown()));
+            this.Add(new MenuButton("Start Game", windowSize*new Vector2(0.5f, 0.7f), LoadSceneOnButtonUp("game"), onButtonDown));
 
-            this.Add(new MenuButton("Back to Intro", windowSize * new Vector2(0.5f, 0.8f), onButtonUp("intro"), onButtonDown()));
+            this.Add(new MenuButton("Back to Intro", windowSize * new Vector2(0.5f, 0.8f), LoadSceneOnButtonUp("intro"), onButtonDown));
             this.Add(new MenuButton("Quit", windowSize*new Vector2(0.5f, 0.9f), (button, releasedOn) =>
                 {
                     button.Scale = Vector2.One;
 
                     if (releasedOn)
                         CurrentGame.Exit();
-                    
-                        
-                }, onButtonDown()));
+
+                }, onButtonDown));
 
             done();
         }
 
-        private Action<MenuButton> onButtonDown()
+        private void onButtonDown(MenuButton button)
         {
-            return (button) =>
-                {
-                    button.Scale = new Vector2(0.9f);
-                };
+            button.Scale = new Vector2(0.9f);
         }
 
-        private Action<MenuButton, bool> onButtonUp(string targetScene)
+        private Action<MenuButton, bool> LoadSceneOnButtonUp(string targetScene)
         {
             return (button, releasedOn) =>
                 {

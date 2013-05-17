@@ -57,7 +57,7 @@ namespace BrewmasterEngine.Scenes
 
             if (string.IsNullOrEmpty(sceneName) || string.IsNullOrWhiteSpace(sceneName) || !Scenes.ContainsKey(sceneName))
             {
-                Debugger.Log("Tried to load empty scene name: \"" + sceneName + "\"");
+                DebugConsole.Log("Tried to load empty scene name: \"" + sceneName + "\"");
                 return;
             }
 

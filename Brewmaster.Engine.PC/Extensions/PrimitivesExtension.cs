@@ -1,30 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
+using BrewmasterEngine.Framework;
+using BrewmasterEngine.Graphics.Content;
 
-namespace BrewmasterEngine.Extensions
+namespace Microsoft.Xna.Framework.Graphics
 {
-        /// <summary>
-    /// </summary>
     public static class PrimitivesExtension
     {
-        #region Private Members
+        static PrimitivesExtension()
+        {
+            if (!ContentHandler.Contains("pixel"))
+                ContentHandler.Load("pixel", CreatePixel(CurrentGame.SpriteBatch));
+        }
+
+        #region Properties
 
         private static readonly Dictionary<String, List<Vector2>> circleCache = new Dictionary<string, List<Vector2>>();
         private static readonly Dictionary<String, List<Vector2>> arcCache = new Dictionary<string, List<Vector2>>();
-        private static Texture2D pixel;
+        private static Texture2D pixel{get { return ContentHandler.Retrieve<Texture2D>("pixel"); }}
 
         #endregion
 
 
-        #region Private Methods
+        #region Helpers
 
-        private static void CreateThePixel(SpriteBatch spriteBatch)
+        private static Texture2D CreatePixel(SpriteBatch spriteBatch)
         {
-            pixel = new Texture2D(spriteBatch.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
+            var pixel = new Texture2D(spriteBatch.GraphicsDevice, 1, 1, false, SurfaceFormat.Color);
             pixel.SetData(new[] { Color.White });
+            return pixel;
         }
 
 
@@ -54,15 +59,10 @@ namespace BrewmasterEngine.Extensions
         private static List<Vector2> CreateCircle(double radius, int sides)
         {
             if (sides <= 0)
-            {
                 sides = 3;
-                //throw new Exception("Incorrect Primitive Parameter.", new Exception("Number of sides was less than zero."));
-            }
 
             if (radius <= 0)
-            {
-                throw new Exception("Incorrect Primitive Parameter.", new Exception("Radius was less than zero."));
-            }
+                radius = 1;
 
             // Look for a cached version of this circle
             var circleKey = radius + "x" + sides;
@@ -98,15 +98,10 @@ namespace BrewmasterEngine.Extensions
         private static List<Vector2> CreateArc(float radius, int sides, float startingAngle, float radians)
         {
             if (sides <= 0)
-            {
                 sides = 3;
-                //throw new Exception("Incorrect Primitive Parameter.", new Exception("Number of sides was less than zero."));
-            }
 
             if (radius <= 0)
-            {
-                throw new Exception("Incorrect Primitive Parameter.", new Exception("Radius was less than zero."));
-            }
+                radius = 1;
 
             var arcKey = radius + "x" + sides + "x" + startingAngle + "x" + radians;
 
@@ -156,11 +151,6 @@ namespace BrewmasterEngine.Extensions
         /// <param name="color">The color to draw the rectangle in</param>
         public static void FillRectangle(this SpriteBatch spriteBatch, Rectangle rect, Color color)
         {
-            if (pixel == null)
-            {
-                CreateThePixel(spriteBatch);
-            }
-
             // Simply use the function already there
             spriteBatch.Draw(pixel, rect, color);
         }
@@ -175,11 +165,6 @@ namespace BrewmasterEngine.Extensions
         /// <param name="angle">The angle in radians to draw the rectangle at</param>
         public static void FillRectangle(this SpriteBatch spriteBatch, Rectangle rect, Color color, float angle)
         {
-            if (pixel == null)
-            {
-                CreateThePixel(spriteBatch);
-            }
-
             spriteBatch.Draw(pixel, rect, null, color, angle, Vector2.Zero, SpriteEffects.None, 0);
         }
 
@@ -207,21 +192,7 @@ namespace BrewmasterEngine.Extensions
         /// <param name="color">The color to draw the rectangle in</param>
         public static void FillRectangle(this SpriteBatch spriteBatch, Vector2 location, Vector2 size, Color color, float angle)
         {
-            if (pixel == null)
-            {
-                CreateThePixel(spriteBatch);
-            }
-
-            // stretch the pixel between the two vectors
-            spriteBatch.Draw(pixel,
-                             location,
-                             null,
-                             color,
-                             angle,
-                             size/2,
-                             size,
-                             SpriteEffects.None,
-                             0);
+            spriteBatch.Draw(pixel, location, null, color, angle, size/2, size, SpriteEffects.None, 0);
         }
 
 
@@ -281,10 +252,6 @@ namespace BrewmasterEngine.Extensions
         /// <param name="thickness">The thickness of the lines</param>
         public static void DrawRectangle(this SpriteBatch spriteBatch, Rectangle rect, Color color, float thickness)
         {
-
-            // TODO: Handle rotations
-            // TODO: Figure out the pattern for the offsets required and then handle it in the line instead of here
-
             DrawLine(spriteBatch, new Vector2(rect.X, rect.Y), new Vector2(rect.Right, rect.Y), color, thickness); // top
             DrawLine(spriteBatch, new Vector2(rect.X + 1f, rect.Y), new Vector2(rect.X + 1f, rect.Bottom + thickness), color, thickness); // left
             DrawLine(spriteBatch, new Vector2(rect.X, rect.Bottom), new Vector2(rect.Right, rect.Bottom), color, thickness); // bottom
@@ -412,25 +379,13 @@ namespace BrewmasterEngine.Extensions
         /// <param name="thickness">The thickness of the line</param>
         public static void DrawLine(this SpriteBatch spriteBatch, Vector2 point, float length, float angle, Color color, float thickness)
         {
-            if (pixel == null)
-            {
-                CreateThePixel(spriteBatch);
-            }
-
-            // stretch the pixel between the two vectors
-            spriteBatch.Draw(pixel,
-                             point,
-                             null,
-                             color,
-                             angle,
-                             Vector2.Zero,
-                             new Vector2(length, thickness),
-                             SpriteEffects.None,
-                             0);
+#if WINDOWS
+            // TODO: Handle rotations of lines
+#endif
+            spriteBatch.Draw(pixel, point, null, color, angle, Vector2.Zero, new Vector2(length, thickness), SpriteEffects.None, 0);
         }
 
         #endregion
-
 
         #region PutPixel
 
@@ -442,16 +397,10 @@ namespace BrewmasterEngine.Extensions
 
         public static void PutPixel(this SpriteBatch spriteBatch, Vector2 position, Color color)
         {
-            if (pixel == null)
-            {
-                CreateThePixel(spriteBatch);
-            }
-
             spriteBatch.Draw(pixel, position, color);
         }
 
         #endregion
-
 
         #region DrawCircle
 
@@ -516,7 +465,6 @@ namespace BrewmasterEngine.Extensions
 
         #endregion
 
-
         #region DrawArc
 
         /// <summary>
@@ -549,20 +497,10 @@ namespace BrewmasterEngine.Extensions
         public static void DrawArc(this SpriteBatch spriteBatch, Vector2 center, float radius, int sides, float startingAngle, float radians, Color color, float thickness)
         {
             var arc = CreateArc(radius, sides, startingAngle, radians);
-            //List<Vector2> arc = CreateArc2(radius, sides, startingAngle, degrees);
             DrawPoints(spriteBatch, center, arc, color, thickness);
         }
 
         #endregion
 
-    }
-
-    public enum PrimitiveTypes
-    {
-        Pixel,
-        Line,
-        Rectangle,
-        Circle,
-        Arc
     }
 }

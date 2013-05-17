@@ -1,6 +1,8 @@
 ﻿using BrewmasterEngine.Extensions;
 using BrewmasterEngine.Framework;
+using BrewmasterEngine.Graphics.Content;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace BrewmasterEngine.Graphics
@@ -9,10 +11,10 @@ namespace BrewmasterEngine.Graphics
     {
         #region Constructor
 
-        protected Sprite2D(string texturePath, string name = "")
-            : base(name)
+        protected Sprite2D(string textureName, string objectName = "") : base(objectName)
         {
-            Texture = CurrentGame.Content.Load<Texture2D>(texturePath);
+            ContentHandler.Load<Texture2D>(textureName);
+            TextureName = textureName;
 
             Origin = Bounds.Center.ToVector2();
         }
@@ -21,11 +23,11 @@ namespace BrewmasterEngine.Graphics
 
         #region Properties
 
-        public Texture2D Texture { get; set; }
+        public string TextureName { get; set; }
 
         public override Vector2 Size
         {
-            get { return new Vector2(Texture.Width, Texture.Height); }
+            get { return ContentHandler.Retrieve<Texture2D>(TextureName).Size(); }
         }
 
         #endregion

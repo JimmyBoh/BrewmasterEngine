@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -19,7 +17,8 @@ namespace BrewmasterEngine.Framework
             Name = name;
             IsActive = true;
             IsVisible = true;
-            SpriteEffect = SpriteEffects.None;
+            ZIndex = 0;
+            tags = new List<string>();
         }
 
         #endregion
@@ -29,7 +28,29 @@ namespace BrewmasterEngine.Framework
         public string Name { get; set; }
         public bool IsActive { get; set; }
         public bool IsVisible { get; set; }
-        public SpriteEffects SpriteEffect { get; set; }
+        public int ZIndex { get; set; }
+
+        private readonly List<string> tags;
+        public string[] Tags
+        {
+            get { return tags.ToArray(); }
+        }
+
+        public string[] AddTags
+        {
+            set { tags.AddRange(value); }
+        }
+
+        public string[] RemoveTags
+        {
+            set
+            {
+                foreach (var flag in value)
+                {
+                    tags.Remove(flag);
+                }
+            }
+        }
 
         protected SpriteBatch spriteBatch
         {
@@ -43,6 +64,16 @@ namespace BrewmasterEngine.Framework
         public abstract void Update(GameTime gameTime);
 
         public abstract void Draw(GameTime elapsedTime);
+
+        public void Hide()
+        {
+            this.IsVisible = this.IsActive = false;
+        }
+
+        public void Show()
+        {
+            this.IsVisible = this.IsActive = true;
+        }
 
         public override string ToString()
         {

@@ -1,4 +1,5 @@
 ﻿using BrewmasterEngine.Framework;
+using BrewmasterEngine.Graphics.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -8,10 +9,11 @@ namespace BrewmasterEngine.Graphics
     {
         #region Constructor
 
-        protected SpriteText(string fontPath, string text = "", string name = "") : base(name)
+        protected SpriteText(string fontName, string text = "", string name = "") : base(name)
         {
-            Font = CurrentGame.Content.Load<SpriteFont>(fontPath);
-            Text = text;
+            this.fontName = fontName;
+            this.text = text;
+            updateProperties();
             BackgroundColor = Color.Transparent;
         }
 
@@ -19,24 +21,40 @@ namespace BrewmasterEngine.Graphics
 
         #region Properties
 
-        public SpriteFont Font { get; set; }
-        private string text;
+        private string fontName;
+        public string FontName
+        {
+            get { return fontName; }
+            set
+            {
+                fontName = value;
+                updateProperties();
+            }
+        }
 
+        private string text;
         public string Text
         {
             get { return text; }
             set
             {
                 text = value;
-                Origin = Size/2.0f;
+                updateProperties();
             }
         }
 
         public Color BackgroundColor { get; set; }
+        private Vector2 size;
+        public override Vector2 Size { get { return Text != null ? size : Vector2.Zero; } }
 
-        public override Vector2 Size
+        #endregion
+
+        #region Methods
+
+        private void updateProperties()
         {
-            get { return Text != null ? Font.MeasureString(Text) : Vector2.Zero; }
+            size = ContentHandler.Retrieve<SpriteFont>(fontName).MeasureString(text);
+            Origin = (size == Vector2.Zero ? Vector2.Zero : size / 2.0f);
         }
 
         #endregion

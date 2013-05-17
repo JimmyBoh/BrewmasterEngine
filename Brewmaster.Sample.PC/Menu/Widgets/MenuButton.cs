@@ -2,6 +2,7 @@
 using BrewmasterEngine.Framework;
 using BrewmasterEngine.Scenes;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
 using BrewmasterEngine.Extensions;
 
@@ -13,9 +14,13 @@ namespace SampleGame.Menu.Widgets
 
         public MenuButton(string text, Vector2 position, Action<MenuButton, bool> onUp, Action<MenuButton> onDown = null) : base(text, position)
         {
+            ZIndex = 9;
             OnUp = onUp;
             OnDown = onDown;
             Rotation = CurrentGame.Random.Next(-3, 3)/100.0f;
+
+            positionAspectRatio = position / CurrentGame.Window.GetSize();
+            CurrentGame.Window.ClientSizeChanged += OnWindowResize;
         }
 
         #endregion
@@ -24,7 +29,10 @@ namespace SampleGame.Menu.Widgets
 
         public Action<MenuButton, bool> OnUp { get; set; }
         public Action<MenuButton> OnDown { get; set; }
+        
         private bool wasClicked;
+        private readonly Vector2 positionAspectRatio;
+
 
         #endregion
 
@@ -62,16 +70,27 @@ namespace SampleGame.Menu.Widgets
             spriteBatch.Draw(this);
         }
 
-        #endregion
-
         public void OnPause()
         {
-            // Do nothing...
+            
         }
 
         public void OnUnpause()
         {
-            // Do nothing...
+            
         }
+
+        #endregion
+
+        #region Events
+
+        public void OnWindowResize(object o, EventArgs e)
+        {
+            Position = CurrentGame.Window.GetSize()*positionAspectRatio;
+        }
+
+        #endregion
+
+        
     }
 }

@@ -5,7 +5,7 @@ using BrewmasterEngine.Debugging;
 using BrewmasterEngine.Framework;
 using BrewmasterEngine.Scenes;
 using Microsoft.Xna.Framework;
-using SampleGame.Menu.Widgets;
+using Microsoft.Xna.Framework.Input;
 using SampleGame.Scenes;
 
 namespace SampleGame
@@ -66,6 +66,14 @@ namespace SampleGame
                         new GameScene()
                     };
             }
+        }
+
+        protected override void Update(GameTime gameTime)
+        {
+            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
+                Exit();
+
+            base.Update(gameTime);
         }
     }
 }

@@ -9,16 +9,14 @@ namespace SampleGame.Menu.Widgets
 {
     public class GradientBackground : GameObject
     {
-        public GradientBackground(Color start, Color stop, int scrollamount = 0, float scrollspeed = 1.0f, bool horizontal = false)
+        public GradientBackground(string name, Color start, Color stop, float scrollspeed = 1.0f, bool horizontal = false)
         {
-            IsVisible = true;
-
             startColor = start;
             stopColor = stop;
             isHorizontal = horizontal;
-            scrollAmount = scrollamount;
             scrollSpeed = scrollspeed;
             scrollDir = 1;
+            Name = name;
 
             position = Vector2.Zero;
 
@@ -28,33 +26,27 @@ namespace SampleGame.Menu.Widgets
 
         private void UpdateBounds(object sender = null, EventArgs args = null)
         {
-            Bounds = new Rectangle((int)position.X, (int)position.Y, CurrentGame.Window.ClientBounds.Width, CurrentGame.Window.ClientBounds.Height);
-
-            if (isHorizontal)
-                Bounds.Inflate(scrollAmount, 0);
-            else
-                Bounds.Inflate(0, scrollAmount);
+            Bounds = isHorizontal 
+                ? new Rectangle((int)position.X, (int)position.Y, CurrentGame.MaxTextureSize, CurrentGame.Window.ClientBounds.Height) 
+                : new Rectangle((int)position.X, (int)position.Y, CurrentGame.Window.ClientBounds.Width, CurrentGame.MaxTextureSize);
 
 
-            texture = isHorizontal
-                ? Gradient.CreateHorizontal(Bounds.Width + scrollAmount, startColor, stopColor)
-                : Gradient.CreateVertical(Bounds.Height + scrollAmount, startColor, stopColor);
+            textureName = ContentHandler.Load(Name, isHorizontal
+                            ? Gradient.CreateHorizontal(Bounds.Width, startColor, stopColor)
+                            : Gradient.CreateVertical(Bounds.Height, startColor, stopColor));
         }
 
         private Rectangle Bounds;
-        private Texture2D texture;
+        private string textureName;
         private Vector2 position;
         private readonly bool isHorizontal;
         private readonly Color startColor;
         private readonly Color stopColor;
-        private readonly int scrollAmount;
         private readonly float scrollSpeed;
         public int scrollDir;
 
         public override void Update(GameTime gameTime)
         {
-            if (scrollAmount == 0) return;
-
             if (isHorizontal)
             {
                 if (position.X >= 0)
@@ -83,7 +75,7 @@ namespace SampleGame.Menu.Widgets
 
         public override void Draw(GameTime elapsedTime)
         {
-            spriteBatch.Draw(texture, Bounds, Color.White);
+            spriteBatch.Draw(ContentHandler.Retrieve<Texture2D>(textureName), Bounds, Color.White);
         }
     }
 }
