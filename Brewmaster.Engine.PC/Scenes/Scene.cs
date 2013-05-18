@@ -77,10 +77,6 @@ namespace BrewmasterEngine.Scenes
         {
             ForEachEntity(o => o.IsVisible, action);
         }
-        public void ForEachNonpausableEntity(Action<GameObject> action)
-        {
-            ForEachEntity(o => o is INotPausable, action);
-        }
 
         internal void LoadScene(Action<Scene> callback = null)
         {
@@ -99,29 +95,16 @@ namespace BrewmasterEngine.Scenes
         internal void PauseScene()
         {
             IsPaused = true;
-            ForEachNonpausableEntity((ent) =>
-                {
-                    var entity = ent as INotPausable;
-                    if (entity != null) entity.OnPause();
-                });
         }
 
         internal void UnpauseScene()
         {
             IsPaused = false;
-            ForEachNonpausableEntity((ent) =>
-            {
-                var entity = ent as INotPausable;
-                if (entity != null) entity.OnUnpause();
-            });
         }
 
         public virtual void Update(GameTime elapsedTime)
         {
-            if (IsPaused)
-                ForEachNonpausableEntity((entity) => entity.Update(elapsedTime));
-            else
-                ForEachActiveEntity((entity) => entity.Update(elapsedTime));
+            ForEachActiveEntity((entity) => entity.Update(elapsedTime));
         }
 
         public void Draw(GameTime elapsedTime)

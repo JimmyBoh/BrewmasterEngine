@@ -1,6 +1,5 @@
 ﻿using System;
 using BrewmasterEngine.Framework;
-using BrewmasterEngine.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input;
@@ -8,7 +7,7 @@ using BrewmasterEngine.Extensions;
 
 namespace SampleGame.Menu.Widgets
 {
-    public class MenuButton : MenuText, INotPausable
+    public class MenuButton : MenuText
     {
         #region Constructor
 
@@ -41,6 +40,8 @@ namespace SampleGame.Menu.Widgets
         private MouseState prevState;
         public override void Update(GameTime gameTime)
         {
+            if (CurrentGame.IsPaused && !Tags.Contains("menu")) return;
+
             var mouseState = Mouse.GetState();
 
             if (mouseState.LeftButton == ButtonState.Pressed && prevState.LeftButton == ButtonState.Released && Bounds.Contains(mouseState.X, mouseState.Y))
@@ -68,16 +69,6 @@ namespace SampleGame.Menu.Widgets
             spriteBatch.FillRectangle(newBounds, Color.Gray * 0.5f, Rotation);
             spriteBatch.FillRectangle(Bounds, Color.DarkGray, Rotation);
             spriteBatch.Draw(this);
-        }
-
-        public void OnPause()
-        {
-            
-        }
-
-        public void OnUnpause()
-        {
-            
         }
 
         #endregion

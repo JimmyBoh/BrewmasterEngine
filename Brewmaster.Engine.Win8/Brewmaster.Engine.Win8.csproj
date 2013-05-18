@@ -175,9 +175,6 @@
     <Compile Include="..\Brewmaster.Engine.PC\Helpers\PriorityDictionary.cs">
       <Link>Helpers\PriorityDictionary.cs</Link>
     </Compile>
-    <Compile Include="..\Brewmaster.Engine.PC\Scenes\INotPausable.cs">
-      <Link>Scenes\INotPausable.cs</Link>
-    </Compile>
     <Compile Include="..\Brewmaster.Engine.PC\Scenes\Scene.cs">
       <Link>Scenes\Scene.cs</Link>
     </Compile>

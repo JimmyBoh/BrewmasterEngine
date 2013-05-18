@@ -73,7 +73,6 @@
     <Compile Include="Graphics\Sprite2D.cs" />
     <Compile Include="Graphics\SpriteText.cs" />
     <Compile Include="Helpers\PriorityDictionary.cs" />
-    <Compile Include="Scenes\INotPausable.cs" />
     <Compile Include="Scenes\Scene.cs" />
     <Compile Include="Scenes\SceneManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

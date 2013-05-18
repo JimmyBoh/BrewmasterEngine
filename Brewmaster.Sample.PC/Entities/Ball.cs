@@ -77,6 +77,8 @@ namespace SampleGame.Entities
 
         public override void Update(GameTime gameTime)
         {
+            if (CurrentGame.IsPaused) return;
+
             var deltaX = Velocity.X;
             var deltaY = Velocity.Y;
 

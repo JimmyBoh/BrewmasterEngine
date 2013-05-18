@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -31,9 +32,9 @@ namespace BrewmasterEngine.Framework
         public int ZIndex { get; set; }
 
         private readonly List<string> tags;
-        public string[] Tags
+        public List<string> Tags
         {
-            get { return tags.ToArray(); }
+            get { return tags.ToList(); }
         }
 
         public string[] AddTags
