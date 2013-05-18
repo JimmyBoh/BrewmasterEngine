@@ -172,9 +172,6 @@
     <Compile Include="..\Brewmaster.Engine.PC\Graphics\SpriteText.cs">
       <Link>Graphics\SpriteText.cs</Link>
     </Compile>
-    <Compile Include="..\Brewmaster.Engine.PC\Helpers\Callback.cs">
-      <Link>Helpers\Callback.cs</Link>
-    </Compile>
     <Compile Include="..\Brewmaster.Engine.PC\Helpers\PriorityDictionary.cs">
       <Link>Helpers\PriorityDictionary.cs</Link>
     </Compile>

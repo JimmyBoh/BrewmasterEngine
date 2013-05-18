@@ -124,6 +124,9 @@ namespace BrewmasterEngine.Framework
 
         protected override void Update(GameTime gameTime)
         {
+            // Update the reference to the current GameTime.
+            CurrentGame.GameTime = gameTime;
+
             // Update the background objects.
             backgroundObjects.ForEach(o => o.Update(gameTime));
 

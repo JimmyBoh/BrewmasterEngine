@@ -73,6 +73,11 @@ namespace BrewmasterEngine.Framework
             get { return SceneManager.CurrentScene.IsPaused; }
         }
 
+        /// <summary>
+        /// Current GameTime for the Update loop.
+        /// </summary>
+        public static GameTime GameTime { get; set; }
+
         private static int maxTextureSize;
         /// <summary>
         /// Max texture size supported by the current device.
@@ -125,13 +130,5 @@ namespace BrewmasterEngine.Framework
             return (nextObjectID++).ToString(CultureInfo.InvariantCulture);
         }
         private static int nextObjectID;
-
-        /// <summary>
-        /// Exits the Game
-        /// </summary>
-        public static void Exit()
-        {
-            Game.Exit();
-        }
     }
 }

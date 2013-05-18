@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 using BrewmasterEngine.Framework;
 using BrewmasterEngine.Graphics.Content;
 using Microsoft.Xna.Framework;

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using BrewmasterEngine.Debugging;
 using BrewmasterEngine.Framework;
 using BrewmasterEngine.Scenes;
 using Microsoft.Xna.Framework;
@@ -67,6 +66,8 @@ namespace SampleGame.Scenes
             }, onButtonDown) { AddTags = new[] { menuTag } });
 
             this.ForEachEntity(o => o.Tags.Contains(menuTag), o => o.IsVisible = false);
+
+            done();
         }
 
         private void onButtonDown(MenuButton button)

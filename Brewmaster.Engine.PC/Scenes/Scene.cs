@@ -4,7 +4,7 @@ using System.Linq;
 using BrewmasterEngine.Debugging;
 using BrewmasterEngine.Framework;
 using Microsoft.Xna.Framework;
-using BrewmasterEngine.Helpers;
+
 
 namespace BrewmasterEngine.Scenes
 {
@@ -116,7 +116,7 @@ namespace BrewmasterEngine.Scenes
             });
         }
 
-        public void Update(GameTime elapsedTime)
+        public virtual void Update(GameTime elapsedTime)
         {
             if (IsPaused)
                 ForEachNonpausableEntity((entity) => entity.Update(elapsedTime));

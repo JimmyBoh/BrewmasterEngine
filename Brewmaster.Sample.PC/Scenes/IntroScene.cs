@@ -14,26 +14,31 @@ namespace SampleGame.Scenes
             
         }
 
+        private float remaining;
+
         protected override void Load(Action done)
         {
             var windowBounds = CurrentGame.Window.ClientBounds;
             var windowSize = new Vector2(windowBounds.Width, windowBounds.Height);
 
-            this.Add(new GradientBackground("BlueRedHorizontal", Color.Blue, Color.Red, 500.0f, true));
-            this.Add(new MenuText("Loading...", windowSize*new Vector2(0.5f, 0.2f)));
-            this.Add(new MenuButton("Go to Main Menu", windowSize*new Vector2(0.5f, 0.8f), (button, releasedOn) =>
-                {
-                    if (releasedOn)
-                        CurrentGame.SceneManager.Load("main");
-                    else
-                        button.Scale = Vector2.One;
-                },
-                    (button) =>
-                        {
-                            button.Scale = new Vector2(0.9f);
-                        }));
+            this.Add(new MenuText("JimmyBoh", windowSize*new Vector2(0.5f, 0.2f)));
+            this.Add(new MenuText("Loading...", windowSize*new Vector2(0.1f, 0.9f)));
+
+            remaining = 2000;
 
             done();
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            remaining -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
+
+            base.Update(gameTime);
+
+            if(remaining <= 0)
+                CurrentGame.SceneManager.LoadNextScene();
+                
+            
         }
     }
 }
