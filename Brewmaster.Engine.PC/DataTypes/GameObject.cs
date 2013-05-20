@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
+using BrewmasterEngine.Framework;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace BrewmasterEngine.Framework
+namespace BrewmasterEngine.DataTypes
 {
     public abstract class GameObject
     {
@@ -18,6 +18,7 @@ namespace BrewmasterEngine.Framework
             Name = name;
             IsActive = true;
             IsVisible = true;
+            IsDestroyed = false;
             ZIndex = 0;
             tags = new List<string>();
         }
@@ -29,6 +30,7 @@ namespace BrewmasterEngine.Framework
         public string Name { get; set; }
         public bool IsActive { get; set; }
         public bool IsVisible { get; set; }
+        public bool IsDestroyed { get; set; }
         public int ZIndex { get; set; }
 
         private readonly List<string> tags;

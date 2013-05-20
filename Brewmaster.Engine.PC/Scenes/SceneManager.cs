@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BrewmasterEngine.DataTypes;
 using BrewmasterEngine.Debugging;
-using BrewmasterEngine.Framework;
 using Microsoft.Xna.Framework;
 
 namespace BrewmasterEngine.Scenes

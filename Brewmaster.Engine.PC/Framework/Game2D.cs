@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
-using BrewmasterEngine.Debugging;
+using BrewmasterEngine.DataTypes;
 using BrewmasterEngine.Extensions;
-using BrewmasterEngine.Graphics;
 using BrewmasterEngine.Graphics.Content;
 using BrewmasterEngine.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input.Touch;
 
 namespace BrewmasterEngine.Framework
 {
@@ -65,13 +64,14 @@ namespace BrewmasterEngine.Framework
         public abstract IEnumerable<string> PreloadTextures { get; }
         public abstract IEnumerable<string> PreloadFonts { get; }
 
-        public SceneManager SceneManager { get; set; }
+        public abstract GestureType EnabledGestures { get; } 
 
+        public SceneManager SceneManager { get; private set; }
 
-        private PriorityDictionary<string, GameObject, int> backgroundObjects;
+        private GameObjectCollection backgroundObjects;
         public abstract IEnumerable<GameObject> BackgroundObjects { get; }
 
-        private PriorityDictionary<string, GameObject, int> foregroundObjects; 
+        private GameObjectCollection foregroundObjects; 
         public abstract IEnumerable<GameObject> ForegroundObjects { get; }
 
         #endregion
@@ -92,6 +92,10 @@ namespace BrewmasterEngine.Framework
             SceneManager = new SceneManager();
             SceneManager.AddScenes(Scenes);
 
+            TouchPanel.EnableMouseTouchPoint = true;
+            TouchPanel.EnableMouseGestures = true;
+            TouchPanel.EnabledGestures = EnabledGestures;
+
             Init();
 
             base.Initialize();
@@ -106,13 +110,13 @@ namespace BrewmasterEngine.Framework
             if (PreloadFonts != null)
                 ContentHandler.Preload<SpriteFont>(PreloadFonts);
 
-            backgroundObjects = new PriorityDictionary<string, GameObject, int>(o => o.ZIndex);
+            backgroundObjects = new GameObjectCollection();
             foreach (var obj in BackgroundObjects)
-                backgroundObjects.Add(obj.Name, obj);
+                backgroundObjects.Add(obj);
 
-            foregroundObjects = new PriorityDictionary<string, GameObject, int>(o => o.ZIndex);
+            foregroundObjects = new GameObjectCollection();
             foreach (var obj in ForegroundObjects)
-                foregroundObjects.Add(obj.Name, obj);
+                foregroundObjects.Add(obj);
 
             SceneManager.LoadDefaultScene();
         }
@@ -124,8 +128,18 @@ namespace BrewmasterEngine.Framework
 
         protected override void Update(GameTime gameTime)
         {
-            // Update the reference to the current GameTime.
+            // Update the global variables in CurrentGame...
             CurrentGame.GameTime = gameTime;
+            
+            // Update touch locations.
+            CurrentGame.TouchState = TouchPanel.GetState();
+
+            if (TouchPanel.EnabledGestures != GestureType.None)
+            {
+                CurrentGame.Gestures.Clear();
+                while (TouchPanel.IsGestureAvailable)
+                    CurrentGame.Gestures.Add(TouchPanel.ReadGesture());
+            }
 
             // Update the background objects.
             backgroundObjects.ForEach(o => o.Update(gameTime));

@@ -127,14 +127,17 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Brewmaster.Engine.PC\Debugging\DebugConsole.cs">
-      <Link>Debugging\DebugConsole.cs</Link>
+    <Compile Include="..\Brewmaster.Engine.PC\DataTypes\GameManager.cs">
+      <Link>DataTypes\GameManager.cs</Link>
     </Compile>
-    <Compile Include="..\Brewmaster.Engine.PC\Debugging\FpsCounter.cs">
-      <Link>Debugging\FpsCounter.cs</Link>
+    <Compile Include="..\Brewmaster.Engine.PC\DataTypes\GameObject.cs">
+      <Link>DataTypes\GameObject.cs</Link>
     </Compile>
-    <Compile Include="..\Brewmaster.Engine.PC\Debugging\Profiler.cs">
-      <Link>Debugging\Profiler.cs</Link>
+    <Compile Include="..\Brewmaster.Engine.PC\DataTypes\GameObjectCollection.cs">
+      <Link>DataTypes\GameObjectCollection.cs</Link>
+    </Compile>
+    <Compile Include="..\Brewmaster.Engine.PC\DataTypes\PriorityDictionary.cs">
+      <Link>DataTypes\PriorityDictionary.cs</Link>
     </Compile>
     <Compile Include="..\Brewmaster.Engine.PC\Extensions\MathExtensions.cs">
       <Link>Extensions\MathExtensions.cs</Link>
@@ -151,12 +154,6 @@
     <Compile Include="..\Brewmaster.Engine.PC\Framework\Game2D.cs">
       <Link>Framework\Game2D.cs</Link>
     </Compile>
-    <Compile Include="..\Brewmaster.Engine.PC\Framework\GameManager.cs">
-      <Link>Framework\GameManager.cs</Link>
-    </Compile>
-    <Compile Include="..\Brewmaster.Engine.PC\Framework\GameObject.cs">
-      <Link>Framework\GameObject.cs</Link>
-    </Compile>
     <Compile Include="..\Brewmaster.Engine.PC\Graphics\Content\ContentHandler.cs">
       <Link>Graphics\Content\ContentHandler.cs</Link>
     </Compile>
@@ -172,14 +169,20 @@
     <Compile Include="..\Brewmaster.Engine.PC\Graphics\SpriteText.cs">
       <Link>Graphics\SpriteText.cs</Link>
     </Compile>
-    <Compile Include="..\Brewmaster.Engine.PC\Helpers\PriorityDictionary.cs">
-      <Link>Helpers\PriorityDictionary.cs</Link>
-    </Compile>
     <Compile Include="..\Brewmaster.Engine.PC\Scenes\Scene.cs">
       <Link>Scenes\Scene.cs</Link>
     </Compile>
     <Compile Include="..\Brewmaster.Engine.PC\Scenes\SceneManager.cs">
       <Link>Scenes\SceneManager.cs</Link>
+    </Compile>
+    <Compile Include="..\Brewmaster.Engine.PC\Tools\DebugConsole.cs">
+      <Link>Tools\DebugConsole.cs</Link>
+    </Compile>
+    <Compile Include="..\Brewmaster.Engine.PC\Tools\FpsCounter.cs">
+      <Link>Tools\FpsCounter.cs</Link>
+    </Compile>
+    <Compile Include="..\Brewmaster.Engine.PC\Tools\Profiler.cs">
+      <Link>Tools\Profiler.cs</Link>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

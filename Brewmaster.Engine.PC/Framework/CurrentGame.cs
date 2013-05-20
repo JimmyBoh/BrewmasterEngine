@@ -6,6 +6,7 @@ using BrewmasterEngine.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input.Touch;
 
 namespace BrewmasterEngine.Framework
 {
@@ -19,6 +20,7 @@ namespace BrewmasterEngine.Framework
             DebugMode = false;
             nextObjectID = 0;
             Random = new Random();
+            Gestures = new List<GestureSample>();
         }
 
         /// <summary>
@@ -77,6 +79,10 @@ namespace BrewmasterEngine.Framework
         /// Current GameTime for the Update loop.
         /// </summary>
         public static GameTime GameTime { get; set; }
+
+        public static TouchCollection TouchState { get; set; }
+        public static List<GestureSample> Gestures { get; set; } 
+
 
         private static int maxTextureSize;
         /// <summary>

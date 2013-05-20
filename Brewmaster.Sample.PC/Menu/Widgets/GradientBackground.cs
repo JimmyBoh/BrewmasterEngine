@@ -1,4 +1,5 @@
 ﻿using System;
+using BrewmasterEngine.DataTypes;
 using BrewmasterEngine.Framework;
 using BrewmasterEngine.Graphics.Content;
 using Microsoft.Xna.Framework;

@@ -57,22 +57,26 @@
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Debugging\DebugConsole.cs" />
-    <Compile Include="Debugging\FpsCounter.cs" />
-    <Compile Include="Debugging\Profiler.cs" />
+    <Compile Include="DataTypes\GameObjectCollection.cs" />
+    <Compile Include="GUI\Element.cs" />
+    <Compile Include="GUI\Enums.cs" />
+    <Compile Include="GUI\Panel.cs" />
+    <Compile Include="Tools\DebugConsole.cs" />
+    <Compile Include="Tools\FpsCounter.cs" />
+    <Compile Include="Tools\Profiler.cs" />
     <Compile Include="Extensions\MathExtensions.cs" />
     <Compile Include="Extensions\PrimitivesExtension.cs" />
     <Compile Include="Extensions\XnaExtensions.cs" />
     <Compile Include="Framework\CurrentGame.cs" />
     <Compile Include="Framework\Game2D.cs" />
-    <Compile Include="Framework\GameManager.cs" />
-    <Compile Include="Framework\GameObject.cs" />
+    <Compile Include="DataTypes\GameManager.cs" />
+    <Compile Include="DataTypes\GameObject.cs" />
     <Compile Include="Graphics\Content\ContentHandler.cs" />
     <Compile Include="Graphics\Content\Gradient.cs" />
     <Compile Include="Graphics\Sprite.cs" />
     <Compile Include="Graphics\Sprite2D.cs" />
     <Compile Include="Graphics\SpriteText.cs" />
-    <Compile Include="Helpers\PriorityDictionary.cs" />
+    <Compile Include="DataTypes\PriorityDictionary.cs" />
     <Compile Include="Scenes\Scene.cs" />
     <Compile Include="Scenes\SceneManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

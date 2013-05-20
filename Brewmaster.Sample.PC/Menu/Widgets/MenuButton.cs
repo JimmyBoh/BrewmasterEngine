@@ -1,9 +1,10 @@
 ﻿using System;
+using System.Linq;
 using BrewmasterEngine.Framework;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input;
 using BrewmasterEngine.Extensions;
+using Microsoft.Xna.Framework.Graphics;
+using Microsoft.Xna.Framework.Input.Touch;
 
 namespace SampleGame.Menu.Widgets
 {
@@ -32,35 +33,35 @@ namespace SampleGame.Menu.Widgets
         private bool wasClicked;
         private readonly Vector2 positionAspectRatio;
 
-
         #endregion
 
         #region Methods
 
-        private MouseState prevState;
         public override void Update(GameTime gameTime)
         {
             if (CurrentGame.IsPaused && !Tags.Contains("menu")) return;
 
-            var mouseState = Mouse.GetState();
-
-            if (mouseState.LeftButton == ButtonState.Pressed && prevState.LeftButton == ButtonState.Released && Bounds.Contains(mouseState.X, mouseState.Y))
+            if (!CurrentGame.TouchState.Any()) return;
+            
+            var touch = CurrentGame.TouchState[0];
+            if (touch.State == TouchLocationState.Pressed)
             {
-                if (OnDown != null)
+                if (OnDown != null && Bounds.Contains((int) touch.Position.X, (int) touch.Position.Y))
+                {
                     OnDown(this);
-
-                wasClicked = true;
+                    wasClicked = true;
+                }
             }
-
-            if (mouseState.LeftButton == ButtonState.Released && prevState.LeftButton == ButtonState.Pressed)
+            else if (touch.State == TouchLocationState.Released)
             {
                 if (OnUp != null)
-                    OnUp(this, Bounds.Contains(mouseState.X, mouseState.Y) && wasClicked);
+                {
+                    var releasedOn = Bounds.Contains((int) touch.Position.X, (int) touch.Position.Y);
+                    OnUp(this, releasedOn && wasClicked);
+                }
 
                 wasClicked = false;
             }
-
-            prevState = mouseState;
         }
 
         public override void Draw(GameTime elapsedTime)

@@ -44,8 +44,6 @@ namespace BrewmasterEngine.Graphics
         }
 
         public Color BackgroundColor { get; set; }
-        private Vector2 size;
-        public override Vector2 Size { get { return Text != null ? size : Vector2.Zero; } }
 
         #endregion
 
@@ -53,8 +51,8 @@ namespace BrewmasterEngine.Graphics
 
         private void updateProperties()
         {
-            size = ContentHandler.Retrieve<SpriteFont>(fontName).MeasureString(text);
-            Origin = (size == Vector2.Zero ? Vector2.Zero : size / 2.0f);
+            Size = Text != null ? ContentHandler.Retrieve<SpriteFont>(fontName).MeasureString(text) : Vector2.Zero;
+            Origin = (Size == Vector2.Zero ? Vector2.Zero : Size / 2.0f);
         }
 
         #endregion

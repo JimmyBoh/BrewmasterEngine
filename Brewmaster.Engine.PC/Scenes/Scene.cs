@@ -1,8 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BrewmasterEngine.DataTypes;
 using BrewmasterEngine.Debugging;
-using BrewmasterEngine.Framework;
 using Microsoft.Xna.Framework;
 
 
@@ -15,7 +15,7 @@ namespace BrewmasterEngine.Scenes
         protected Scene(string name)
         {
             Name = name;
-            entities = new PriorityDictionary<string, GameObject, int>(o => o.ZIndex);
+            entities = new GameObjectCollection();
         }
 
         #endregion
@@ -26,8 +26,7 @@ namespace BrewmasterEngine.Scenes
         public bool IsActive { get; private set; }
         public bool IsPaused { get; private set; }
 
-        private readonly PriorityDictionary<string, GameObject, int> entities;
-        public Dictionary<string, GameObject> EntityIndex { get { return entities.ToDictionary(); } }
+        private readonly GameObjectCollection entities;
         public GameObject[] Entities { get { return entities.ToArray(); } }
 
         #endregion
@@ -36,7 +35,7 @@ namespace BrewmasterEngine.Scenes
 
         public void Add(GameObject gameObject)
         {
-            entities[gameObject.Name] = gameObject;
+            entities.Add(gameObject);
         }
 
         public void Add(IEnumerable<GameObject> gameObjects)

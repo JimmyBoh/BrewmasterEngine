@@ -33,12 +33,28 @@ namespace BrewmasterEngine.Extensions
             return rect.Contains((int)point.X, (int)point.Y);
         }
 
+        public static bool Contains(this Rectangle rect,float rotation, Vector2 point)
+        {
+            var origin = rect.Center.ToVector2();
+
+            if (origin == point) return true;
+
+            var newVector = point - origin;
+
+            var sin = Math.Sin(-rotation);
+            var cos = Math.Cos(-rotation);
+
+            var realPoint = new Vector2((float) (newVector.X*cos - newVector.Y*sin), (float) (newVector.X*sin + newVector.Y*cos)) + origin;
+            
+            return rect.Contains(realPoint);
+        }
+
         public static Point ToPoint(this Vector2 point)
         {
             return new Point((int)point.X, (int)point.Y);
         }
 
-        public static Vector2 Herd(this Vector2 pos, Rectangle rect)
+        public static Vector2 Clamp(this Vector2 pos, Rectangle rect)
         {
             var x = pos.X;
             var y = pos.Y;

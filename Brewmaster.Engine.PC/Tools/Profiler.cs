@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using BrewmasterEngine.Framework;
+using BrewmasterEngine.DataTypes;
 using Microsoft.Xna.Framework;
 
-namespace BrewmasterEngine.Debugging
+namespace BrewmasterEngine.Tools
 {
     public class Profiler : GameObject
     {

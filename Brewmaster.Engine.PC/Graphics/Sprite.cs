@@ -1,5 +1,5 @@
-﻿using BrewmasterEngine.Extensions;
-using BrewmasterEngine.Framework;
+﻿using BrewmasterEngine.DataTypes;
+using BrewmasterEngine.Extensions;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
@@ -25,7 +25,7 @@ namespace BrewmasterEngine.Graphics
         #region Properties
 
         public Vector2 Position { get; set; }
-        public abstract Vector2 Size { get; }
+        public Vector2 Size { get; set; }
 
         public Rectangle Bounds
         {

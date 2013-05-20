@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BrewmasterEngine.DataTypes;
 using BrewmasterEngine.Debugging;
 using BrewmasterEngine.Framework;
 using BrewmasterEngine.Scenes;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input;
+using Microsoft.Xna.Framework.Input.Touch;
 using SampleGame.Scenes;
 
 namespace SampleGame
@@ -28,6 +29,11 @@ namespace SampleGame
             get { return new [] {"DebugFont"}; }
         }
 
+        public override GestureType EnabledGestures
+        {
+            get { return GestureType.Tap | GestureType.Pinch | GestureType.Flick | GestureType.DoubleTap | GestureType.HorizontalDrag | GestureType.FreeDrag; }
+        }
+
         public override IEnumerable<GameObject> BackgroundObjects
         {
             get
@@ -45,7 +51,7 @@ namespace SampleGame
             {
                 return new GameObject[]
                     {
-                        new FpsCounter("DebugFont"), 
+                        new FpsCounter("DebugFont"),
                     };
             }
         }
@@ -70,9 +76,6 @@ namespace SampleGame
 
         protected override void Update(GameTime gameTime)
         {
-            if (Keyboard.GetState().IsKeyDown(Keys.Escape))
-                Exit();
-
             base.Update(gameTime);
         }
     }

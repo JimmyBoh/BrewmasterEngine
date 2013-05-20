@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BrewmasterEngine.DataTypes;
 using BrewmasterEngine.Extensions;
 using BrewmasterEngine.Framework;
 using Microsoft.Xna.Framework;

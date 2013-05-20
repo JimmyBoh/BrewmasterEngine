@@ -1,11 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
+﻿using BrewmasterEngine.Framework;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace BrewmasterEngine.Framework
+namespace BrewmasterEngine.DataTypes
 {
     public abstract class GameManager
     {
