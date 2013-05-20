@@ -9,7 +9,7 @@ Brewmaster is a 2D game engine designed for multiplatform games and apps. It is 
 
 - PC
 - Windows 8 (Metro)
-- Windows Phone (7 & 8)
+- Windows Phone 8
 - Mac
 - Linux
 - Android
@@ -21,13 +21,12 @@ Brewmaster is a 2D game engine designed for multiplatform games and apps. It is 
 - Code once, Publish to all!
 - Scene-based hierarchy
 - Shared Input for all devices, touch and mouse.
-- Physics powered by Farseer Physics Engine.
-
+- Standard objects for Sprites, easily extendible to fit right in the with framework.
+- Includes built-in prefabs that can be used in any project.
 
 ## Example: ##
 
-    Comming Soon!
-
+Included in the solution is a sample project. Currently it is only written for PC and Windows 8 Store Apps, but I will build for other platforms very soon.
 
 
 ## License: ##
