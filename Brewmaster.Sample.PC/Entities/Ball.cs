@@ -51,10 +51,11 @@ namespace SampleGame.Entities
 
         private Vector2 position;
 
+        public Vector2 PrevPosition { get; set; }
         public Vector2 Position
         {
             get { return position; }
-            private set
+            set
             {
                 position = value;
                 UpdateBounds();
@@ -67,7 +68,7 @@ namespace SampleGame.Entities
             Bounds = new Rectangle((int) (Position.X - radius), (int) (Position.Y - radius), (int) radius*2, (int) radius*2);
         }
 
-        public Vector2 Velocity { get; private set; }
+        public Vector2 Velocity { get; set; }
         private float acceleration = -1.1f;
         private readonly float maxSpeed;
         private readonly float darkness;
@@ -80,17 +81,28 @@ namespace SampleGame.Entities
         {
             if (CurrentGame.IsPaused) return;
 
-            var deltaX = Velocity.X;
-            var deltaY = Velocity.Y;
+            PrevPosition = position;
 
+            if (Math.Abs(Velocity.X).Equals(maxSpeed) && Math.Abs(Velocity.Y).Equals(maxSpeed) && acceleration.Equals(-1.1f))
+                acceleration = -0.9f;
+            else if (Math.Abs(Velocity.X) < 200.0f && Math.Abs(Velocity.Y) < 200.0f && acceleration.Equals(-0.9f))
+                acceleration = -1.1f;
+
+            updateX();
+            updateY();
+
+            Position += Velocity*(float) gameTime.ElapsedGameTime.TotalSeconds;
+        }
+
+        private void updateX()
+        {
+            var velX = Velocity.X;
             var posX = Position.X;
-            var posY = Position.Y;
 
             if (Bounds.Left < 0 || Bounds.Right > CurrentGame.Window.ClientBounds.Width)
             {
-                deltaX *= acceleration;
-                deltaX = MathHelper.Clamp(deltaX, -maxSpeed, maxSpeed);
-                Velocity = new Vector2(deltaX, deltaY);
+                velX *= acceleration;
+                velX = MathHelper.Clamp(velX, -maxSpeed, maxSpeed);
 
                 if (Bounds.Left < 0)
                     posX = radius;
@@ -98,27 +110,42 @@ namespace SampleGame.Entities
                     posX = CurrentGame.Window.ClientBounds.Width - Radius;
             }
 
+            Velocity = new Vector2(velX, Velocity.Y);
+            Position = new Vector2(posX, Position.Y);
+        }
+
+        private void updateY()
+        {
+            var velY = Velocity.Y;
+            var posY = Position.Y;
+
             if (Bounds.Top < 0 || Bounds.Bottom > CurrentGame.Window.ClientBounds.Height)
             {
-                deltaY *= acceleration;
-                deltaY = MathHelper.Clamp(deltaY, -maxSpeed, maxSpeed);
-                Velocity = new Vector2(deltaX, deltaY);
-                
-                if(Bounds.Top < 0)
+                velY *= acceleration;
+                velY = MathHelper.Clamp(velY, -maxSpeed, maxSpeed);
+
+                if (Bounds.Top < 0)
                     posY = radius;
                 else
                     posY = CurrentGame.Window.ClientBounds.Height - Radius;
             }
 
-            if (Math.Abs(Velocity.X).Equals(maxSpeed) && Math.Abs(Velocity.Y).Equals(maxSpeed) && acceleration.Equals(-1.1f))
-                acceleration = -0.9f;
-            else if (Math.Abs(Velocity.X) < 200.0f && Math.Abs(Velocity.Y) < 200.0f && acceleration.Equals(-0.9f))
-                acceleration = -1.1f;
+            Velocity = new Vector2(Velocity.X, velY);
+            Position = new Vector2(Position.X, posY);
+        }
 
-            posX += (float)(deltaX * gameTime.ElapsedGameTime.TotalSeconds);
-            posY += (float)(deltaY * gameTime.ElapsedGameTime.TotalSeconds);
+        public void Reverse()
+        {
+            var deltaX = Velocity.X;
+            var deltaY = Velocity.Y;
 
-            Position = new Vector2(posX, posY);
+            deltaX *= acceleration;
+            deltaX = MathHelper.Clamp(deltaX, -maxSpeed, maxSpeed);
+
+            deltaY *= acceleration;
+            deltaY = MathHelper.Clamp(deltaY, -maxSpeed, maxSpeed);
+
+            Velocity = new Vector2(deltaX, deltaY);
         }
 
         public override void Draw(GameTime elapsedTime)

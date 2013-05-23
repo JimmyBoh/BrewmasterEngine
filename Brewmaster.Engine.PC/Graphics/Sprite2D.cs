@@ -1,5 +1,5 @@
-﻿using BrewmasterEngine.Extensions;
-using BrewmasterEngine.Graphics.Content;
+﻿using BrewmasterEngine.Graphics.Content;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace BrewmasterEngine.Graphics

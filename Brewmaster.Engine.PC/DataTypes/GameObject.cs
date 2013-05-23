@@ -66,7 +66,7 @@ namespace BrewmasterEngine.DataTypes
 
         public abstract void Update(GameTime gameTime);
 
-        public abstract void Draw(GameTime elapsedTime);
+        public abstract void Draw(GameTime gameTime);
 
         public void Hide()
         {

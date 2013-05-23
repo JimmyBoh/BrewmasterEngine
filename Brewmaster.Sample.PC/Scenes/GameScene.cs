@@ -80,10 +80,16 @@ namespace SampleGame.Scenes
             CurrentGame.SceneManager.PauseCurrentScene();
             this.ForEachEntity(o => o.Tags.Contains(menuTag), o => o.Show());
         }
+        
         private void UnpauseScene()
         {
             CurrentGame.SceneManager.UnpauseCurrentScene();
             this.ForEachEntity(o => o.Tags.Contains(menuTag), o => o.Hide());
+        }
+
+        public override void Update(GameTime gameTime)
+        {
+            
         }
 
         private void AddNewBall(int count = 1)

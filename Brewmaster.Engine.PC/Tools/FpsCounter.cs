@@ -33,7 +33,7 @@ namespace BrewmasterEngine.Debugging
             _frameCounter = 0;
         }
 
-        public override void Draw(GameTime elapsedTime)
+        public override void Draw(GameTime gameTime)
         {
             _frameCounter++;
 

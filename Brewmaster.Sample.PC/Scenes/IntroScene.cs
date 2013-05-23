@@ -33,12 +33,8 @@ namespace SampleGame.Scenes
         {
             remaining -= (float)gameTime.ElapsedGameTime.TotalMilliseconds;
 
-            base.Update(gameTime);
-
             if(remaining <= 0)
                 CurrentGame.SceneManager.LoadNextScene();
-                
-            
         }
     }
 }

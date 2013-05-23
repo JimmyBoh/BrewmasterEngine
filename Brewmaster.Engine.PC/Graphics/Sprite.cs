@@ -53,7 +53,7 @@ namespace BrewmasterEngine.Graphics
 
         }
 
-        public override void Draw(GameTime elapsedTime)
+        public override void Draw(GameTime gameTime)
         {
             spriteBatch.Draw(this);
         }

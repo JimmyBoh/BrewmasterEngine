@@ -29,6 +29,11 @@ namespace SampleGame.Scenes
             done();
         }
 
+        public override void Update(GameTime gameTime)
+        {
+            
+        }
+
         private void onButtonDown(MenuButton button)
         {
             button.Scale = new Vector2(0.9f);
