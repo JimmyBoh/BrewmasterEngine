@@ -89,7 +89,7 @@ namespace SampleGame.Scenes
 
         public override void Update(GameTime gameTime)
         {
-            
+            Entities.ForEach((entity) => entity.Update(gameTime));
         }
 
         private void AddNewBall(int count = 1)
@@ -100,7 +100,7 @@ namespace SampleGame.Scenes
 
         private void RemoveAllBalls()
         {
-            this.Remove(this.Entities.Where(e => e is Ball));
+            this.RemoveWhere(e => e is Ball);
         }
     }
 }

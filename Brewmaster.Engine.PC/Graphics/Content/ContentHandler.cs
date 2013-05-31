@@ -5,6 +5,9 @@ using BrewmasterEngine.Framework;
 
 namespace BrewmasterEngine.Graphics.Content
 {
+    /// <summary>
+    /// Gives global acces to any Texture2D, SpriteFont, etc. Also allows for caching of generated Texture2D's.
+    /// </summary>
     public static class ContentHandler
     {
         #region Constructor

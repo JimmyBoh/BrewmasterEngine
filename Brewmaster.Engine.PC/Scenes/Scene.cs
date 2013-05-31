@@ -5,7 +5,6 @@ using BrewmasterEngine.DataTypes;
 using BrewmasterEngine.Debugging;
 using Microsoft.Xna.Framework;
 
-
 namespace BrewmasterEngine.Scenes
 {
     public abstract class Scene
@@ -15,7 +14,7 @@ namespace BrewmasterEngine.Scenes
         protected Scene(string name)
         {
             Name = name;
-            entities = new GameObjectCollection();
+            Entities = new GameObjectCollection();
         }
 
         #endregion
@@ -26,8 +25,7 @@ namespace BrewmasterEngine.Scenes
         public bool IsActive { get; private set; }
         public bool IsPaused { get; private set; }
 
-        private readonly GameObjectCollection entities;
-        public GameObject[] Entities { get { return entities.ToArray(); } }
+        public GameObjectCollection Entities { get; private set; }
 
         #endregion
 
@@ -35,7 +33,7 @@ namespace BrewmasterEngine.Scenes
 
         public void Add(GameObject gameObject)
         {
-            entities.Add(gameObject);
+            Entities.Add(gameObject);
         }
 
         public void Add(IEnumerable<GameObject> gameObjects)
@@ -46,7 +44,7 @@ namespace BrewmasterEngine.Scenes
 
         public void Remove(string objectName)
         {
-            entities.Remove(objectName);
+            Entities.Remove(objectName);
         }
 
         public void Remove(GameObject gameObject)
@@ -56,17 +54,24 @@ namespace BrewmasterEngine.Scenes
 
         public void Remove(IEnumerable<GameObject> gameObjects)
         {
-            foreach (var gameObject in gameObjects)
-                Remove(gameObject);
+            foreach (var name in gameObjects.Select(go => go.Name))
+                Remove(name);
+        }
+
+        public void RemoveWhere(Func<GameObject, bool> predicate)
+        {
+            var names = Entities.Where(predicate).Select(e => e.Name).ToList();
+            foreach (var name in names)
+                Remove(name);
         }
 
         public void ForEachEntity(Action<GameObject> action)
         {
-            entities.ForEach(action);
+            Entities.ForEach(action);
         }
         public void ForEachEntity(Func<GameObject, bool> predicate, Action<GameObject> action)
         {
-            entities.ForEach(predicate, action);
+            Entities.ForEach(predicate, action);
         }
         public void ForEachActiveEntity(Action<GameObject> action)
         {
@@ -102,16 +107,9 @@ namespace BrewmasterEngine.Scenes
         }
 
         /// <summary>
-        /// Updates the Entities and the Scene itself.
+        /// Updates the the Scene itself. Entities should also be updated here.
         /// </summary>
         /// <param name="gameTime"></param>
-        public void UpdateScene(GameTime gameTime)
-        {
-            ForEachActiveEntity((entity) => entity.Update(gameTime));
-
-            Update(gameTime);
-        }
-
         public abstract void Update(GameTime gameTime);
 
         public void Draw(GameTime gameTime)
@@ -123,14 +121,7 @@ namespace BrewmasterEngine.Scenes
         {
             DebugConsole.Log("Unloading Scene[" + Name + "]...");
 
-            var entityNames = Entities.Select(e => e.Name);
-            foreach (var e in entityNames)
-            {
-                entities[e].IsActive = false;
-                entities[e].IsVisible = false;
-            }
-
-            entities.Clear();
+            Entities.Clear();
             IsPaused = false;
             IsActive = false;
         }

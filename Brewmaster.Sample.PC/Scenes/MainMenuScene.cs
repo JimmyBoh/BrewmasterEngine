@@ -31,7 +31,7 @@ namespace SampleGame.Scenes
 
         public override void Update(GameTime gameTime)
         {
-            
+            Entities.ForEach((entity) => entity.Update(gameTime));
         }
 
         private void onButtonDown(MenuButton button)

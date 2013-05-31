@@ -122,7 +122,7 @@ namespace BrewmasterEngine.Scenes
 
         public override void Update(GameTime gameTime)
         {
-            CurrentScene.UpdateScene(gameTime);
+            CurrentScene.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)

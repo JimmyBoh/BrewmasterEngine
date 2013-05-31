@@ -36,11 +36,18 @@ namespace BrewmasterEngine.Framework
         }
 
         /// <summary>
-        /// The SceneManage that handles the current scene and switching states.
+        /// The SceneManager that handles the current scene and switching states.
         /// </summary>
         public static SceneManager SceneManager
         {
             get { return Game.SceneManager; }
+        }
+        /// <summary>
+        /// The currently loaded scene.
+        /// </summary>
+        public static Scene CurrentScene
+        {
+            get { return SceneManager.CurrentScene; }
         }
 
         /// <summary>
