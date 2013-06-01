@@ -122,9 +122,12 @@ namespace BrewmasterEngine.Scenes
         /// Updates the the Scene itself. Entities should also be updated here.
         /// </summary>
         /// <param name="gameTime"></param>
-        public abstract void Update(GameTime gameTime);
+        public virtual void Update(GameTime gameTime)
+        {
+            ForEachActiveEntity((entity) => entity.Update(gameTime));
+        }
 
-        public void Draw(GameTime gameTime)
+        public virtual void Draw(GameTime gameTime)
         {
             ForEachVisibleEntity((entity) => entity.Draw(gameTime));
         }
