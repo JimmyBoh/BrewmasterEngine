@@ -2,7 +2,6 @@
 using System.Linq;
 using BrewmasterEngine.Framework;
 using Microsoft.Xna.Framework;
-using BrewmasterEngine.Extensions;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
 

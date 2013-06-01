@@ -177,7 +177,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <param name="color">The color to draw the rectangle in</param>
         public static void FillRectangle(this SpriteBatch spriteBatch, Vector2 location, Vector2 size, Color color)
         {
-            FillRectangle(spriteBatch, location, size, color, 0.0f);
+            FillRectangle(spriteBatch, new Rectangle((int)location.X, (int)location.Y, (int)size.X, (int)size.Y), color, 0.0f);
         }
 
 
@@ -191,7 +191,7 @@ namespace Microsoft.Xna.Framework.Graphics
         /// <param name="color">The color to draw the rectangle in</param>
         public static void FillRectangle(this SpriteBatch spriteBatch, Vector2 location, Vector2 size, Color color, float angle)
         {
-            spriteBatch.Draw(pixel, location, null, color, angle, size/2, size, SpriteEffects.None, 0);
+            FillRectangle(spriteBatch, new Rectangle((int)location.X, (int)location.Y, (int)size.X, (int)size.Y), color, angle);
         }
 
 

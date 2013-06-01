@@ -15,6 +15,11 @@ namespace Microsoft.Xna.Framework
                 return new Vector2(point.X, point.Y);
             }
 
+            public static Vector2 GetSize(this Rectangle rect)
+            {
+                return new Vector2(rect.Width, rect.Height);
+            }
+
             public static Vector2 GetRandomPoint(this Rectangle rect)
             {
                 return new Vector2(CurrentGame.Random.Next(rect.Width), CurrentGame.Random.Next(rect.Height));
