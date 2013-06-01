@@ -58,6 +58,8 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DataTypes\GameObjectCollection.cs" />
+    <Compile Include="DataTypes\IPoolable.cs" />
+    <Compile Include="DataTypes\ObjectPool.cs" />
     <Compile Include="GUI\Element.cs" />
     <Compile Include="GUI\Enums.cs" />
     <Compile Include="GUI\Panel.cs" />
