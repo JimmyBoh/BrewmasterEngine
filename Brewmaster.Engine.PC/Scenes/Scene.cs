@@ -65,6 +65,18 @@ namespace BrewmasterEngine.Scenes
                 Remove(name);
         }
 
+        public T GetEntity<T>(Func<T, bool> predicate = null)
+        {
+            var entites = Entities.OfType<T>();
+            return predicate != null ? entites.First(predicate) : entites.First();
+        }
+
+        public IEnumerable<T> GetEntities<T>(Func<T, bool> predicate = null)
+        {
+            var entites = Entities.OfType<T>();
+            return predicate != null ? entites.Where(predicate) : entites;
+        }
+
         public void ForEachEntity(Action<GameObject> action)
         {
             Entities.ForEach(action);
@@ -120,6 +132,8 @@ namespace BrewmasterEngine.Scenes
         public void Unload()
         {
             DebugConsole.Log("Unloading Scene[" + Name + "]...");
+
+            ForEachEntity((e) => e is IDisposable, (e) => (e as IDisposable).Dispose());
 
             Entities.Clear();
             IsPaused = false;
