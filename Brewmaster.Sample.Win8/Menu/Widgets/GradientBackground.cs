@@ -1,10 +1,10 @@
 ﻿using System;
 using BrewmasterEngine.DataTypes;
 using BrewmasterEngine.Framework;
+using BrewmasterEngine.Graphics;
 using BrewmasterEngine.Graphics.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using BrewmasterEngine.Extensions;
 
 namespace SampleGame.Menu.Widgets
 {

@@ -58,6 +58,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DataTypes\GameObjectCollection.cs" />
+    <Compile Include="DataTypes\IGameObject.cs" />
     <Compile Include="DataTypes\IPoolable.cs" />
     <Compile Include="DataTypes\ObjectPool.cs" />
     <Compile Include="GUI\Element.cs" />
@@ -73,7 +74,7 @@
     <Compile Include="Framework\Game2D.cs" />
     <Compile Include="DataTypes\GameManager.cs" />
     <Compile Include="DataTypes\GameObject.cs" />
-    <Compile Include="Graphics\Content\ContentHandler.cs" />
+    <Compile Include="Graphics\ContentHandler.cs" />
     <Compile Include="Graphics\Content\Gradient.cs" />
     <Compile Include="Graphics\Sprite.cs" />
     <Compile Include="Graphics\Sprite2D.cs" />

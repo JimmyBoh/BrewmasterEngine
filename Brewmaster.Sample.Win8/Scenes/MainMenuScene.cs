@@ -17,14 +17,9 @@ namespace SampleGame.Scenes
 
         protected override void Load(Action done)
         {
-            var windowBounds = CurrentGame.Window.ClientBounds;
-            var windowSize = new Vector2(windowBounds.Width, windowBounds.Height);
-
             this.Add(new GradientBackground("OrangeBlueVertical", Color.Orange, Color.Blue, 500.0f));
-            this.Add(new MenuText("Main Menu", windowSize * new Vector2(0.5f, 0.2f)));
-            this.Add(new MenuButton("Start Game", windowSize*new Vector2(0.5f, 0.8f), LoadSceneOnButtonUp("game"), onButtonDown));
-
-            this.Add(new MenuButton("Back to Intro", windowSize * new Vector2(0.5f, 0.9f), LoadSceneOnButtonUp("intro"), onButtonDown));
+            this.Add(new MenuText("Main Menu", CurrentGame.WindowSize * new Vector2(0.5f, 0.2f)));
+            this.Add(new MenuButton("Start Game", CurrentGame.WindowSize * new Vector2(0.5f, 0.8f), LoadSceneOnButtonUp("game"), onButtonDown));
 
             done();
         }

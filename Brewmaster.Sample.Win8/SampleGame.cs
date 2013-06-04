@@ -4,29 +4,21 @@ using System.Linq;
 using BrewmasterEngine.DataTypes;
 using BrewmasterEngine.Debugging;
 using BrewmasterEngine.Framework;
+using BrewmasterEngine.Graphics;
 using BrewmasterEngine.Scenes;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
 using SampleGame.Scenes;
 
 namespace SampleGame
 {
-    public class BrewGame : Game2D
+    public class SampleExplorer : Game2D
     {
-        public BrewGame() : base()
+        public SampleExplorer() : base()
         {
             BackgroundColor = Color.Black;
             DebugMode = true;
-        }
-
-        public override IEnumerable<string> PreloadTextures
-        {
-            get { return new string[]{}; }
-        }
-
-        public override IEnumerable<string> PreloadFonts
-        {
-            get { return new [] {"DebugFont"}; }
         }
 
         public override GestureType EnabledGestures
@@ -56,10 +48,6 @@ namespace SampleGame
             }
         }
 
-        public override void Init()
-        {
-            
-        }
 
         public override IEnumerable<Scene> Scenes
         {
@@ -67,12 +55,27 @@ namespace SampleGame
             {
                 return new Scene[]
                     {
-                        new IntroScene(),
                         new MainMenuScene(),
                         new GameScene()
                     };
             }
         }
+
+        public override void PreloadContent()
+        {
+            ContentHandler.Preload<SpriteFont>(new[] {"DebugFont"});
+        }
+
+#if NETFX_CORE
+public override void OnSnap(bool isSmallSnap)
+        {
+            if (isSmallSnap)
+            {
+                CurrentGame.SceneManager.PauseCurrentScene();
+            }
+        }
+#endif
+
 
         protected override void Update(GameTime gameTime)
         {

@@ -127,42 +127,25 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Brewmaster.Sample.PC\Entities\Ball.cs">
-      <Link>Entities\Ball.cs</Link>
-    </Compile>
-    <Compile Include="..\Brewmaster.Sample.PC\Menu\Widgets\GradientBackground.cs">
-      <Link>Menu\Widgets\GradientBackground.cs</Link>
-    </Compile>
-    <Compile Include="..\Brewmaster.Sample.PC\Menu\Widgets\MenuButton.cs">
-      <Link>Menu\Widgets\MenuButton.cs</Link>
-    </Compile>
-    <Compile Include="..\Brewmaster.Sample.PC\Menu\Widgets\MenuText.cs">
-      <Link>Menu\Widgets\MenuText.cs</Link>
-    </Compile>
-    <Compile Include="..\Brewmaster.Sample.PC\SampleGame.cs">
-      <Link>SampleGame.cs</Link>
-    </Compile>
-    <Compile Include="..\Brewmaster.Sample.PC\Scenes\GameScene.cs">
-      <Link>Scenes\GameScene.cs</Link>
-    </Compile>
-    <Compile Include="..\Brewmaster.Sample.PC\Scenes\IntroScene.cs">
-      <Link>Scenes\IntroScene.cs</Link>
-    </Compile>
-    <Compile Include="..\Brewmaster.Sample.PC\Scenes\MainMenuScene.cs">
-      <Link>Scenes\MainMenuScene.cs</Link>
-    </Compile>
+    <Compile Include="Entities\Ball.cs" />
+    <Compile Include="Entities\BallManager.cs" />
+    <Compile Include="Menu\Widgets\GradientBackground.cs" />
+    <Compile Include="Menu\Widgets\MenuButton.cs" />
+    <Compile Include="Menu\Widgets\MenuText.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SampleGame.cs" />
+    <Compile Include="Scenes\GameScene.cs" />
+    <Compile Include="Scenes\MainMenuScene.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
-    <Content Include="..\Brewmaster.Sample.PC\Content\DebugFont.xnb">
-      <Link>Content\DebugFont.xnb</Link>
+    <None Include="Brewmaster.Sample.Win8_TemporaryKey.pfx" />
+    <Content Include="Content\DebugFont.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Brewmaster.Sample.Win8_TemporaryKey.pfx" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Assets\Logo.png" />

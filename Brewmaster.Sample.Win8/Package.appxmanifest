@@ -16,7 +16,7 @@
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Brewmaster.Sample.Win8.App">
       <VisualElements DisplayName="Brewmaster.Sample.Win8" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="Brewmaster.Sample.Win8" ForegroundText="light" BackgroundColor="#464646">
-        <DefaultTile ShowName="allLogos" />
+        <DefaultTile ShowName="noLogos" />
         <SplashScreen Image="Assets\SplashScreen.png" />
         <InitialRotationPreference>
           <Rotation Preference="landscape" />

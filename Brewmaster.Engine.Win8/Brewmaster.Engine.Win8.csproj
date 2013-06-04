@@ -127,64 +127,32 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="..\Brewmaster.Engine.PC\DataTypes\GameManager.cs">
-      <Link>DataTypes\GameManager.cs</Link>
-    </Compile>
-    <Compile Include="..\Brewmaster.Engine.PC\DataTypes\GameObject.cs">
-      <Link>DataTypes\GameObject.cs</Link>
-    </Compile>
-    <Compile Include="..\Brewmaster.Engine.PC\DataTypes\GameObjectCollection.cs">
-      <Link>DataTypes\GameObjectCollection.cs</Link>
-    </Compile>
-    <Compile Include="..\Brewmaster.Engine.PC\DataTypes\PriorityDictionary.cs">
-      <Link>DataTypes\PriorityDictionary.cs</Link>
-    </Compile>
-    <Compile Include="..\Brewmaster.Engine.PC\Extensions\MathExtensions.cs">
-      <Link>Extensions\MathExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\Brewmaster.Engine.PC\Extensions\PrimitivesExtension.cs">
-      <Link>Extensions\PrimitivesExtension.cs</Link>
-    </Compile>
-    <Compile Include="..\Brewmaster.Engine.PC\Extensions\XnaExtensions.cs">
-      <Link>Extensions\XnaExtensions.cs</Link>
-    </Compile>
-    <Compile Include="..\Brewmaster.Engine.PC\Framework\CurrentGame.cs">
-      <Link>Framework\CurrentGame.cs</Link>
-    </Compile>
-    <Compile Include="..\Brewmaster.Engine.PC\Framework\Game2D.cs">
-      <Link>Framework\Game2D.cs</Link>
-    </Compile>
-    <Compile Include="..\Brewmaster.Engine.PC\Graphics\Content\ContentHandler.cs">
-      <Link>Graphics\Content\ContentHandler.cs</Link>
-    </Compile>
-    <Compile Include="..\Brewmaster.Engine.PC\Graphics\Content\Gradient.cs">
-      <Link>Graphics\Content\Gradient.cs</Link>
-    </Compile>
-    <Compile Include="..\Brewmaster.Engine.PC\Graphics\Sprite.cs">
-      <Link>Graphics\Sprite.cs</Link>
-    </Compile>
-    <Compile Include="..\Brewmaster.Engine.PC\Graphics\Sprite2D.cs">
-      <Link>Graphics\Sprite2D.cs</Link>
-    </Compile>
-    <Compile Include="..\Brewmaster.Engine.PC\Graphics\SpriteText.cs">
-      <Link>Graphics\SpriteText.cs</Link>
-    </Compile>
-    <Compile Include="..\Brewmaster.Engine.PC\Scenes\Scene.cs">
-      <Link>Scenes\Scene.cs</Link>
-    </Compile>
-    <Compile Include="..\Brewmaster.Engine.PC\Scenes\SceneManager.cs">
-      <Link>Scenes\SceneManager.cs</Link>
-    </Compile>
-    <Compile Include="..\Brewmaster.Engine.PC\Tools\DebugConsole.cs">
-      <Link>Tools\DebugConsole.cs</Link>
-    </Compile>
-    <Compile Include="..\Brewmaster.Engine.PC\Tools\FpsCounter.cs">
-      <Link>Tools\FpsCounter.cs</Link>
-    </Compile>
-    <Compile Include="..\Brewmaster.Engine.PC\Tools\Profiler.cs">
-      <Link>Tools\Profiler.cs</Link>
-    </Compile>
+    <Compile Include="DataTypes\GameManager.cs" />
+    <Compile Include="DataTypes\GameObject.cs" />
+    <Compile Include="DataTypes\GameObjectCollection.cs" />
+    <Compile Include="DataTypes\IGameObject.cs" />
+    <Compile Include="DataTypes\IPoolable.cs" />
+    <Compile Include="DataTypes\ObjectPool.cs" />
+    <Compile Include="DataTypes\PriorityDictionary.cs" />
+    <Compile Include="Extensions\MathExtensions.cs" />
+    <Compile Include="Extensions\PrimitivesExtension.cs" />
+    <Compile Include="Extensions\XnaExtensions.cs" />
+    <Compile Include="Framework\CurrentGame.cs" />
+    <Compile Include="Framework\Game2D.cs" />
+    <Compile Include="Graphics\ContentHandler.cs" />
+    <Compile Include="Graphics\Content\Gradient.cs" />
+    <Compile Include="Graphics\Sprite.cs" />
+    <Compile Include="Graphics\Sprite2D.cs" />
+    <Compile Include="Graphics\SpriteText.cs" />
+    <Compile Include="GUI\Element.cs" />
+    <Compile Include="GUI\Enums.cs" />
+    <Compile Include="GUI\Panel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Scenes\Scene.cs" />
+    <Compile Include="Scenes\SceneManager.cs" />
+    <Compile Include="Tools\DebugConsole.cs" />
+    <Compile Include="Tools\FpsCounter.cs" />
+    <Compile Include="Tools\Profiler.cs" />
   </ItemGroup>
   <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">

@@ -13,7 +13,7 @@ namespace Brewmaster.Sample.Win8
         /// </summary>
         static void Main()
         {
-            var factory = new MonoGame.Framework.GameFrameworkViewSource<BrewGame>();
+            var factory = new MonoGame.Framework.GameFrameworkViewSource<SampleExplorer>();
             Windows.ApplicationModel.Core.CoreApplication.Run(factory);
         }
     }

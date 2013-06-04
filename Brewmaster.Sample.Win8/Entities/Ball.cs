@@ -1,41 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using BrewmasterEngine.DataTypes;
-using BrewmasterEngine.Extensions;
 using BrewmasterEngine.Framework;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
 namespace SampleGame.Entities
 {
-    public class Ball : GameObject
+    public struct Ball : IPoolable, IGameObject
     {
-        #region Constructor
-
-        public Ball()
-        {
-            Radius = CurrentGame.Random.Next(4, 32);
-            ZIndex = (int)radius - 32;
-            maxSpeed = (float)Math.Pow(Radius - 3, 2);
-            darkness = radius/32;
-
-            Position = CurrentGame.Window.ClientBounds.GetRandomPoint();
-            
-            var dirX = CurrentGame.Random.Next(0, 2);
-            if (dirX == 0)
-                dirX = -1;
-
-            var dirY = CurrentGame.Random.Next(-1, 2);
-            if (dirY == 0)
-                dirY = -1;
-
-            Velocity = new Vector2(CurrentGame.Random.Next(100, 500) * dirX, CurrentGame.Random.Next(100, 500) * dirY);
-        }
-
-        #endregion
-
         #region Properties
+
+        public string Name { get; set; }
+        public bool IsActive { get; set; }
+        public bool IsVisible { get; set; }
+        public int ZIndex { get; set; }
 
         private float radius;
 
@@ -69,15 +47,17 @@ namespace SampleGame.Entities
         }
 
         public Vector2 Velocity { get; set; }
-        private float acceleration = -1.1f;
-        private readonly float maxSpeed;
-        private readonly float darkness;
+        private float acceleration;
+        private float maxSpeed;
+        private float darkness;
 
         #endregion
 
         #region Methods
 
-        public override void Update(GameTime gameTime)
+        
+
+        public void Update(GameTime gameTime)
         {
             if (CurrentGame.IsPaused) return;
 
@@ -148,12 +128,39 @@ namespace SampleGame.Entities
             Velocity = new Vector2(deltaX, deltaY);
         }
 
-        public override void Draw(GameTime elapsedTime)
+        public void Draw(GameTime elapsedTime)
         {
-            spriteBatch.DrawCircle(Position, 1  *Radius / 4, 8, Color.Yellow * darkness, 1.0f);
-            spriteBatch.DrawCircle(Position, 2 * Radius / 4, 8, Color.Orange * darkness, 2.0f);
-            spriteBatch.DrawCircle(Position, 3 * Radius / 4, 8, Color.OrangeRed * darkness, 3.0f);
-            spriteBatch.DrawCircle(Position, 4 * Radius / 4, 8, Color.Red * darkness, 4.0f);
+            CurrentGame.SpriteBatch.DrawCircle(Position, 1 * Radius / 4, 8, Color.Yellow * darkness, 1.0f);
+            CurrentGame.SpriteBatch.DrawCircle(Position, 2 * Radius / 4, 8, Color.Orange * darkness, 2.0f);
+            CurrentGame.SpriteBatch.DrawCircle(Position, 3 * Radius / 4, 8, Color.OrangeRed * darkness, 3.0f);
+            CurrentGame.SpriteBatch.DrawCircle(Position, 4 * Radius / 4, 8, Color.Red * darkness, 4.0f);
+        }
+
+        #endregion
+
+        #region IPoolable
+
+        public bool IsFree { get; set; }
+
+        public void Reset()
+        {
+            acceleration = -1.1f;
+            Radius = CurrentGame.Random.Next(4, 32);
+            ZIndex = (int) radius - 32;
+            maxSpeed = (float) Math.Pow(Radius - 3, 2);
+            darkness = radius/32;
+
+            Position = CurrentGame.Window.ClientBounds.GetRandomPoint();
+
+            var dirX = CurrentGame.Random.Next(0, 2);
+            if (dirX == 0)
+                dirX = -1;
+
+            var dirY = CurrentGame.Random.Next(-1, 2);
+            if (dirY == 0)
+                dirY = -1;
+
+            Velocity = new Vector2(CurrentGame.Random.Next(100, 500)*dirX, CurrentGame.Random.Next(100, 500)*dirY);
         }
 
         #endregion

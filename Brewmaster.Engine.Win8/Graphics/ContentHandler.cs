@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using BrewmasterEngine.Framework;
 
-namespace BrewmasterEngine.Graphics.Content
+namespace BrewmasterEngine.Graphics
 {
     /// <summary>
     /// Gives global acces to any Texture2D, SpriteFont, etc. Also allows for caching of generated Texture2D's.
@@ -35,9 +35,7 @@ namespace BrewmasterEngine.Graphics.Content
         public static void Preload<T>(IEnumerable<string> contentPath)
         {
             foreach (var path in contentPath)
-            {
                 CurrentGame.Content.Load<T>(path);
-            }
         }
 
         /// <summary>
