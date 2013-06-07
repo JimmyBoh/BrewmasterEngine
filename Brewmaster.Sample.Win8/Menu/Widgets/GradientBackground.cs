@@ -28,8 +28,8 @@ namespace SampleGame.Menu.Widgets
         private void UpdateBounds(object sender = null, EventArgs args = null)
         {
             Bounds = isHorizontal 
-                ? new Rectangle((int)position.X, (int)position.Y, CurrentGame.MaxTextureSize, CurrentGame.Window.ClientBounds.Height) 
-                : new Rectangle((int)position.X, (int)position.Y, CurrentGame.Window.ClientBounds.Width, CurrentGame.MaxTextureSize);
+                ? new Rectangle((int)position.X, (int)position.Y, 4096, CurrentGame.Window.ClientBounds.Height) 
+                : new Rectangle((int)position.X, (int)position.Y, CurrentGame.Window.ClientBounds.Width, 4096);
 
 
             textureName = ContentHandler.Load(Name, isHorizontal

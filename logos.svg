@@ -7,6 +7,7 @@
    xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
    xmlns:svg="http://www.w3.org/2000/svg"
    xmlns="http://www.w3.org/2000/svg"
+   xmlns:xlink="http://www.w3.org/1999/xlink"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    width="744.09448819"
@@ -14,9 +15,20 @@
    id="svg2"
    version="1.1"
    inkscape:version="0.48.4 r9939"
-   sodipodi:docname="New document 1">
+   sodipodi:docname="logos.svg">
   <defs
      id="defs4">
+    <linearGradient
+       id="linearGradient3798">
+      <stop
+         style="stop-color:#ffffff;stop-opacity:1;"
+         offset="0"
+         id="stop3800" />
+      <stop
+         style="stop-color:#ffffff;stop-opacity:0.35294119;"
+         offset="1"
+         id="stop3802" />
+    </linearGradient>
     <clipPath
        clipPathUnits="userSpaceOnUse"
        id="clipPath2999">
@@ -39,6 +51,61 @@
          id="rect3013"
          style="fill:#f2f2f2;fill-opacity:1;fill-rule:nonzero;stroke:none" />
     </clipPath>
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3798"
+       id="radialGradient3804"
+       cx="287.93024"
+       cy="167.28419"
+       fx="287.93024"
+       fy="167.28419"
+       r="152.53304"
+       gradientTransform="matrix(1.1179021,0.00642216,-0.00602379,0.95362503,-22.903343,8.2868089)"
+       gradientUnits="userSpaceOnUse" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3798"
+       id="radialGradient3810"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.1179021,0.00642216,-0.00602379,0.95362503,-22.903343,8.2868089)"
+       cx="287.93024"
+       cy="167.28419"
+       fx="287.93024"
+       fy="167.28419"
+       r="152.53304" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3798"
+       id="radialGradient3814"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.1179021,0.00642216,-0.00602379,0.95362503,-22.903343,8.2868089)"
+       cx="287.93024"
+       cy="167.28419"
+       fx="287.93024"
+       fy="167.28419"
+       r="152.53304" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3798"
+       id="radialGradient3822"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.1179021,0.00642216,-0.00602379,0.95362503,-22.903343,8.2868089)"
+       cx="287.93024"
+       cy="167.28419"
+       fx="287.93024"
+       fy="167.28419"
+       r="152.53304" />
+    <radialGradient
+       inkscape:collect="always"
+       xlink:href="#linearGradient3798"
+       id="radialGradient3826"
+       gradientUnits="userSpaceOnUse"
+       gradientTransform="matrix(1.1179021,0.00642216,-0.00602379,0.95362503,-22.903343,8.2868089)"
+       cx="287.93024"
+       cy="167.28419"
+       fx="287.93024"
+       fy="167.28419"
+       r="152.53304" />
   </defs>
   <sodipodi:namedview
      id="base"
@@ -47,9 +114,9 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.49497475"
-     inkscape:cx="-682.20655"
-     inkscape:cy="601.97506"
+     inkscape:zoom="0.9899495"
+     inkscape:cx="90.225125"
+     inkscape:cy="827.80027"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
      showgrid="false"
@@ -266,5 +333,25 @@
        id="path3864"
        style="fill:#f5f5f5;fill-opacity:0.33953486;fill-rule:nonzero;stroke:none"
        sodipodi:type="arc" />
+    <rect
+       style="fill:#ff0000;fill-opacity:1;stroke:none"
+       id="rect3820"
+       width="693.97479"
+       height="643.46716"
+       x="-118.18784"
+       y="-88.100037" />
+    <path
+       transform="matrix(0.98339353,0,0,1.0311974,-62.703856,-15.568035)"
+       d="m 422.24376,224.03709 a 152.53304,145.46196 0 1 1 -305.06607,0 152.53304,145.46196 0 1 1 305.06607,0 z"
+       sodipodi:ry="145.46196"
+       sodipodi:rx="152.53304"
+       sodipodi:cy="224.03709"
+       sodipodi:cx="269.71072"
+       id="path3796"
+       style="fill:url(#radialGradient3826);fill-opacity:1;fill-rule:evenodd;stroke:none"
+       sodipodi:type="arc"
+       inkscape:export-filename="C:\Projects\GitHub\BrewmasterEngine\Brewmaster.Sample.Win8\Content\ball.png"
+       inkscape:export-xdpi="60"
+       inkscape:export-ydpi="60" />
   </g>
 </svg>

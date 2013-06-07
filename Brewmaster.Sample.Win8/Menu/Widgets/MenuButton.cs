@@ -17,6 +17,7 @@ namespace SampleGame.Menu.Widgets
             OnUp = onUp;
             OnDown = onDown;
             Rotation = CurrentGame.Random.Next(-3, 3)/100.0f;
+            ForegroundColor = Color.DarkSlateGray;
 
             positionAspectRatio = position / CurrentGame.Window.GetSize();
             CurrentGame.Window.ClientSizeChanged += OnWindowResize;

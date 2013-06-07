@@ -1,11 +1,14 @@
 ﻿
 
+using System;
+
 namespace BrewmasterEngine.GUI
 {
     public enum Layout
     {
-        None       = 0,
+        Layered   = 0,
         Vertical   = 1 << 0,
-        Horizontal = 1 << 1
+        Horizontal = 1 << 1,
+        Absolute   = 1 << 2
     }
 }

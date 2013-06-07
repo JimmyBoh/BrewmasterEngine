@@ -1,15 +1,26 @@
 ﻿using System;
+using System.Linq;
 using BrewmasterEngine.DataTypes;
 using BrewmasterEngine.Framework;
+using BrewmasterEngine.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace SampleGame.Entities
+namespace SampleGame.Scenes.BouncingBall.Entities
 {
     public struct Ball : IPoolable, IGameObject
     {
+        #region Constants
+
+        private const float GRAVITY = 500f;
+        private const float PULL_SPEED = 10f;
+
+        #endregion
+
+
         #region Properties
 
+        public string TextureName { get; set; }
         public string Name { get; set; }
         public bool IsActive { get; set; }
         public bool IsVisible { get; set; }
@@ -27,6 +38,8 @@ namespace SampleGame.Entities
             }
         }
 
+        public float Scale { get; private set; }
+
         private Vector2 position;
 
         public Vector2 PrevPosition { get; set; }
@@ -43,12 +56,13 @@ namespace SampleGame.Entities
         public Rectangle Bounds { get; private set; }
         private void UpdateBounds()
         {
-            Bounds = new Rectangle((int) (Position.X - radius), (int) (Position.Y - radius), (int) radius*2, (int) radius*2);
+            Scale = (2f * Radius) / ContentHandler.Retrieve<Texture2D>(TextureName).Width;
+            Bounds = new Rectangle((int) (Position.X - radius), (int) (Position.Y - radius),
+                                   (int) radius*2, (int) radius*2);
         }
 
         public Vector2 Velocity { get; set; }
-        private float acceleration;
-        private float maxSpeed;
+        public Color Color { get; set; }
         private float darkness;
 
         #endregion
@@ -63,13 +77,11 @@ namespace SampleGame.Entities
 
             PrevPosition = position;
 
-            if (Math.Abs(Velocity.X).Equals(maxSpeed) && Math.Abs(Velocity.Y).Equals(maxSpeed) && acceleration.Equals(-1.1f))
-                acceleration = -0.9f;
-            else if (Math.Abs(Velocity.X) < 200.0f && Math.Abs(Velocity.Y) < 200.0f && acceleration.Equals(-0.9f))
-                acceleration = -1.1f;
-
             updateX();
             updateY();
+
+            updateTouch();
+
 
             Position += Velocity*(float) gameTime.ElapsedGameTime.TotalSeconds;
         }
@@ -81,14 +93,16 @@ namespace SampleGame.Entities
 
             if (Bounds.Left < 0 || Bounds.Right > CurrentGame.Window.ClientBounds.Width)
             {
-                velX *= acceleration;
-                velX = MathHelper.Clamp(velX, -maxSpeed, maxSpeed);
+                velX *= -1f;
 
                 if (Bounds.Left < 0)
                     posX = radius;
                 else
                     posX = CurrentGame.Window.ClientBounds.Width - Radius;
             }
+
+            if (Math.Abs(velX) < 0.9f)
+                velX = 0;
 
             Velocity = new Vector2(velX, Velocity.Y);
             Position = new Vector2(posX, Position.Y);
@@ -97,43 +111,51 @@ namespace SampleGame.Entities
         private void updateY()
         {
             var velY = Velocity.Y;
+            var velX = Velocity.X;
             var posY = Position.Y;
 
             if (Bounds.Top < 0 || Bounds.Bottom > CurrentGame.Window.ClientBounds.Height)
             {
-                velY *= acceleration;
-                velY = MathHelper.Clamp(velY, -maxSpeed, maxSpeed);
+                velY *= -0.67f;
+                velX *= 0.80f;
+                
 
                 if (Bounds.Top < 0)
                     posY = radius;
                 else
                     posY = CurrentGame.Window.ClientBounds.Height - Radius;
             }
+            
+            
+            velY += GRAVITY * (float)CurrentGame.GameTime.ElapsedGameTime.TotalSeconds;
 
-            Velocity = new Vector2(Velocity.X, velY);
+            if (Math.Abs(velY) < 0.9f)
+                velY = 0;
+
+            if (Math.Abs(velX) < 0.9f)
+                velX = 0;
+
+
+            Velocity = new Vector2(velX, velY);
             Position = new Vector2(Position.X, posY);
         }
 
-        public void Reverse()
+        private void updateTouch()
         {
-            var deltaX = Velocity.X;
-            var deltaY = Velocity.Y;
+            if (CurrentGame.TouchState.Any())
+            {
+                var touch = CurrentGame.TouchState.First();
 
-            deltaX *= acceleration;
-            deltaX = MathHelper.Clamp(deltaX, -maxSpeed, maxSpeed);
+                var pull = new Vector2(touch.Position.X - Position.X, touch.Position.Y - Position.Y);
+                pull = Vector2.Normalize(pull)*PULL_SPEED*Radius;
 
-            deltaY *= acceleration;
-            deltaY = MathHelper.Clamp(deltaY, -maxSpeed, maxSpeed);
-
-            Velocity = new Vector2(deltaX, deltaY);
+                Velocity += pull;
+            }
         }
 
         public void Draw(GameTime elapsedTime)
         {
-            CurrentGame.SpriteBatch.DrawCircle(Position, 1 * Radius / 4, 8, Color.Yellow * darkness, 1.0f);
-            CurrentGame.SpriteBatch.DrawCircle(Position, 2 * Radius / 4, 8, Color.Orange * darkness, 2.0f);
-            CurrentGame.SpriteBatch.DrawCircle(Position, 3 * Radius / 4, 8, Color.OrangeRed * darkness, 3.0f);
-            CurrentGame.SpriteBatch.DrawCircle(Position, 4 * Radius / 4, 8, Color.Red * darkness, 4.0f);
+            CurrentGame.SpriteBatch.Draw(ContentHandler.Retrieve<Texture2D>(TextureName), Bounds, Color*darkness);
         }
 
         #endregion
@@ -144,10 +166,10 @@ namespace SampleGame.Entities
 
         public void Reset()
         {
-            acceleration = -1.1f;
+            TextureName = "Ball";
             Radius = CurrentGame.Random.Next(4, 32);
             ZIndex = (int) radius - 32;
-            maxSpeed = (float) Math.Pow(Radius - 3, 2);
+            Color = new Color((float)CurrentGame.Random.NextDouble(), (float)CurrentGame.Random.NextDouble(), (float)CurrentGame.Random.NextDouble());
             darkness = radius/32;
 
             Position = CurrentGame.Window.ClientBounds.GetRandomPoint();
@@ -160,7 +182,7 @@ namespace SampleGame.Entities
             if (dirY == 0)
                 dirY = -1;
 
-            Velocity = new Vector2(CurrentGame.Random.Next(100, 500)*dirX, CurrentGame.Random.Next(100, 500)*dirY);
+            Velocity = new Vector2(CurrentGame.Random.Next(10, 100)*dirX, CurrentGame.Random.Next(10, 100)*dirY);
         }
 
         #endregion

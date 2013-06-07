@@ -141,12 +141,15 @@
     <Compile Include="Framework\Game2D.cs" />
     <Compile Include="Graphics\ContentHandler.cs" />
     <Compile Include="Graphics\Content\Gradient.cs" />
+    <Compile Include="Graphics\Content\StaticImage.cs" />
     <Compile Include="Graphics\Sprite.cs" />
     <Compile Include="Graphics\Sprite2D.cs" />
     <Compile Include="Graphics\SpriteText.cs" />
     <Compile Include="GUI\Element.cs" />
+    <Compile Include="GUI\Elements\Image.cs" />
+    <Compile Include="GUI\Elements\Panel.cs" />
     <Compile Include="GUI\Enums.cs" />
-    <Compile Include="GUI\Panel.cs" />
+    <Compile Include="GUI\GuiManager.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scenes\Scene.cs" />
     <Compile Include="Scenes\SceneManager.cs" />

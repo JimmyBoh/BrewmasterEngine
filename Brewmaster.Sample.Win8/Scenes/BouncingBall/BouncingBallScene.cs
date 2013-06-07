@@ -1,15 +1,14 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
 using BrewmasterEngine.Framework;
 using BrewmasterEngine.Scenes;
 using Microsoft.Xna.Framework;
-using SampleGame.Entities;
 using SampleGame.Menu.Widgets;
+using SampleGame.Scenes.BouncingBall.Entities;
 
-namespace SampleGame.Scenes
+namespace SampleGame.Scenes.BouncingBall
 {
-    public class GameScene : Scene
+    public class BouncingBallScene : Scene
     {
         #region Constants
 
@@ -19,7 +18,7 @@ namespace SampleGame.Scenes
 
         #region Constructor
 
-        public GameScene() : base("game")
+        public BouncingBallScene() : base("game")
         {
 
         }
@@ -32,10 +31,9 @@ namespace SampleGame.Scenes
 
         #endregion
 
-
         #region Methods
 
-        protected override void Load(Action done)
+        protected override void Load()
         {
             ballMgr = new BallManager();
 
@@ -94,8 +92,6 @@ namespace SampleGame.Scenes
                                         }, onButtonDown) {AddTags = new[] {MENU_TAG}});
 
             this.ForEachEntity(o => o.Tags.Contains(MENU_TAG), o => o.IsVisible = false);
-
-            done();
         }
 
         private void onButtonDown(MenuButton button)
@@ -117,7 +113,10 @@ namespace SampleGame.Scenes
 
         public override void Update(GameTime gameTime)
         {
-            base.Update(gameTime);
+            if(CurrentGame.IsPaused)
+                this.ForEachEntity(o => o.Tags.Contains(MENU_TAG), o => o.Update(gameTime));
+            else
+                this.ForEachEntity(o => !o.Tags.Contains(MENU_TAG), o => o.Update(gameTime));
         }
 
 

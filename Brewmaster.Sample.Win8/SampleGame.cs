@@ -9,7 +9,8 @@ using BrewmasterEngine.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
-using SampleGame.Scenes;
+using SampleGame.Scenes.BouncingBall;
+using SampleGame.Scenes.MainMenu;
 
 namespace SampleGame
 {
@@ -56,7 +57,7 @@ namespace SampleGame
                 return new Scene[]
                     {
                         new MainMenuScene(),
-                        new GameScene()
+                        new BouncingBallScene()
                     };
             }
         }
@@ -71,7 +72,7 @@ public override void OnSnap(bool isSmallSnap)
         {
             if (isSmallSnap)
             {
-                CurrentGame.SceneManager.PauseCurrentScene();
+                //CurrentGame.SceneManager.PauseCurrentScene();
             }
         }
 #endif

@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using BrewmasterEngine.DataTypes;
 using Microsoft.Xna.Framework;
 
-namespace SampleGame.Entities
+namespace SampleGame.Scenes.BouncingBall.Entities
 {
     public class BallManager : GameObject
     {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using BrewmasterEngine.DataTypes;
+using BrewmasterEngine.GUI;
 using BrewmasterEngine.Tools;
 using Microsoft.Xna.Framework;
 
@@ -15,6 +16,7 @@ namespace BrewmasterEngine.Scenes
         {
             Name = name;
             Entities = new GameObjectCollection();
+            GuiManager = new GuiManager();
         }
 
         #endregion
@@ -26,6 +28,8 @@ namespace BrewmasterEngine.Scenes
         public bool IsPaused { get; private set; }
 
         public GameObjectCollection Entities { get; private set; }
+
+        public GuiManager GuiManager { get; private set; }
 
         #endregion
 
@@ -98,15 +102,15 @@ namespace BrewmasterEngine.Scenes
         {
             DebugConsole.Log("Loading Scene[" + Name + "]...");
 
-            Load(() =>
-            {
-                IsActive = true;
-                IsPaused = false;
-                if (callback != null) callback(this);
-            });
+            Load();
+
+            IsActive = true;
+            IsPaused = false;
+
+            if (callback != null) callback(this);
         }
 
-        protected abstract void Load(Action done);
+        protected abstract void Load();
 
         internal void PauseScene()
         {
@@ -124,12 +128,16 @@ namespace BrewmasterEngine.Scenes
         /// <param name="gameTime"></param>
         public virtual void Update(GameTime gameTime)
         {
+            GuiManager.Update(gameTime);
+
             ForEachActiveEntity((entity) => entity.Update(gameTime));
         }
 
         public virtual void Draw(GameTime gameTime)
         {
             ForEachVisibleEntity((entity) => entity.Draw(gameTime));
+
+            GuiManager.Draw(gameTime);
         }
 
         public void Unload()
