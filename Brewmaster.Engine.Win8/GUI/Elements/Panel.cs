@@ -36,10 +36,15 @@ namespace BrewmasterEngine.GUI.Elements
 
         #endregion
 
+        #region Peoperties
+
+        private readonly Color color = Color.White.Randomize();
+        #endregion
+
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            spriteBatch.DrawRectangle(RenderBounds, Color.Blue);
-            spriteBatch.DrawString(ContentHandler.Retrieve<SpriteFont>("DebugFont"), ID, RenderBounds.Location.ToVector2(), Color.Black);
+            spriteBatch.DrawRectangle(RenderBounds, color);
+            spriteBatch.DrawString(ContentHandler.Retrieve<SpriteFont>("DebugFont"), ID, RenderBounds.Location.ToVector2(), color);
 
             foreach (var child in Children)
                 child.Render(spriteBatch, gameTime);

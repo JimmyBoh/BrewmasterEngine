@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
-using System.Linq;
 using BrewmasterEngine.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Content;
@@ -33,8 +32,8 @@ namespace BrewmasterEngine.Framework
         public static Random Random { get; private set; }
 
         public static bool DebugMode { get; set; }
+        
         private static Game2D Game;
-
         public static void SetGame(Game2D engine)
         {
             Game = engine;
@@ -55,6 +54,30 @@ namespace BrewmasterEngine.Framework
         public static Scene CurrentScene
         {
             get { return SceneManager.CurrentScene; }
+        }
+
+        /// <summary>
+        /// Whether the current scene is paused of not.
+        /// </summary>
+        public static bool IsPaused
+        {
+            get { return CurrentScene.IsPaused; }
+        }
+
+        /// <summary>
+        /// Pauses the current scene.
+        /// </summary>
+        public static void PauseCurrentScene()
+        {
+            CurrentScene.PauseScene();
+        }
+
+        /// <summary>
+        /// Unpauses the current scene.
+        /// </summary>
+        public static void UnpauseCurrentScene()
+        {
+            CurrentScene.UnpauseScene();
         }
 
         /// <summary>
@@ -81,13 +104,7 @@ namespace BrewmasterEngine.Framework
             get { return Game.Content; }
         }
 
-        /// <summary>
-        /// Whether the current scene is paused of not.
-        /// </summary>
-        public static bool IsPaused
-        {
-            get { return SceneManager.CurrentScene.IsPaused; }
-        }
+
 
         /// <summary>
         /// Current GameTime for the Update loop.

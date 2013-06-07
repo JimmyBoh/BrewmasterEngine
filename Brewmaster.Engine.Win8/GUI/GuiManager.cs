@@ -1,46 +1,52 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
+using Brewmaster.Engine.Win8.Framework;
 using BrewmasterEngine.DataTypes;
 using BrewmasterEngine.Framework;
 using BrewmasterEngine.GUI.Elements;
 using Microsoft.Xna.Framework;
+using Windows.Data.Xml.Dom;
 
 namespace BrewmasterEngine.GUI
 {
     public class GuiManager : GameManager
     {
-        public Panel Root { get; set; }
+        private Panel root;
+        private string layoutName;
 
         #region Methods
 
-        public Element CreateHorizontalLayout()
+        public void CreateHorizontalLayout(string name, Action<Element> build)
         {
-            return createLayout(Layout.Horizontal);
+            createLayout(Layout.Horizontal, name, build);
         }
 
-        public Element CreateVerticalLayout()
+        public void CreateVerticalLayout(string name, Action<Element> build)
         {
-            return createLayout(Layout.Vertical);
+            createLayout(Layout.Vertical, name, build);
         }
 
-        public Element CreateAbsoluteLayout()
+        public void CreateAbsoluteLayout(string name, Action<Element> build)
         {
-            return createLayout(Layout.Absolute);
+            createLayout(Layout.Absolute, name, build);
         }
 
-        private Element createLayout(Layout layout)
+        private void createLayout(Layout layout, string name, Action<Element> build)
         {
-            Root = new Panel(1, layout)
+            layoutName = name;
+
+            root = new Panel(1, layout)
             {
                 Bounds = CurrentGame.Window.ClientBounds,
                 ID = "r"
             };
 
+            build(root);
+
             CurrentGame.Window.ClientSizeChanged -= reflowOnResize;
             CurrentGame.Window.ClientSizeChanged += reflowOnResize;
-
-            return Root;
         }
 
         private void reflowOnResize(object sender, EventArgs e)
@@ -50,31 +56,71 @@ namespace BrewmasterEngine.GUI
 
         public void Reflow()
         {
-            Root.Bounds = CurrentGame.Window.ClientBounds;
-            Root.Reflow();
+            root.Bounds = CurrentGame.Window.ClientBounds;
+            root.Reflow();
         }
 
         public override void Update(GameTime gameTime)
         {
-            if (Root == null) return;
+            if (root == null) return;
                 
-            Root.Reflow();
-            Root.Update(gameTime);
+            root.Reflow();
+            root.Update(gameTime);
         }
 
         public override void Draw(GameTime gameTime)
         {
-            if (Root != null) Root.Render(spriteBatch, gameTime);
+            if (root != null) root.Render(spriteBatch, gameTime);
+        }
+
+        public void SaveLayout()
+        {
+            Storage.WriteFile(layoutName + ".xml", ToXml());
+        }
+
+        public void LoadLayout()
+        {
+            LoadLayout(layoutName);
+        }
+
+        public void LoadLayout(string fileName)
+        {
+            fileName += ".xml";
+
+            //if (!Storage.FileExists(fileName)) return;
+
+            //var layout = Storage.ReadFile(fileName);
+
+
         }
 
         public string ToXml()
         {
-            return "";
+            var doc = new XmlDocument();
+            var xml = getXml(root, doc);
+            doc.AppendChild(xml);
+
+            return doc.GetXml();
+        }
+
+        private XmlElement getXml(Element element, XmlDocument doc)
+        {
+            var xml = doc.CreateElement(element.GetType().Name.ToLower());
+            xml.SetAttribute("offset", element.Offset + "");
+            xml.SetAttribute("span", element.Span + "");
+            xml.SetAttribute("layout", element.Layout.ToString().ToLower() + "");
+
+            foreach (var child in element.Children)
+            {
+                xml.AppendChild(getXml(child, doc));
+            }
+
+            return xml;
         }
 
         public override void Unload()
         {
-            Root = null;
+            root = null;
         }
 
         #endregion

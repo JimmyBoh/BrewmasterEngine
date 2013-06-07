@@ -139,6 +139,7 @@
     <Compile Include="Extensions\XnaExtensions.cs" />
     <Compile Include="Framework\CurrentGame.cs" />
     <Compile Include="Framework\Game2D.cs" />
+    <Compile Include="Framework\Storage.cs" />
     <Compile Include="Graphics\ContentHandler.cs" />
     <Compile Include="Graphics\Content\Gradient.cs" />
     <Compile Include="Graphics\Content\StaticImage.cs" />

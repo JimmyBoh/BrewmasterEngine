@@ -134,6 +134,15 @@ namespace Microsoft.Xna.Framework
             //}
 
             #endregion
+
+            #region Colors
+
+            public static Color Randomize(this Color color)
+            {
+                return new Color((float)CurrentGame.Random.NextDouble(), (float)CurrentGame.Random.NextDouble(), (float)CurrentGame.Random.NextDouble());
+            }
+
+            #endregion
         }
 }
 

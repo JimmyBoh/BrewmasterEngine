@@ -18,7 +18,7 @@ namespace BrewmasterEngine.GUI.Elements
         
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
-            spriteBatch.DrawString(ContentHandler.Retrieve<SpriteFont>("DebugFont"), TextureName, RenderBounds.Location.ToVector2(), Color.Blue);
+            //spriteBatch.DrawString(ContentHandler.Retrieve<SpriteFont>("DebugFont"), TextureName, RenderBounds.Location.ToVector2(), Color.Blue);
         }
     }
 }

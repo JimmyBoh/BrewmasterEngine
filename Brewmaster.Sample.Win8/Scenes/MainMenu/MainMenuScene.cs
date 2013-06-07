@@ -19,36 +19,56 @@ namespace SampleGame.Scenes.MainMenu
 
         protected override void Load()
         {
-            GuiManager.CreateHorizontalLayout()
-                      .AddPanel(1, Layout.Vertical,
-                                colA => colA.AddPanel(3, 1, Layout.Layered,
-                                                      settingsButton => settingsButton.AddChild(new Image("test"))))
-                      .AddPanel(2, Layout.Vertical,
-                                colB =>
-                                    {
-                                        colB.AddPanel(1, Layout.Layered,
-                                                      title => title.AddChild(new Image("title")));
-                                        colB.AddPanel(1, Layout.Layered,
-                                                      title => title.AddChild(new Image("play")));
-                                        colB.AddPanel(1, Layout.Layered,
-                                                      title => title.AddChild(new Image("store")));
-                                    })
-                      .AddPanel(1, Layout.Vertical,
-                                colC =>
-                                    {
-                                        colC.AddPanel(1, Layout.Layered,
-                                                      muteButton => muteButton.AddChild(new Image("mute")));
-                                        colC.AddPanel(2, 1, Layout.Horizontal, 
-                                            bottomRight =>
-                                            {
-                                                bottomRight.AddPanel(1, Layout.Layered,
-                                                                     comp => comp.AddChild(new Image("rovio")));
-                                                bottomRight.AddPanel(1, Layout.Layered,
-                                                                     credits => credits.AddChild(new Image("credits")));
-                                            });
-                                    });
+            #region Build Menu
 
-            this.Add(new GradientBackground("OrangeBlueVertical", Color.Orange, Color.Blue, 500.0f));
+            GuiManager.CreateHorizontalLayout("MainMenu", root =>
+                                                          root.AddPanel(1, Layout.Vertical,
+                                                                        colA => colA.AddPanel(3, 1, Layout.Layered,
+                                                                                              settingsButton =>
+                                                                                              settingsButton.AddChild(
+                                                                                                  new Image("test"))))
+                                                              .AddPanel(2, Layout.Vertical,
+                                                                        colB => colB.AddPanel(1, Layout.Layered,
+                                                                                              title =>
+                                                                                              title.AddChild(
+                                                                                                  new Image("title")))
+                                                                                    .AddPanel(1, Layout.Layered,
+                                                                                              title =>
+                                                                                              title.AddChild(
+                                                                                                  new Image("play")))
+                                                                                    .AddPanel(1, Layout.Layered,
+                                                                                              title =>
+                                                                                              title.AddChild(
+                                                                                                  new Image("store"))))
+                                                              .AddPanel(1, Layout.Vertical,
+                                                                        colC => colC.AddPanel(1, Layout.Layered,
+                                                                                              muteButton =>
+                                                                                              muteButton.AddChild(
+                                                                                                  new Image("mute")))
+                                                                                    .AddPanel(2, 1, Layout.Horizontal,
+                                                                                              bottomRight =>
+                                                                                              bottomRight.AddPanel(1,
+                                                                                                                   Layout
+                                                                                                                       .Layered,
+                                                                                                                   comp
+                                                                                                                   =>
+                                                                                                                   comp
+                                                                                                                       .AddChild
+                                                                                                                       (new Image
+                                                                                                                            ("rovio")))
+                                                                                                         .AddPanel(1,
+                                                                                                                   Layout
+                                                                                                                       .Layered,
+                                                                                                                   credits
+                                                                                                                   =>
+                                                                                                                   credits
+                                                                                                                       .AddChild
+                                                                                                                       (new Image
+                                                                                                                            ("credits"))))));
+
+            #endregion
+
+            //this.Add(new GradientBackground("OrangeBlueVertical", Color.Orange, Color.Blue, 500.0f));
             this.Add(new MenuText("Main Menu", CurrentGame.WindowSize * new Vector2(0.5f, 0.2f)));
             this.Add(new MenuButton("Start Game", CurrentGame.WindowSize * new Vector2(0.5f, 0.8f), LoadSceneOnButtonUp("game"), onButtonDown));
         }
