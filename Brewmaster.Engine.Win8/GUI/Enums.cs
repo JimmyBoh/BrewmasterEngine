@@ -4,7 +4,7 @@ using System;
 
 namespace BrewmasterEngine.GUI
 {
-    public enum Layout
+    public enum LayoutStyle
     {
         Layered   = 0,
         Vertical   = 1 << 0,

@@ -13,7 +13,9 @@ namespace SampleGame.Scenes.BouncingBall.Entities
         #region Constants
 
         private const float GRAVITY = 500f;
-        private const float PULL_SPEED = 10f;
+        private const float PULL_SPEED = 1000000f;
+        private const int MAX_RADIUS = 16;
+        private const float MAX_SPEED = 1000f;
 
         #endregion
 
@@ -82,6 +84,10 @@ namespace SampleGame.Scenes.BouncingBall.Entities
 
             updateTouch();
 
+            if (Velocity.Length() > MAX_SPEED)
+            {
+                Velocity = Vector2.Normalize(Velocity)*MAX_SPEED;
+            }
 
             Position += Velocity*(float) gameTime.ElapsedGameTime.TotalSeconds;
         }
@@ -93,7 +99,7 @@ namespace SampleGame.Scenes.BouncingBall.Entities
 
             if (Bounds.Left < 0 || Bounds.Right > CurrentGame.Window.ClientBounds.Width)
             {
-                velX *= -1f;
+                velX *= -1f + (CurrentGame.Random.Next(-100,100)/200f);
 
                 if (Bounds.Left < 0)
                     posX = radius;
@@ -116,8 +122,8 @@ namespace SampleGame.Scenes.BouncingBall.Entities
 
             if (Bounds.Top < 0 || Bounds.Bottom > CurrentGame.Window.ClientBounds.Height)
             {
-                velY *= -0.67f;
-                velX *= 0.80f;
+                velY *= -0.67f + (CurrentGame.Random.Next(-100, 100) / 200f);
+                velX *= 0.80f + (CurrentGame.Random.Next(-100, 100) / 200f);
                 
 
                 if (Bounds.Top < 0)
@@ -129,10 +135,10 @@ namespace SampleGame.Scenes.BouncingBall.Entities
             
             velY += GRAVITY * (float)CurrentGame.GameTime.ElapsedGameTime.TotalSeconds;
 
-            if (Math.Abs(velY) < 0.9f)
+            if (Math.Abs(velY) < 5f)
                 velY = 0;
 
-            if (Math.Abs(velX) < 0.9f)
+            if (Math.Abs(velX) < 5f)
                 velX = 0;
 
 
@@ -142,13 +148,16 @@ namespace SampleGame.Scenes.BouncingBall.Entities
 
         private void updateTouch()
         {
-            if (CurrentGame.TouchState.Any())
+            if (!CurrentGame.TouchState.Any()) return;
+            
+            var touch = CurrentGame.TouchState.First();
+
+            var pull = new Vector2(touch.Position.X - Position.X, touch.Position.Y - Position.Y);
+            var dist = pull.LengthSquared();
+                
+            if (dist > radius)
             {
-                var touch = CurrentGame.TouchState.First();
-
-                var pull = new Vector2(touch.Position.X - Position.X, touch.Position.Y - Position.Y);
-                pull = Vector2.Normalize(pull)*PULL_SPEED*Radius;
-
+                pull = Vector2.Normalize(pull)*PULL_SPEED/dist;
                 Velocity += pull;
             }
         }
@@ -167,7 +176,7 @@ namespace SampleGame.Scenes.BouncingBall.Entities
         public void Reset()
         {
             TextureName = "Ball";
-            Radius = CurrentGame.Random.Next(4, 32);
+            Radius = CurrentGame.Random.Next(4, MAX_RADIUS);
             ZIndex = (int) radius - 32;
             Color = new Color((float)CurrentGame.Random.NextDouble(), (float)CurrentGame.Random.NextDouble(), (float)CurrentGame.Random.NextDouble());
             darkness = radius/32;

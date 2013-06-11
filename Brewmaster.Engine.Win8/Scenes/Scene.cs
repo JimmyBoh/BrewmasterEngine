@@ -16,7 +16,6 @@ namespace BrewmasterEngine.Scenes
         {
             Name = name;
             Entities = new GameObjectCollection();
-            GuiManager = new GuiManager();
         }
 
         #endregion
@@ -28,8 +27,6 @@ namespace BrewmasterEngine.Scenes
         public bool IsPaused { get; private set; }
 
         public GameObjectCollection Entities { get; private set; }
-
-        public GuiManager GuiManager { get; private set; }
 
         #endregion
 
@@ -128,16 +125,12 @@ namespace BrewmasterEngine.Scenes
         /// <param name="gameTime"></param>
         public virtual void Update(GameTime gameTime)
         {
-            GuiManager.Update(gameTime);
-
             ForEachActiveEntity((entity) => entity.Update(gameTime));
         }
 
         public virtual void Draw(GameTime gameTime)
         {
             ForEachVisibleEntity((entity) => entity.Draw(gameTime));
-
-            GuiManager.Draw(gameTime);
         }
 
         public void Unload()

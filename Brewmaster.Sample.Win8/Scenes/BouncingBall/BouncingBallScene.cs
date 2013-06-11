@@ -3,7 +3,6 @@ using System.Linq;
 using BrewmasterEngine.Framework;
 using BrewmasterEngine.Scenes;
 using Microsoft.Xna.Framework;
-using SampleGame.Menu.Widgets;
 using SampleGame.Scenes.BouncingBall.Entities;
 
 namespace SampleGame.Scenes.BouncingBall
@@ -13,6 +12,7 @@ namespace SampleGame.Scenes.BouncingBall
         #region Constants
 
         private const string MENU_TAG = "menu";
+        private const int BALL_COUNT = 100;
 
         #endregion
 
@@ -20,7 +20,7 @@ namespace SampleGame.Scenes.BouncingBall
 
         public BouncingBallScene() : base("game")
         {
-
+            ballsToAdd = 0;
         }
 
         #endregion
@@ -28,6 +28,7 @@ namespace SampleGame.Scenes.BouncingBall
         #region Properties
 
         private BallManager ballMgr;
+        private int ballsToAdd;
 
         #endregion
 
@@ -39,64 +40,60 @@ namespace SampleGame.Scenes.BouncingBall
 
             this.Add(ballMgr);
 
-            this.Add(new MenuButton("Pause", new Vector2(CurrentGame.Window.ClientBounds.Width - 70, 50),
-                                    (button, releasedOn) =>
-                                        {
-                                            button.Scale = Vector2.One;
+            //this.Add(new MenuButton("Pause", new Vector2(CurrentGame.Window.ClientBounds.Width - 70, 50),
+            //                        (button, releasedOn) =>
+            //                            {
+            //                                button.Scale = Vector2.One;
 
-                                            if (!releasedOn) return;
+            //                                if (!releasedOn) return;
 
-                                            PauseScene();
+            //                                PauseScene();
 
-                                        }, onButtonDown));
-            this.Add(new MenuButton("- 10", new Vector2(CurrentGame.Window.ClientBounds.Width - 70, 100),
-                                    (button, releasedOn) =>
-                                        {
-                                            button.Scale = Vector2.One;
+            //                            }, onButtonDown));
+            //this.Add(new MenuButton("- " + BALL_COUNT, new Vector2(CurrentGame.Window.ClientBounds.Width - 70, 100),
+            //                        (button, releasedOn) =>
+            //                            {
+            //                                button.Scale = Vector2.One;
 
-                                            if (releasedOn)
-                                                RemoveBalls(10);
+            //                                if (releasedOn)
+            //                                    RemoveBalls(BALL_COUNT);
 
-                                        }, onButtonDown));
-            this.Add(new MenuButton("+ 10", new Vector2(CurrentGame.Window.ClientBounds.Width - 70, 150),
-                                    (button, releasedOn) =>
-                                        {
-                                            button.Scale = Vector2.One;
+            //                            }, onButtonDown));
+            //this.Add(new MenuButton("+ "+BALL_COUNT, new Vector2(CurrentGame.Window.ClientBounds.Width - 70, 150),
+            //                        (button, releasedOn) =>
+            //                            {
+            //                                button.Scale = Vector2.One;
 
-                                            if (releasedOn)
-                                                AddBall(10);
-                                        }, onButtonDown));
-            this.Add(new MenuButton("Resume", new Vector2(CurrentGame.Window.ClientBounds.Width/2.0f, 400),
-                                    (button, releasedOn) =>
-                                        {
-                                            button.Scale = Vector2.One;
+            //                                if (releasedOn)
+            //                                    ballsToAdd += BALL_COUNT;
 
-                                            if (releasedOn)
-                                                UnpauseScene();
-                                        }, onButtonDown) {AddTags = new[] {MENU_TAG}});
-            this.Add(new MenuButton("Clear", new Vector2(CurrentGame.Window.ClientBounds.Width/2.0f, 500),
-                                    (button, releasedOn) =>
-                                        {
-                                            button.Scale = Vector2.One;
+            //                            }, onButtonDown));
+            //this.Add(new MenuButton("Resume", new Vector2(CurrentGame.Window.ClientBounds.Width/2.0f, 400),
+            //                        (button, releasedOn) =>
+            //                            {
+            //                                button.Scale = Vector2.One;
 
-                                            if (releasedOn)
-                                                RemoveAllBalls();
-                                        }, onButtonDown) {AddTags = new[] {MENU_TAG}});
-            this.Add(new MenuButton("Quit", new Vector2(CurrentGame.Window.ClientBounds.Width/2.0f, 600),
-                                    (button, releasedOn) =>
-                                        {
-                                            button.Scale = Vector2.One;
+            //                                if (releasedOn)
+            //                                    UnpauseScene();
+            //                            }, onButtonDown) {AddTags = new[] {MENU_TAG}});
+            //this.Add(new MenuButton("Clear", new Vector2(CurrentGame.Window.ClientBounds.Width/2.0f, 500),
+            //                        (button, releasedOn) =>
+            //                            {
+            //                                button.Scale = Vector2.One;
 
-                                            if (releasedOn)
-                                                CurrentGame.SceneManager.Load("main");
-                                        }, onButtonDown) {AddTags = new[] {MENU_TAG}});
+            //                                if (releasedOn)
+            //                                    RemoveAllBalls();
+            //                            }, onButtonDown) {AddTags = new[] {MENU_TAG}});
+            //this.Add(new MenuButton("Quit", new Vector2(CurrentGame.Window.ClientBounds.Width/2.0f, 600),
+            //                        (button, releasedOn) =>
+            //                            {
+            //                                button.Scale = Vector2.One;
+
+            //                                if (releasedOn)
+            //                                    CurrentGame.SceneManager.Load("main");
+            //                            }, onButtonDown) {AddTags = new[] {MENU_TAG}});
 
             this.ForEachEntity(o => o.Tags.Contains(MENU_TAG), o => o.IsVisible = false);
-        }
-
-        private void onButtonDown(MenuButton button)
-        {
-            button.Scale = new Vector2(0.9f);
         }
 
         private void PauseScene()
@@ -117,12 +114,19 @@ namespace SampleGame.Scenes.BouncingBall
                 this.ForEachEntity(o => o.Tags.Contains(MENU_TAG), o => o.Update(gameTime));
             else
                 this.ForEachEntity(o => !o.Tags.Contains(MENU_TAG), o => o.Update(gameTime));
+
+            if (ballsToAdd > 0)
+            {
+                AddBall(10);
+            }
         }
 
 
         private void AddBall(int count = 1)
         {
+            ballsToAdd -= count;
             ballMgr.AddBalls(count);
+
         }
 
         private void RemoveBalls(int count = 1)

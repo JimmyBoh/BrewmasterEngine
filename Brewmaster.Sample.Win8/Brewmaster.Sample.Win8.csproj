@@ -129,19 +129,20 @@
   <ItemGroup>
     <Compile Include="Scenes\BouncingBall\Entities\Ball.cs" />
     <Compile Include="Scenes\BouncingBall\Entities\BallManager.cs" />
-    <Compile Include="Menu\Widgets\GradientBackground.cs" />
-    <Compile Include="Menu\Widgets\MenuButton.cs" />
-    <Compile Include="Menu\Widgets\MenuText.cs" />
+    <Compile Include="Common\GradientBackground.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SampleGame.cs" />
     <Compile Include="Scenes\BouncingBall\BouncingBallScene.cs" />
+    <Compile Include="Scenes\MainMenu\Entities\DemoButton.cs" />
+    <Compile Include="Scenes\MainMenu\Entities\MainMenuLayout.cs" />
     <Compile Include="Scenes\MainMenu\MainMenuScene.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="Content\SmallLogo.png" />
     <None Include="Brewmaster.Sample.Win8_TemporaryKey.pfx" />
     <Content Include="Content\ball.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -162,9 +163,7 @@
       <Name>Brewmaster.Engine.Win8</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Scenes\MainMenu\Entities\" />
-  </ItemGroup>
+  <ItemGroup />
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '11.0' ">
     <VisualStudioVersion>11.0</VisualStudioVersion>
   </PropertyGroup>

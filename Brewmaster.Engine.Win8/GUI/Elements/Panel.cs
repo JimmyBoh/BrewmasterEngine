@@ -10,27 +10,27 @@ namespace BrewmasterEngine.GUI.Elements
     {
         #region Constructor
 
-        public Panel(int span, Layout layout, Element parent = null) : this(0,span,layout,parent){}
-        public Panel(int offset, int span, Layout layout, Element parent = null)
+        public Panel(int span, LayoutStyle layoutStyle, Element parent = null) : this(0,span,layoutStyle,parent){}
+        public Panel(int offset, int span, LayoutStyle layoutStyle, Element parent = null)
         {
             Offset = offset;
             Span = span;
-            Layout = layout;
+            LayoutStyle = layoutStyle;
             Parent = parent;
         }
 
-        public Panel(Vector2 position, Vector2 size, Layout layout, Element parent = null)
+        public Panel(Vector2 position, Vector2 size, LayoutStyle layoutStyle, Element parent = null)
         {
             Position = position;
             Size = size;
-            Layout = layout;
+            LayoutStyle = layoutStyle;
             Parent = parent;
         }
 
-        public Panel(Rectangle bounds, Layout layout, Element parent = null)
+        public Panel(Rectangle bounds, LayoutStyle layoutStyle, Element parent = null)
         {
             Bounds = bounds;
-            Layout = layout;
+            LayoutStyle = layoutStyle;
             Parent = parent;
         }
 
@@ -39,12 +39,12 @@ namespace BrewmasterEngine.GUI.Elements
         #region Peoperties
 
         private readonly Color color = Color.White.Randomize();
+
         #endregion
 
         public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
         {
             spriteBatch.DrawRectangle(RenderBounds, color);
-            spriteBatch.DrawString(ContentHandler.Retrieve<SpriteFont>("DebugFont"), ID, RenderBounds.Location.ToVector2(), color);
 
             foreach (var child in Children)
                 child.Render(spriteBatch, gameTime);

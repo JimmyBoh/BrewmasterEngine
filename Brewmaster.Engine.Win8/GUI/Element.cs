@@ -16,8 +16,9 @@ namespace BrewmasterEngine.GUI
         {
             Position = Vector2.Zero;
             Size = Vector2.Zero;
+            reflowScale = 1f;
 
-            Layout = Layout.Absolute;
+            LayoutStyle = LayoutStyle.Absolute;
             Span = 1;
             Offset = 0;
 
@@ -32,7 +33,7 @@ namespace BrewmasterEngine.GUI
 
         public string ID { get; set; }
 
-        public Layout Layout { get; set; }
+        public LayoutStyle LayoutStyle { get; set; }
         public Element Parent { get; set; }
         public List<Element> Children { get; set; }
 
@@ -55,6 +56,8 @@ namespace BrewmasterEngine.GUI
             }
         }
 
+        protected float reflowScale;
+
         public int Span { get; set; }
         public int Offset { get; set; }
 
@@ -75,17 +78,17 @@ namespace BrewmasterEngine.GUI
 
         #region Reflow
 
-        public void Reflow()
+        public virtual void Reflow()
         {
-            switch (Layout)
+            switch (LayoutStyle)
             {
-                case Layout.Layered:
+                case LayoutStyle.Layered:
                     reflowLayered();
                     break;
-                case Layout.Vertical:
+                case LayoutStyle.Vertical:
                     reflowVertical();
                     break;
-                case Layout.Horizontal:
+                case LayoutStyle.Horizontal:
                     reflowHorizontal();
                     break;
                 default:
@@ -98,8 +101,6 @@ namespace BrewmasterEngine.GUI
         {
             foreach (var child in Children)
             {
-                child.CenterOn(this);
-
                 child.Reflow();
             }
         }
@@ -157,21 +158,21 @@ namespace BrewmasterEngine.GUI
             return this;
         }
 
-        public Element AddPanel(int span, Layout layout = Layout.Layered, Action<Element> callback = null)
+        public Element AddPanel(int span, LayoutStyle layoutStyle = LayoutStyle.Layered, Action<Element> callback = null)
         {
-            return AddChild(new Panel(span, layout), callback);
+            return AddChild(new Panel(span, layoutStyle), callback);
         }
 
-        public Element AddPanel(int offset, int span, Layout layout = Layout.Layered, Action<Element> callback = null)
+        public Element AddPanel(int offset, int span, LayoutStyle layoutStyle = LayoutStyle.Layered, Action<Element> callback = null)
         {
-            return AddChild(new Panel(offset, span,layout), callback);
+            return AddChild(new Panel(offset, span,layoutStyle), callback);
         }
 
         #endregion
 
         #region Game
 
-        public void Update(GameTime gameTime)
+        public virtual void Update(GameTime gameTime)
         {
             foreach (var child in Children)
                 child.Update(gameTime);
@@ -181,19 +182,11 @@ namespace BrewmasterEngine.GUI
 
         #endregion
 
-        #region Helpers
+        #region Events
 
-        public void CenterOn(Element element)
-        {
-            CenterOn(element.Bounds.Center.ToVector2());
-        }
-
-        public void CenterOn(Vector2 center)
-        {
-            var posX = center.X - (Size.X/2);
-            var posY = center.Y - (Size.Y/2);
-            Position = new Vector2(posX, posY);
-        }
+        public virtual void OnPress(Vector2 position){}
+        public virtual void OnRelease(Vector2 position){}
+        public virtual void OnDrag(Vector2 delta){}
 
         #endregion
 

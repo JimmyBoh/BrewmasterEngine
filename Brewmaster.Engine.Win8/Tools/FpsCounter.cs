@@ -53,9 +53,13 @@ namespace BrewmasterEngine.Debugging
                 BackgroundColor = Color.DarkGreen;
             } 
 
-            Text = string.Format("FPS:{0:0#}", _frameRate);
-            spriteBatch.FillRectangle(Bounds, Color.Black*0.5f);
-            spriteBatch.Draw(this);
+            if (_frameRate < 45)
+            {
+                Text = string.Format("FPS:{0:0#}", _frameRate);
+
+                spriteBatch.FillRectangle(Bounds, Color.Black * 0.5f);
+                spriteBatch.Draw(this);
+            }
         }
     }
 }
