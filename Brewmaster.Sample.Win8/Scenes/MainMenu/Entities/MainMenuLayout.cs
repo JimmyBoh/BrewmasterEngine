@@ -19,7 +19,7 @@ namespace Brewmaster.Sample.Win8.Scenes.MainMenu.Entities
                         .AddPanel(1, LayoutStyle.Vertical, 
                             demos => 
                                 demos.AddPanel(1, LayoutStyle.Layered, 
-                                    sprites => sprites.AddChild(new Header("DebugFont", "Sprites")))
+                                    sprites => sprites.AddChild(new DemoButton("Sprites", "ball")))
                                 .AddPanel(1, LayoutStyle.Layered, 
                                     touch => touch.AddChild(new Header("DebugFont", "Touch"))))
                         .AddPanel(1)))

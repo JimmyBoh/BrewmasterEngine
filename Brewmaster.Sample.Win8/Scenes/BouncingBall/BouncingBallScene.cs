@@ -3,6 +3,7 @@ using System.Linq;
 using BrewmasterEngine.Framework;
 using BrewmasterEngine.Scenes;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Input.Touch;
 using SampleGame.Scenes.BouncingBall.Entities;
 
 namespace SampleGame.Scenes.BouncingBall
@@ -18,7 +19,7 @@ namespace SampleGame.Scenes.BouncingBall
 
         #region Constructor
 
-        public BouncingBallScene() : base("game")
+        public BouncingBallScene() : base("ball")
         {
             ballsToAdd = 0;
         }
@@ -38,7 +39,7 @@ namespace SampleGame.Scenes.BouncingBall
         {
             ballMgr = new BallManager();
 
-            this.Add(ballMgr);
+            Add(ballMgr);
 
             //this.Add(new MenuButton("Pause", new Vector2(CurrentGame.Window.ClientBounds.Width - 70, 50),
             //                        (button, releasedOn) =>
@@ -111,9 +112,12 @@ namespace SampleGame.Scenes.BouncingBall
         public override void Update(GameTime gameTime)
         {
             if(CurrentGame.IsPaused)
-                this.ForEachEntity(o => o.Tags.Contains(MENU_TAG), o => o.Update(gameTime));
+                ForEachEntity(o => o.Tags.Contains(MENU_TAG), o => o.Update(gameTime));
             else
-                this.ForEachEntity(o => !o.Tags.Contains(MENU_TAG), o => o.Update(gameTime));
+                ForEachEntity(o => !o.Tags.Contains(MENU_TAG), o => o.Update(gameTime));
+
+            if (CurrentGame.Gestures.Any(g => g.GestureType == GestureType.DoubleTap))
+                ballsToAdd += 100;
 
             if (ballsToAdd > 0)
             {

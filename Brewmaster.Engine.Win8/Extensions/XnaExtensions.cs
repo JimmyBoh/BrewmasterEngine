@@ -153,6 +153,15 @@ namespace Microsoft.Xna.Framework.Graphics
     {
         #region SpriteBatch
 
+        public static void DrawString(this SpriteBatch spriteBatch, SpriteFont font, string text, Vector2 position, float scale, Color color)
+        {
+            spriteBatch.DrawString(font,text,position,new Vector2(scale), color);
+        }
+        public static void DrawString(this SpriteBatch spriteBatch, SpriteFont font, string text, Vector2 position, Vector2 scale, Color color)
+        {
+            spriteBatch.DrawString(font, text, position, color, 0, Vector2.Zero, scale, SpriteEffects.None, 0);
+        }
+
         public static void Draw(this SpriteBatch spriteBatch, Sprite sprite)
         {
             if (sprite is Sprite2D)

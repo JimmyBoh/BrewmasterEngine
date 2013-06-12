@@ -1,14 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using BrewmasterEngine.DataTypes;
 using BrewmasterEngine.GUI.Elements;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Graphics;
-using Windows.Data.Xml.Dom;
+using Microsoft.Xna.Framework.Input.Touch;
 
 namespace BrewmasterEngine.GUI
 {
-    public abstract class Element
+    public abstract class Element : GameObject
     {
         #region Constructor
 
@@ -38,6 +38,7 @@ namespace BrewmasterEngine.GUI
         public List<Element> Children { get; set; }
 
         public Rectangle Bounds { get; set; }
+
         public Vector2 Position
         {
             get { return Bounds.Location.ToVector2(); }
@@ -48,6 +49,7 @@ namespace BrewmasterEngine.GUI
             get { return Bounds.GetSize(); }
             set { Bounds = new Rectangle(Bounds.X, Bounds.Y, (int) value.X, (int) value.Y); }
         }
+
         public Rectangle RenderBounds
         {
             get
@@ -62,6 +64,9 @@ namespace BrewmasterEngine.GUI
         public int Offset { get; set; }
 
         protected int spanCount;
+        
+
+
         protected int spanHeight
         {
             get { return Bounds.Height / spanCount; }
@@ -172,21 +177,17 @@ namespace BrewmasterEngine.GUI
 
         #region Game
 
-        public virtual void Update(GameTime gameTime)
+        public override void Update(GameTime gameTime)
         {
             foreach (var child in Children)
                 child.Update(gameTime);
         }
 
-        public abstract void Render(SpriteBatch spriteBatch, GameTime gameTime);
-
-        #endregion
-
-        #region Events
-
-        public virtual void OnPress(Vector2 position){}
-        public virtual void OnRelease(Vector2 position){}
-        public virtual void OnDrag(Vector2 delta){}
+        public override void Draw(GameTime gameTime)
+        {
+            foreach (var child in Children)
+                child.Draw(gameTime);
+        }
 
         #endregion
 

@@ -25,7 +25,7 @@ namespace BrewmasterEngine.GUI.Elements
             Bounds = new Rectangle((Parent.Bounds.Width - (int)(Texture.Width * reflowScale * Scale)) / 2, (Parent.Bounds.Height - (int)(Texture.Height * reflowScale * Scale)) / 2, (int)(Texture.Width * reflowScale * Scale), (int)(Texture.Height * reflowScale * Scale));
         }
         
-        public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
+        public override void Draw(GameTime gameTime)
         {
             spriteBatch.Draw(ContentHandler.Retrieve<Texture2D>(TextureName), RenderBounds, Color.White);
         }

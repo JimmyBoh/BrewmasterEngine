@@ -32,7 +32,7 @@ namespace BrewmasterEngine.GUI.Elements
             Bounds = new Rectangle((Parent.Bounds.Width - (int)(TextSize.Width * reflowScale * Scale)) / 2, (Parent.Bounds.Height - (int)(TextSize.Height * reflowScale * Scale)) / 2, (int)(TextSize.Width * reflowScale * Scale), (int)(TextSize.Height * reflowScale * Scale));
         }
 
-        public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
+        public override void Draw(GameTime gameTime)
         {
             spriteBatch.DrawString(Font, Text, RenderBounds.Location.ToVector2(), Color.White, 0f, Vector2.Zero, reflowScale, SpriteEffects.None, 0);
         }

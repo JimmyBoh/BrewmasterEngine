@@ -36,18 +36,18 @@ namespace BrewmasterEngine.GUI.Elements
 
         #endregion
 
-        #region Peoperties
+        #region Properties
 
         private readonly Color color = Color.White.Randomize();
 
         #endregion
 
-        public override void Render(SpriteBatch spriteBatch, GameTime gameTime)
+        public override void Draw(GameTime gameTime)
         {
-            spriteBatch.DrawRectangle(RenderBounds, color);
+            //spriteBatch.DrawRectangle(RenderBounds, color);
 
             foreach (var child in Children)
-                child.Render(spriteBatch, gameTime);
+                child.Draw(gameTime);
         }
     }
 }
