@@ -20,7 +20,12 @@ namespace Microsoft.Xna.Framework
 
             public static Vector2 GetRandomPoint(this Rectangle rect)
             {
-                return new Vector2(CurrentGame.Random.Next(rect.Width), CurrentGame.Random.Next(rect.Height));
+                return new Vector2(CurrentGame.Random.Next(rect.X, rect.X + rect.Width), CurrentGame.Random.Next(rect.Y, rect.Y + rect.Height));
+            }
+
+            public static Rectangle CenterOn(this Rectangle rect, Rectangle area)
+            {
+                return new Rectangle((int) (area.Center.X - rect.Width/2f), (int) (area.Center.Y - rect.Height/2f), rect.Width, rect.Height);
             }
 
             public static bool Contains(this Rectangle rect, Vector2 point)

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BrewmasterEngine.GUI.Interfaces
+namespace BrewmasterEngine.GUI
 {
     public interface IClickable
     {

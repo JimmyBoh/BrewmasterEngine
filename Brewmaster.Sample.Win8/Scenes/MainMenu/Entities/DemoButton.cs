@@ -1,18 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Brewmaster.Engine.Win8.GUI;
 using BrewmasterEngine.Framework;
-using BrewmasterEngine.GUI;
-using BrewmasterEngine.GUI.Interfaces;
-using BrewmasterEngine.Graphics;
 using BrewmasterEngine.Graphics.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input.Touch;
+using Windows.UI.Popups;
+using Windows.UI.Xaml;
 
 namespace Brewmaster.Sample.Win8.Scenes.MainMenu.Entities
 {
-    public class DemoButton : Element, IClickable
+    public class DemoButton : Button
     {
         public DemoButton(string text, string sceneName)
         {
@@ -30,53 +29,13 @@ namespace Brewmaster.Sample.Win8.Scenes.MainMenu.Entities
         public float Rotation { get; set; }
         public float Scale { get; set; }
 
-        public override void Update(GameTime gameTime)
-        {
-            if (TouchID.HasValue)
-            {
-                var releases = CurrentGame.TouchState.Where(t => t.State == TouchLocationState.Released && t.Id == TouchID.Value).ToList();
-
-                if (releases.Any())
-                {
-                    if (RenderBounds.Contains(releases.First().Position))
-                        OnRelease();
-
-                    TouchID = null;
-                }
-                else
-                {
-                    var moves = CurrentGame.TouchState.Where(t => t.State == TouchLocationState.Moved && t.Id == TouchID.Value).ToList();
-
-                    if (moves.Any())
-                    {
-                        var currTouch = moves.First();
-                        TouchLocation prevTouch;
-
-                        if (currTouch.TryGetPreviousLocation(out prevTouch) && (RenderBounds.Contains(prevTouch.Position) && !RenderBounds.Contains(currTouch.Position)))
-                        {
-                            TouchID = null;
-                            OnDragOut();
-                        }
-                    }
-                }
-            }
-            else
-            {
-                var presses = CurrentGame.TouchState.Where(t => t.State == TouchLocationState.Pressed && RenderBounds.Contains(t.Position)).ToList();
-
-                if (presses.Any())
-                {
-                    TouchID = presses.First().Id;
-                    OnPress();
-                }
-            }
-        }
         public override void Reflow()
         {
             base.Reflow();
 
-            Bounds = new Rectangle(0, 0, Parent.RenderBounds.Width, Parent.RenderBounds.Height);
-            Text.CenterOn(Parent.RenderBounds.Center.ToVector2());
+            Bounds = new Rectangle((int)(Bounds.X + Bounds.Width * 0.25f), (int)(Bounds.Y + Bounds.Height * 0.1f), (int)(Bounds.Width * 0.5f), (int)(Bounds.Height * 0.8f));
+
+            Text.CenterOn(RenderBounds.Center.ToVector2());
         }
 
         public override void Draw(GameTime gameTime)
@@ -86,26 +45,56 @@ namespace Brewmaster.Sample.Win8.Scenes.MainMenu.Entities
             var tile = new Rectangle(RenderBounds.X+offset, RenderBounds.Y+offset, (int)(RenderBounds.Width * Scale), (int)(RenderBounds.Height * Scale));
             spriteBatch.FillRectangle(shadow, Color.Gray * 0.5f, Rotation);
             spriteBatch.FillRectangle(tile, Color.DarkGray, Rotation);
+            
             Text.Draw(gameTime);
         }
 
-        public int? TouchID { get; set; }
-
-        public void OnPress()
+        public override void OnPress()
         {
-            Scale -= 0.1f;
-            Text.Scale -= new Vector2(0.1f);
+            alterScale(-0.1f);
         }
 
-        public void OnDragOut()
+        public override void OnDragOut()
         {
-            Scale += 0.1f;
-            Text.Scale += new Vector2(0.1f);
+            alterScale(0.1f);
         }
 
-        public void OnRelease()
+        public override void OnRelease()
         {
-            CurrentGame.SceneManager.Load(SceneName);
+            alterScale(0.1f);
+
+            if (CurrentGame.SceneManager.SceneNames.Contains(SceneName))
+            {
+                CurrentGame.SceneManager.Load(SceneName);
+            }
+            else
+            {
+                DisplayAlert("This demo is not ready yet, but will be in the next few updates.");
+            }
+        }
+
+        private void alterScale(float amount)
+        {
+            Scale += amount;
+            Text.Scale += new Vector2(amount);
+        }
+
+        private async void DisplayAlert(string message)
+        {
+            // Create the message dialog and set its content
+            var messageDialog = new MessageDialog(message);
+
+            // Add commands and set their callbacks
+            messageDialog.Commands.Add(new UICommand("Okay"));//, this.CommandInvokedHandler));
+
+            // Set the command that will be invoked by default
+            messageDialog.DefaultCommandIndex = 0;
+
+            // Set the command to be invoked when escape is pressed
+            messageDialog.CancelCommandIndex = 1;
+
+            // Show the message dialog
+            await messageDialog.ShowAsync();
         }
     }
 }

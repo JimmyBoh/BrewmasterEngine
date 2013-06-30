@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using BrewmasterEngine.DataTypes;
-using BrewmasterEngine.GUI.Elements;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input.Touch;
 
@@ -20,7 +19,7 @@ namespace BrewmasterEngine.GUI
 
             LayoutStyle = LayoutStyle.Absolute;
             Span = 1;
-            Offset = 0;
+            PreOffset = 0;
 
             Parent = null;
             Children = new List<Element>();
@@ -60,8 +59,10 @@ namespace BrewmasterEngine.GUI
 
         protected float reflowScale;
 
+        public int PreOffset { get; set; }
         public int Span { get; set; }
-        public int Offset { get; set; }
+        public int PostOffset { get; set; }
+        
 
         protected int spanCount;
         
@@ -116,9 +117,9 @@ namespace BrewmasterEngine.GUI
 
             foreach (var child in Children)
             {
-                childY += child.Offset*spanHeight;
+                childY += child.PreOffset*spanHeight;
                 child.Bounds = new Rectangle(0, childY, Bounds.Width, child.Span*spanHeight);
-                childY += child.Span*spanHeight;
+                childY += (child.Span+child.PostOffset)*spanHeight;
 
                 child.Reflow();
             }
@@ -130,9 +131,9 @@ namespace BrewmasterEngine.GUI
 
             foreach (var child in Children)
             {
-                childX += child.Offset*spanWidth;
+                childX += child.PreOffset*spanWidth;
                 child.Bounds = new Rectangle(childX, 0, child.Span*spanWidth, Bounds.Height);
-                childX += child.Span*spanWidth;
+                childX += (child.Span + child.PostOffset) * spanWidth;
 
                 child.Reflow();
             }
@@ -148,13 +149,19 @@ namespace BrewmasterEngine.GUI
 
         #region Hierarchy
 
+        /// <summary>
+        /// Adds a child to the parent element in a chainable manner.
+        /// </summary>
+        /// <param name="element">The element to be added to the parent.</param>
+        /// <param name="callback">Delegate that give access to the new child.</param>
+        /// <returns>The parent element .</returns>
         public Element AddChild(Element element, Action<Element> callback = null)
         {
             element.Parent = this;
             element.ID = ID + "_" + Children.Count;
-            
+
             Children.Add(element);
-            spanCount += element.Offset + element.Span;
+            spanCount += element.PreOffset + element.Span + element.PostOffset;
 
             Reflow();
 
@@ -163,14 +170,43 @@ namespace BrewmasterEngine.GUI
             return this;
         }
 
-        public Element AddPanel(int span, LayoutStyle layoutStyle = LayoutStyle.Layered, Action<Element> callback = null)
+        /// <summary>
+        /// Adds a layout panel to the parent.
+        /// </summary>
+        /// <param name="preOffset">Spacers before the child.</param>
+        /// <param name="span">The relative width of the child.</param>
+        /// <param name="postOffset">Spacers after the child.</param>
+        /// <param name="layoutStyle">The layout style of the child, defaulting to Layered.</param>
+        /// <param name="callback">Delegate that give access to the new child.</param>
+        /// <returns>The parent element.</returns>
+        public Element AddPanel(int preOffset, int span, int postOffset, LayoutStyle layoutStyle = LayoutStyle.Layered, Action<Element> callback = null)
         {
-            return AddChild(new Panel(span, layoutStyle), callback);
+            return AddChild(new Panel(preOffset, span, postOffset, layoutStyle), callback);
         }
 
-        public Element AddPanel(int offset, int span, LayoutStyle layoutStyle = LayoutStyle.Layered, Action<Element> callback = null)
+        /// <summary>
+        /// Adds a layout panel to the parent.
+        /// </summary>
+        /// <param name="preOffset">Spacers before the child.</param>
+        /// <param name="span">The relative width of the child.</param>
+        /// <param name="layoutStyle">The layout style of the child, defaulting to Layered.</param>
+        /// <param name="callback">Delegate that give access to the new child.</param>
+        /// <returns>The parent element.</returns>
+        public Element AddPanel(int preOffset, int span, LayoutStyle layoutStyle = LayoutStyle.Layered, Action<Element> callback = null)
         {
-            return AddChild(new Panel(offset, span,layoutStyle), callback);
+            return AddPanel(preOffset, span,0, layoutStyle, callback);
+        }
+
+        /// <summary>
+        /// Adds a layout panel to the parent.
+        /// </summary>
+        /// <param name="span">The relative width of the child.</param>
+        /// <param name="layoutStyle">The layout style of the child, defaulting to Layered.</param>
+        /// <param name="callback">Delegate that give access to the new child.</param>
+        /// <returns>The parent element.</returns>
+        public Element AddPanel(int span, LayoutStyle layoutStyle = LayoutStyle.Layered, Action<Element> callback = null)
+        {
+            return AddPanel(0, span, 0, layoutStyle, callback);
         }
 
         #endregion

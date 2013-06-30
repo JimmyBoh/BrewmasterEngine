@@ -3,7 +3,7 @@ using BrewmasterEngine.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace BrewmasterEngine.GUI.Elements
+namespace BrewmasterEngine.GUI
 {
     public class Image : Element
     {

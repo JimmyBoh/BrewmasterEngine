@@ -4,16 +4,18 @@ using BrewmasterEngine.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace BrewmasterEngine.GUI.Elements
+namespace BrewmasterEngine.GUI
 {
     public class Panel : Element
     {
         #region Constructor
 
         public Panel(int span, LayoutStyle layoutStyle, Element parent = null) : this(0,span,layoutStyle,parent){}
-        public Panel(int offset, int span, LayoutStyle layoutStyle, Element parent = null)
+        public Panel(int preOffset, int span, LayoutStyle layoutStyle, Element parent = null):this(preOffset,span, 0, layoutStyle, parent){}
+        public Panel(int preOffset, int span,int postOffset, LayoutStyle layoutStyle, Element parent = null)
         {
-            Offset = offset;
+            PreOffset = preOffset;
+            PostOffset = postOffset;
             Span = span;
             LayoutStyle = layoutStyle;
             Parent = parent;
@@ -44,7 +46,7 @@ namespace BrewmasterEngine.GUI.Elements
 
         public override void Draw(GameTime gameTime)
         {
-            //spriteBatch.DrawRectangle(RenderBounds, color);
+            spriteBatch.DrawRectangle(RenderBounds, color);
 
             foreach (var child in Children)
                 child.Draw(gameTime);

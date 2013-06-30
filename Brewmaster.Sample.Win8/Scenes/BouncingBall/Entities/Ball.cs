@@ -19,7 +19,6 @@ namespace SampleGame.Scenes.BouncingBall.Entities
 
         #endregion
 
-
         #region Properties
 
         public string TextureName { get; set; }
@@ -149,16 +148,17 @@ namespace SampleGame.Scenes.BouncingBall.Entities
         private void updateTouch()
         {
             if (!CurrentGame.TouchState.Any()) return;
-            
-            var touch = CurrentGame.TouchState.First();
 
-            var pull = new Vector2(touch.Position.X - Position.X, touch.Position.Y - Position.Y);
-            var dist = pull.LengthSquared();
-                
-            if (dist > radius)
+            foreach (var touch in CurrentGame.TouchState)
             {
-                pull = Vector2.Normalize(pull)*PULL_SPEED/dist;
-                Velocity += pull;
+                var pull = new Vector2(touch.Position.X - Position.X, touch.Position.Y - Position.Y);
+                var dist = pull.LengthSquared();
+
+                if (dist > radius)
+                {
+                    pull = Vector2.Normalize(pull) * PULL_SPEED / dist;
+                    Velocity += pull;
+                }
             }
         }
 

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Brewmaster.Engine.Win8.GUI;
 using BrewmasterEngine.GUI;
-using BrewmasterEngine.GUI.Elements;
 
 namespace Brewmaster.Sample.Win8.Scenes.MainMenu.Entities
 {
@@ -10,20 +10,19 @@ namespace Brewmaster.Sample.Win8.Scenes.MainMenu.Entities
         public MainMenuLayout()
         {
             CreateHorizontalLayout(root =>
-                root.AddPanel(1, 2, LayoutStyle.Vertical,
+                root.AddPanel(1, 2, 1, LayoutStyle.Vertical,
                     colB => 
                         colB.AddPanel(1, LayoutStyle.Layered,
-                            title => title.AddChild(new Header("DebugFont", "Brewmaster\n  Samples ")))
-                        .AddPanel(2, LayoutStyle.Horizontal, 
-                            scenes => scenes.AddPanel(1)
-                        .AddPanel(1, LayoutStyle.Vertical, 
-                            demos => 
-                                demos.AddPanel(1, LayoutStyle.Layered, 
-                                    sprites => sprites.AddChild(new DemoButton("Sprites", "ball")))
-                                .AddPanel(1, LayoutStyle.Layered, 
-                                    touch => touch.AddChild(new Header("DebugFont", "Touch"))))
-                        .AddPanel(1)))
-            .AddPanel(1));
+                            title => title.AddChild(new Text("DebugFont", "Brewmaster\n  Samples "))
+                        )
+                        .AddPanel(2, LayoutStyle.Vertical,
+                            scenes => scenes.AddChild(new DemoButton("Sprites", SceneNames.Sprites))
+                                            .AddChild(new DemoButton("Touch", SceneNames.Touch))
+                                            .AddChild(new DemoButton("Animation", SceneNames.Animation))
+                                            .AddChild(new DemoButton("Physics", SceneNames.Physics))
+                        )
+                    )
+            );
         }
     }
 }

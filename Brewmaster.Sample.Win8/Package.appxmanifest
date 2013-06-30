@@ -3,7 +3,7 @@
   <Identity Name="e019bdb5-c655-46a8-955b-ae194c3e3191" Publisher="CN=Jim" Version="1.0.0.0" />
   <Properties>
     <DisplayName>Brewmaster.Sample.Win8</DisplayName>
-    <PublisherDisplayName>Jim</PublisherDisplayName>
+    <PublisherDisplayName>JimmyBoh</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>
   <Prerequisites>
@@ -15,9 +15,9 @@
   </Resources>
   <Applications>
     <Application Id="App" Executable="$targetnametoken$.exe" EntryPoint="Brewmaster.Sample.Win8.App">
-      <VisualElements DisplayName="Brewmaster.Sample.Win8" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="Brewmaster.Sample.Win8" ForegroundText="light" BackgroundColor="#464646">
-        <DefaultTile ShowName="allLogos" />
-        <SplashScreen Image="Assets\SplashScreen.png" />
+      <VisualElements DisplayName="Brewmaster Demo" Logo="Assets\Logo.png" SmallLogo="Assets\SmallLogo.png" Description="Simple interactive samples that demonstate various aspects of the BrewMaster Engine." ForegroundText="dark" BackgroundColor="#008080">
+        <DefaultTile ShowName="allLogos" ShortName="Brewmaster Demo" />
+        <SplashScreen Image="Assets\SplashScreen.png" BackgroundColor="#000000" />
         <InitialRotationPreference>
           <Rotation Preference="landscape" />
           <Rotation Preference="landscapeFlipped" />

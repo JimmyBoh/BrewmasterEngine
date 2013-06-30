@@ -127,13 +127,16 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="SceneNames.cs" />
     <Compile Include="Scenes\BouncingBall\Entities\Ball.cs" />
+    <Compile Include="Scenes\BouncingBall\Entities\BallGameGui.cs" />
     <Compile Include="Scenes\BouncingBall\Entities\BallManager.cs" />
     <Compile Include="Common\GradientBackground.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SampleGame.cs" />
     <Compile Include="Scenes\BouncingBall\BouncingBallScene.cs" />
+    <Compile Include="Scenes\BouncingBall\Entities\GuiButton.cs" />
     <Compile Include="Scenes\MainMenu\Entities\DemoButton.cs" />
     <Compile Include="Scenes\MainMenu\Entities\MainMenuLayout.cs" />
     <Compile Include="Scenes\MainMenu\MainMenuScene.cs" />
@@ -142,6 +145,13 @@
     <AppxManifest Include="Package.appxmanifest">
       <SubType>Designer</SubType>
     </AppxManifest>
+    <Content Include="Assets\Logo.scale-100.png" />
+    <Content Include="Assets\Logo.scale-140.png" />
+    <Content Include="Assets\Logo.scale-180.png" />
+    <Content Include="Assets\Logo.scale-80.png" />
+    <Content Include="Assets\SplashScreen.scale-100.png" />
+    <Content Include="Assets\SplashScreen.scale-140.png" />
+    <Content Include="Assets\SplashScreen.scale-180.png" />
     <Content Include="Content\SmallLogo.png" />
     <None Include="Brewmaster.Sample.Win8_TemporaryKey.pfx" />
     <Content Include="Content\ball.png">
@@ -152,9 +162,7 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Assets\Logo.png" />
     <Content Include="Assets\SmallLogo.png" />
-    <Content Include="Assets\SplashScreen.png" />
     <Content Include="Assets\StoreLogo.png" />
   </ItemGroup>
   <ItemGroup>

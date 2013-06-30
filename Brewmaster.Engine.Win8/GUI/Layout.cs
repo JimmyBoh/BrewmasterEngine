@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using BrewmasterEngine.DataTypes;
 using BrewmasterEngine.Framework;
-using BrewmasterEngine.GUI.Elements;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input.Touch;
 
