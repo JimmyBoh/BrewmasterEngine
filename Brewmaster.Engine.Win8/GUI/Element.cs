@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using System.Linq;
 using BrewmasterEngine.DataTypes;
+using BrewmasterEngine.Framework;
+using BrewmasterEngine.Graphics;
 using Microsoft.Xna.Framework;
-using Microsoft.Xna.Framework.Input.Touch;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace BrewmasterEngine.GUI
 {
@@ -15,11 +17,12 @@ namespace BrewmasterEngine.GUI
         {
             Position = Vector2.Zero;
             Size = Vector2.Zero;
-            reflowScale = 1f;
-
-            LayoutStyle = LayoutStyle.Absolute;
-            Span = 1;
+            Scale = Vector2.One;
+            ReflowScale = 1f;
+            
             PreOffset = 0;
+            Span = 1;
+            PostOffset = 0;
 
             Parent = null;
             Children = new List<Element>();
@@ -32,10 +35,12 @@ namespace BrewmasterEngine.GUI
 
         public string ID { get; set; }
 
-        public LayoutStyle LayoutStyle { get; set; }
         public Element Parent { get; set; }
         public List<Element> Children { get; set; }
 
+        /// <summary>
+        /// The relative bounds of the element with respect to the parent.
+        /// </summary>
         public Rectangle Bounds { get; set; }
 
         public Vector2 Position
@@ -43,12 +48,16 @@ namespace BrewmasterEngine.GUI
             get { return Bounds.Location.ToVector2(); }
             set { Bounds = new Rectangle((int) value.X, (int) value.Y, Bounds.Width, Bounds.Height); }
         }
+
         public Vector2 Size
         {
             get { return Bounds.GetSize(); }
             set { Bounds = new Rectangle(Bounds.X, Bounds.Y, (int) value.X, (int) value.Y); }
         }
 
+        /// <summary>
+        /// The absolute bounds of the element.
+        /// </summary>
         public Rectangle RenderBounds
         {
             get
@@ -57,16 +66,27 @@ namespace BrewmasterEngine.GUI
             }
         }
 
-        protected float reflowScale;
+        public int RelativeIndex
+        {
+            get
+            {
+                return Parent.Children.IndexOf(this);
+            }
+        }
+
+        public int RelativeLayer
+        {
+            get { return Parent == null ? 0 : 1 + Parent.RelativeIndex; }
+        }
+
+        public Vector2 Scale { get; set; }
+        public float ReflowScale { get; set; }
 
         public int PreOffset { get; set; }
         public int Span { get; set; }
         public int PostOffset { get; set; }
-        
 
         protected int spanCount;
-        
-
 
         protected int spanHeight
         {
@@ -84,65 +104,12 @@ namespace BrewmasterEngine.GUI
 
         #region Reflow
 
-        public virtual void Reflow()
-        {
-            switch (LayoutStyle)
-            {
-                case LayoutStyle.Layered:
-                    reflowLayered();
-                    break;
-                case LayoutStyle.Vertical:
-                    reflowVertical();
-                    break;
-                case LayoutStyle.Horizontal:
-                    reflowHorizontal();
-                    break;
-                default:
-                    reflowAbsolute();
-                    break;
-            }
-        }
-
-        private void reflowLayered()
+        public virtual void Reflow(Rectangle area)
         {
             foreach (var child in Children)
             {
-                child.Reflow();
+                child.Reflow(RenderBounds);
             }
-        }
-
-        private void reflowVertical()
-        {
-            var childY = 0;
-
-            foreach (var child in Children)
-            {
-                childY += child.PreOffset*spanHeight;
-                child.Bounds = new Rectangle(0, childY, Bounds.Width, child.Span*spanHeight);
-                childY += (child.Span+child.PostOffset)*spanHeight;
-
-                child.Reflow();
-            }
-        }
-
-        private void reflowHorizontal()
-        {
-            var childX = 0;
-
-            foreach (var child in Children)
-            {
-                childX += child.PreOffset*spanWidth;
-                child.Bounds = new Rectangle(childX, 0, child.Span*spanWidth, Bounds.Height);
-                childX += (child.Span + child.PostOffset) * spanWidth;
-
-                child.Reflow();
-            }
-        }
-
-        private void reflowAbsolute()
-        {
-            foreach (var child in Children)
-                child.Reflow();
         }
 
         #endregion
@@ -163,7 +130,7 @@ namespace BrewmasterEngine.GUI
             Children.Add(element);
             spanCount += element.PreOffset + element.Span + element.PostOffset;
 
-            Reflow();
+            Reflow(Bounds);
 
             if (callback != null) callback(element);
 
@@ -171,42 +138,75 @@ namespace BrewmasterEngine.GUI
         }
 
         /// <summary>
-        /// Adds a layout panel to the parent.
+        /// Adds a vertical layout panel to the parent.
         /// </summary>
         /// <param name="preOffset">Spacers before the child.</param>
-        /// <param name="span">The relative width of the child.</param>
+        /// <param name="span">The relative size of the child.</param>
         /// <param name="postOffset">Spacers after the child.</param>
-        /// <param name="layoutStyle">The layout style of the child, defaulting to Layered.</param>
         /// <param name="callback">Delegate that give access to the new child.</param>
         /// <returns>The parent element.</returns>
-        public Element AddPanel(int preOffset, int span, int postOffset, LayoutStyle layoutStyle = LayoutStyle.Layered, Action<Element> callback = null)
+        public Element AddVerticalPanel(int preOffset, int span, int postOffset, Action<Element> callback = null)
         {
-            return AddChild(new Panel(preOffset, span, postOffset, layoutStyle), callback);
+            return AddChild(new VerticalPanel(preOffset, span, postOffset), callback);
         }
 
         /// <summary>
-        /// Adds a layout panel to the parent.
+        /// Adds a vertical layout panel to the parent.
         /// </summary>
         /// <param name="preOffset">Spacers before the child.</param>
-        /// <param name="span">The relative width of the child.</param>
-        /// <param name="layoutStyle">The layout style of the child, defaulting to Layered.</param>
+        /// <param name="span">The relative size of the child.</param>
         /// <param name="callback">Delegate that give access to the new child.</param>
         /// <returns>The parent element.</returns>
-        public Element AddPanel(int preOffset, int span, LayoutStyle layoutStyle = LayoutStyle.Layered, Action<Element> callback = null)
+        public Element AddVerticalPanel(int preOffset, int span, Action<Element> callback = null)
         {
-            return AddPanel(preOffset, span,0, layoutStyle, callback);
+            return AddVerticalPanel(preOffset, span,0, callback);
         }
 
         /// <summary>
-        /// Adds a layout panel to the parent.
+        /// Adds a vertical layout panel to the parent.
         /// </summary>
-        /// <param name="span">The relative width of the child.</param>
-        /// <param name="layoutStyle">The layout style of the child, defaulting to Layered.</param>
+        /// <param name="span">The relative size of the child.</param>
         /// <param name="callback">Delegate that give access to the new child.</param>
         /// <returns>The parent element.</returns>
-        public Element AddPanel(int span, LayoutStyle layoutStyle = LayoutStyle.Layered, Action<Element> callback = null)
+        public Element AddVerticalPanel(int span, Action<Element> callback = null)
         {
-            return AddPanel(0, span, 0, layoutStyle, callback);
+            return AddVerticalPanel(0, span, 0, callback);
+        }
+
+        /// <summary>
+        /// Adds a horizontal layout panel to the parent.
+        /// </summary>
+        /// <param name="preOffset">Spacers before the child.</param>
+        /// <param name="span">The relative size of the child.</param>
+        /// <param name="postOffset">Spacers after the child.</param>
+        /// <param name="callback">Delegate that give access to the new child.</param>
+        /// <returns>The parent element.</returns>
+        public Element AddHorizontalPanel(int preOffset, int span, int postOffset, Action<Element> callback = null)
+        {
+            return AddChild(new HorizontalPanel(preOffset, span, postOffset), callback);
+        }
+
+        /// <summary>
+        /// Adds a horizontal layout panel to the parent.
+        /// </summary>
+        /// <param name="preOffset">Spacers before the child.</param>
+        /// <param name="span">The relative size of the child.</param>
+        /// <param name="callback">Delegate that give access to the new child.</param>
+        /// <returns>The parent element.</returns>
+        public Element AddHorizontalPanel(int preOffset, int span, Action<Element> callback = null)
+        {
+            return AddVerticalPanel(preOffset, span, 0, callback);
+        }
+
+        /// <summary>
+        /// Adds a horizontal layout panel to the parent.
+        /// </summary>
+        /// <param name="span">The relative size of the child.</param>
+        /// <param name="callback">Delegate that give access to the new child.</param>
+        /// <returns>The parent element.</returns>
+        public Element AddHorizontalPanel(int span, Action<Element> callback = null)
+        {
+            return AddVerticalPanel(0, span, 0, callback);
         }
 
         #endregion
@@ -221,6 +221,8 @@ namespace BrewmasterEngine.GUI
 
         public override void Draw(GameTime gameTime)
         {
+            
+
             foreach (var child in Children)
                 child.Draw(gameTime);
         }

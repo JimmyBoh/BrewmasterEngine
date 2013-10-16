@@ -4,11 +4,12 @@ using BrewmasterEngine.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace Brewmaster.Engine.Win8.GUI
+namespace BrewmasterEngine.GUI
 {
     public class Text : Element
     {
-        public Text(string fontName, string text, float scale = 1f)
+        public Text(string fontName, string text) : this(fontName, text, Vector2.One) { }
+        public Text(string fontName, string text, Vector2 scale)
         {
             DisplayText = text;
             FontName = ContentHandler.Load<SpriteFont>(fontName);
@@ -17,30 +18,24 @@ namespace Brewmaster.Engine.Win8.GUI
             Bounds = new Rectangle(0, 0, (int)textSize.X, (int)textSize.Y);
             
             Scale = scale;
-            reflowScale = 1f;
+            ReflowScale = 1f;
         }
 
         public string DisplayText { get; set; }
         public string FontName { get; set; }
         public SpriteFont Font { get { return ContentHandler.Retrieve<SpriteFont>(FontName); } }
         private Vector2 textSize;
-        public float Scale { get; set; }
 
-        public override void Reflow()
+        public override void Reflow(Rectangle area)
         {
-            reflowScale = Math.Min(Parent.RenderBounds.Width / textSize.X, Parent.RenderBounds.Height / textSize.Y);
+            ReflowScale = Math.Min(Parent.RenderBounds.Width / textSize.X, Parent.RenderBounds.Height / textSize.Y);
 
-            Bounds = new Rectangle(Parent.Bounds.X, Parent.Bounds.Y, (int)(textSize.X * reflowScale * Scale), (int)(textSize.Y * reflowScale * Scale));
-
-            base.Reflow();
+            Bounds = new Rectangle(area.X, area.Y, (int)(textSize.X * ReflowScale * Scale.X), (int)(textSize.Y * ReflowScale * Scale.Y));
         }
 
         public override void Draw(GameTime gameTime)
         {
-            //var rect = new Rectangle(RenderBounds.Location.X, RenderBounds.Location.Y, (int)(RenderBounds.Width * reflowScale), (int)(RenderBounds.Height * reflowScale));
-            //spriteBatch.FillRectangle(Parent.RenderBounds, Color.Red*0.5f);
-            //spriteBatch.FillRectangle(rect,Color.Blue*0.5f);
-            spriteBatch.DrawString(Font, DisplayText, RenderBounds.Location.ToVector2(), Color.White, 0f, Vector2.Zero, reflowScale, SpriteEffects.None, 0);
+            spriteBatch.DrawString(Font, DisplayText, RenderBounds.Location.ToVector2(), Color.White, 0f, Vector2.Zero, ReflowScale, SpriteEffects.None, 0);
         }
     }
 }

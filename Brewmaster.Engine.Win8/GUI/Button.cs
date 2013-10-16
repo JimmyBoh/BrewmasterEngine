@@ -4,7 +4,7 @@ using BrewmasterEngine.GUI;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Input.Touch;
 
-namespace Brewmaster.Engine.Win8.GUI
+namespace BrewmasterEngine.GUI
 {
     public abstract class Button : Element, IClickable
     {

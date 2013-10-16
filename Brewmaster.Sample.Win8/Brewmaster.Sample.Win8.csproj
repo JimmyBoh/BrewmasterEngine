@@ -12,7 +12,9 @@
     <DefaultLanguage>en-US</DefaultLanguage>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{BC8A1FFA-BEE3-4634-8014-F334798102B3};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
-    <PackageCertificateKeyFile>Brewmaster.Sample.Win8_TemporaryKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateKeyFile>Brewmaster.Sample.Win8_StoreKey.pfx</PackageCertificateKeyFile>
+    <PackageCertificateThumbprint>6D726DF529AAEF14888FC9C2E5DC4D348A1038A6</PackageCertificateThumbprint>
+    <AppxAutoIncrementPackageRevision>True</AppxAutoIncrementPackageRevision>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <PlatformTarget>AnyCPU</PlatformTarget>
@@ -136,9 +138,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SampleGame.cs" />
     <Compile Include="Scenes\BouncingBall\BouncingBallScene.cs" />
-    <Compile Include="Scenes\BouncingBall\Entities\GuiButton.cs" />
-    <Compile Include="Scenes\MainMenu\Entities\DemoButton.cs" />
-    <Compile Include="Scenes\MainMenu\Entities\MainMenuLayout.cs" />
+    <Compile Include="Scenes\BouncingBall\GUI\AlterButton.cs" />
+    <Compile Include="Scenes\BouncingBall\GUI\GameGuiButton.cs" />
+    <Compile Include="Scenes\MainMenu\GUI\DemoButton.cs" />
+    <Compile Include="Scenes\MainMenu\GUI\MainMenuLayout.cs" />
     <Compile Include="Scenes\MainMenu\MainMenuScene.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -149,10 +152,16 @@
     <Content Include="Assets\Logo.scale-140.png" />
     <Content Include="Assets\Logo.scale-180.png" />
     <Content Include="Assets\Logo.scale-80.png" />
+    <Content Include="Assets\SmallLogo.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-100.png" />
     <Content Include="Assets\SplashScreen.scale-140.png" />
     <Content Include="Assets\SplashScreen.scale-180.png" />
+    <Content Include="Assets\StoreLogo.scale-100.png" />
+    <Content Include="Assets\StoreLogo.scale-140.png" />
+    <Content Include="Assets\StoreLogo.scale-180.png" />
     <Content Include="Content\SmallLogo.png" />
+    <None Include="Brewmaster.Sample.Win8_StoreKey.pfx" />
+    <None Include="Package.StoreAssociation.xml" />
     <None Include="Brewmaster.Sample.Win8_TemporaryKey.pfx" />
     <Content Include="Content\ball.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -160,10 +169,6 @@
     <Content Include="Content\DebugFont.xnb">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="Assets\SmallLogo.png" />
-    <Content Include="Assets\StoreLogo.png" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Brewmaster.Engine.Win8\Brewmaster.Engine.Win8.csproj">

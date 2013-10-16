@@ -1,8 +1,8 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Package xmlns="http://schemas.microsoft.com/appx/2010/manifest">
-  <Identity Name="e019bdb5-c655-46a8-955b-ae194c3e3191" Publisher="CN=Jim" Version="1.0.0.0" />
+  <Identity Name="6671JimmyBoh.BrewmasterDemo" Publisher="CN=E573DB31-D99B-4E66-A90A-A8DFD8E33B9D" Version="1.0.0.0" />
   <Properties>
-    <DisplayName>Brewmaster.Sample.Win8</DisplayName>
+    <DisplayName>Brewmaster Demo</DisplayName>
     <PublisherDisplayName>JimmyBoh</PublisherDisplayName>
     <Logo>Assets\StoreLogo.png</Logo>
   </Properties>

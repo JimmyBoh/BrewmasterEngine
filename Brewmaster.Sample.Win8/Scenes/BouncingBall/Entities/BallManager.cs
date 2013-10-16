@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Linq;
 using BrewmasterEngine.DataTypes;
+using BrewmasterEngine.Framework;
+using BrewmasterEngine.Graphics;
 using Microsoft.Xna.Framework;
+using Microsoft.Xna.Framework.Graphics;
 
 namespace SampleGame.Scenes.BouncingBall.Entities
 {
@@ -9,66 +12,56 @@ namespace SampleGame.Scenes.BouncingBall.Entities
     {
         #region Constructor
 
-        public BallManager()
+        public BallManager(int initialBalls = 0)
         {
             balls = new ObjectPool<Ball>();
+
+            ballCount = initialBalls;
         }
 
         #endregion
 
+        #region Properties
+
         private readonly ObjectPool<Ball> balls;
+        private int ballCount;
+
+        public int TotalBalls
+        {
+            get { return balls.ActiveCount; }
+        }
+
+        #endregion
+
         public override void Update(GameTime gameTime)
         {
+            if (balls.ActiveCount == 0 && ballCount < 0)
+                ballCount = 0;
+
             balls.ForEach((ball) =>
                 {
-                    ball.Update(gameTime);
+                    if (ballCount < 0)
+                    {
+                        ball.IsFree = true;
+                        ballCount++;
+                    }
+                    else
+                    {
+                        ball.Update(gameTime);
+                    }
+
                     return ball;
                 });
-        }
 
-        public void AddBall()
-        {
-            balls.Add(balls.GetNew());
-        }
-
-        public void AddBalls(int count)
-        {
-            if (count < 0)
-                RemoveBalls(-count);
-            else if (count > 0)
-                for (var i = 0; i < count; i++)
-                    AddBall();
-        }
-
-        public void RemoveBall()
-        {
-            RemoveBalls(1);
-        }
-        
-        public void RemoveBalls(int count)
-        {
-            if (count < 0)
+            if (ballCount > 0)
             {
-                AddBalls(-count);
-            }
-            else if (count > 0)
-            {
-                balls.ForEach((ball) =>
-                    {
-                        if (count > 0)
-                        {
-                            ball.IsFree = true;
-                            count--;
-                        }
-                        return ball;
-                    });
-            }
+                var required = Math.Min(25, ballCount);
 
-        }
+                for (var i = 0; i < required; i++)
+                    balls.Add(balls.GetNew());
 
-        public void Clear()
-        {
-            balls.Clear();
+                ballCount -= required;
+            }
         }
 
         public override void Draw(GameTime gameTime)
@@ -78,6 +71,20 @@ namespace SampleGame.Scenes.BouncingBall.Entities
                 ball.Draw(gameTime);
                 return ball;
             });
+        }
+
+        public void AdjustBallCount(int count)
+        {
+            ballCount += count;
+
+            if (ballCount < 0 && balls.ActiveCount == 0)
+                ballCount = 0;
+        }
+
+        public void Clear()
+        {
+            ballCount = Math.Max(ballCount, 0);
+            balls.Clear();
         }
     }
 }

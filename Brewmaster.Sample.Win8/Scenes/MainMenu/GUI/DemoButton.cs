@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Brewmaster.Engine.Win8.GUI;
+using BrewmasterEngine.GUI;
 using BrewmasterEngine.Framework;
 using BrewmasterEngine.Graphics.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Windows.UI.Popups;
-using Windows.UI.Xaml;
 
-namespace Brewmaster.Sample.Win8.Scenes.MainMenu.Entities
+namespace SampleGame.Scenes.MainMenu.Entities
 {
     public class DemoButton : Button
     {
@@ -20,19 +19,16 @@ namespace Brewmaster.Sample.Win8.Scenes.MainMenu.Entities
             SceneName = sceneName;
 
             Rotation = CurrentGame.Random.Next(-3, 3)/100.0f;
-            Scale = 1f;
+            Scale = Vector2.One;
         }
 
         public StaticText Text { get; set; }
         public string SceneName { get; set; }
         
         public float Rotation { get; set; }
-        public float Scale { get; set; }
 
-        public override void Reflow()
+        public override void Reflow(Rectangle area)
         {
-            base.Reflow();
-
             Bounds = new Rectangle((int)(Bounds.X + Bounds.Width * 0.25f), (int)(Bounds.Y + Bounds.Height * 0.1f), (int)(Bounds.Width * 0.5f), (int)(Bounds.Height * 0.8f));
 
             Text.CenterOn(RenderBounds.Center.ToVector2());
@@ -40,9 +36,9 @@ namespace Brewmaster.Sample.Win8.Scenes.MainMenu.Entities
 
         public override void Draw(GameTime gameTime)
         {
-            var offset = (int)((1f - Scale)*100f);
-            var shadow = new Rectangle(RenderBounds.X + 5+offset, RenderBounds.Y + 5+offset, (int)(RenderBounds.Width * Scale), (int)(RenderBounds.Height * Scale));
-            var tile = new Rectangle(RenderBounds.X+offset, RenderBounds.Y+offset, (int)(RenderBounds.Width * Scale), (int)(RenderBounds.Height * Scale));
+            var offset = (int)((1f - Scale.X)*100f);
+            var shadow = new Rectangle(RenderBounds.X + 5 + offset, RenderBounds.Y + 5 + offset, (int)(RenderBounds.Width * Scale.X), (int)(RenderBounds.Height * Scale.X));
+            var tile = new Rectangle(RenderBounds.X + offset, RenderBounds.Y + offset, (int)(RenderBounds.Width * Scale.X), (int)(RenderBounds.Height * Scale.X));
             spriteBatch.FillRectangle(shadow, Color.Gray * 0.5f, Rotation);
             spriteBatch.FillRectangle(tile, Color.DarkGray, Rotation);
             
@@ -75,7 +71,7 @@ namespace Brewmaster.Sample.Win8.Scenes.MainMenu.Entities
 
         private void alterScale(float amount)
         {
-            Scale += amount;
+            Scale = new Vector2(Scale.X + amount);
             Text.Scale += new Vector2(amount);
         }
 

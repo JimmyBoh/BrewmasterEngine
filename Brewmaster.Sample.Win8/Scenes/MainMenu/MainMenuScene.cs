@@ -1,8 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using Brewmaster.Sample.Win8;
-using Brewmaster.Sample.Win8.Scenes.MainMenu.Entities;
+using SampleGame.Scenes.MainMenu.Entities;
 using BrewmasterEngine.Scenes;
 using Microsoft.Xna.Framework;
 using SampleGame.Common;

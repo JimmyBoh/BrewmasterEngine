@@ -57,6 +57,19 @@ namespace BrewmasterEngine.Framework
         }
 
         /// <summary>
+        /// Gets the current scene cast as a particular scene type.
+        /// </summary>
+        /// <typeparam name="T">The specific scene type.</typeparam>
+        /// <returns>The specific scene or null if the cast failed.</returns>
+        public static T CurrentSceneAs<T>() where T: Scene
+        {
+            if (SceneManager.CurrentScene is T)
+                return (T) SceneManager.CurrentScene;
+
+            return null;
+        }
+
+        /// <summary>
         /// Whether the current scene is paused of not.
         /// </summary>
         public static bool IsPaused

@@ -6,9 +6,19 @@ namespace BrewmasterEngine.GUI
 {
     public enum LayoutStyle
     {
-        Layered   = 0,
+        /// <summary>
+        /// Children in this element are all center aligned.
+        /// </summary>
+        Centered   = 0,
+
+        /// <summary>
+        /// Children in this element are stacked vertially.
+        /// </summary>
         Vertical   = 1 << 0,
-        Horizontal = 1 << 1,
-        Absolute   = 1 << 2
+
+        /// <summary>
+        /// Children in this element are stacked horizontally.
+        /// </summary>
+        Horizontal = 1 << 1
     }
 }

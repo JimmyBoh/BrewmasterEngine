@@ -14,33 +14,28 @@ namespace BrewmasterEngine.GUI
 
         #region Methods
 
-        public void CreateHorizontalLayout(Action<Element> build)
+        public Layout CreateHorizontalLayout(Action<Element> build)
         {
-            createLayout(LayoutStyle.Horizontal, build);
+            return createLayout(new HorizontalPanel(1), build);
         }
 
-        public void CreateVerticalLayout(Action<Element> build)
+        public Layout CreateVerticalLayout(Action<Element> build)
         {
-            createLayout(LayoutStyle.Vertical, build);
+            return createLayout(new VerticalPanel(1), build);
         }
 
-        public void CreateAbsoluteLayout(Action<Element> build)
+        private Layout createLayout(Panel panel, Action<Element> build)
         {
-            createLayout(LayoutStyle.Absolute, build);
-        }
-
-        private void createLayout(LayoutStyle layoutStyle, Action<Element> build)
-        {
-            root = new Panel(1, layoutStyle)
-            {
-                Bounds = CurrentGame.Window.ClientBounds,
-                ID = "r"
-            };
+            root = panel;
+            root.Bounds = CurrentGame.Window.ClientBounds;
+            root.ID = "r";
 
             build(root);
 
             CurrentGame.Window.ClientSizeChanged -= reflowOnResize;
             CurrentGame.Window.ClientSizeChanged += reflowOnResize;
+
+            return this;
         }
 
         private void reflowOnResize(object sender, EventArgs e)
@@ -51,7 +46,7 @@ namespace BrewmasterEngine.GUI
         public void Reflow()
         {
             root.Bounds = CurrentGame.Window.ClientBounds;
-            root.Reflow();
+            root.Reflow(root.Bounds);
         }
 
         public override void Update(GameTime gameTime)
@@ -63,8 +58,9 @@ namespace BrewmasterEngine.GUI
 
         public override void Draw(GameTime gameTime)
         {
-            if (root != null) 
-                root.Draw(gameTime);
+            if (root == null) return;
+ 
+            root.Draw(gameTime);
         }
 
         #endregion

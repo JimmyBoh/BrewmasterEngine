@@ -147,14 +147,16 @@
     <Compile Include="Graphics\Sprite.cs" />
     <Compile Include="Graphics\Sprite2D.cs" />
     <Compile Include="Graphics\SpriteText.cs" />
+    <Compile Include="GUI\HorizontalPanel.cs" />
     <Compile Include="GUI\Element.cs" />
     <Compile Include="GUI\Button.cs" />
     <Compile Include="GUI\Image.cs" />
     <Compile Include="GUI\Panel.cs" />
     <Compile Include="GUI\Text.cs" />
     <Compile Include="GUI\Enums.cs" />
-    <Compile Include="GUI\IClickable.cs" />
+    <Compile Include="GUI\ClickableElement.cs" />
     <Compile Include="GUI\Layout.cs" />
+    <Compile Include="GUI\VerticalPanel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Scenes\Scene.cs" />
     <Compile Include="Scenes\SceneManager.cs" />

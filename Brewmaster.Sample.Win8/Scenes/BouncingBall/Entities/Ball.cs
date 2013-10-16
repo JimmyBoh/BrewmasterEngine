@@ -181,7 +181,7 @@ namespace SampleGame.Scenes.BouncingBall.Entities
             Color = new Color((float)CurrentGame.Random.NextDouble(), (float)CurrentGame.Random.NextDouble(), (float)CurrentGame.Random.NextDouble());
             darkness = radius/32;
 
-            Position = CurrentGame.Window.ClientBounds.GetRandomPoint();
+            Position = new Vector2(CurrentGame.Window.ClientBounds.GetRandomPoint().X, CurrentGame.Window.ClientBounds.Height - CurrentGame.Random.Next(50, 100));
 
             var dirX = CurrentGame.Random.Next(0, 2);
             if (dirX == 0)
