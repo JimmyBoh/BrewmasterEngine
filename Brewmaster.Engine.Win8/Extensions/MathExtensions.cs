@@ -5,27 +5,27 @@ namespace BrewmasterEngine.Extensions
 {
     public static class MathExtensions
     {
-        private const float toRad = ((float) Math.PI)/180.0f;
-        private const float toDeg = (180.0f/(float) Math.PI);
+        private const double toRad = (Math.PI)/180.0f;
+        private const double toDeg = (180.0f/Math.PI);
 
-        public static float ToRadians(float degrees)
+        public static double ToRadians(double degrees)
         {
             return degrees*toRad;
         }
 
-        public static float ToRadians(double degrees)
+        public static float ToRadians(float degrees)
         {
-            return ToRadians((float) degrees);
+            return ToRadians(degrees);
         }
 
-        public static float ToDegrees(float radians)
+        public static double ToDegrees(double radians)
         {
             return radians*toDeg;
         }
 
-        public static float ToDegrees(double radians)
+        public static float ToDegrees(float radians)
         {
-            return ToDegrees((float) radians);
+            return ToDegrees(radians);
         }
 
         public static float? Add(float? thing, float? other)

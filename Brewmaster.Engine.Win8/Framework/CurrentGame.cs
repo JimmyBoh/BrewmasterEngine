@@ -94,6 +94,17 @@ namespace BrewmasterEngine.Framework
         }
 
         /// <summary>
+        /// Toggles the paused state of the current scene.
+        /// </summary>
+        public static void TogglePauseCurrentScene()
+        {
+            if (!CurrentScene.IsPaused)
+                CurrentScene.PauseScene();
+            else
+                CurrentScene.UnpauseScene();
+        }
+
+        /// <summary>
         /// The XNA Window object to get client bounds and resize events.
         /// </summary>
         public static GameWindow Window
