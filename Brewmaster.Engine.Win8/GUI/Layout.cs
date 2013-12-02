@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework.Input.Touch;
 
 namespace BrewmasterEngine.GUI
 {
-    public abstract class Layout : GameObject
+    public class Layout : GameObject
     {
         private Panel root;
 
