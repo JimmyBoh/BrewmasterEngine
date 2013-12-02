@@ -20,7 +20,6 @@ namespace BrewmasterEngine.DataTypes
             IsVisible = true;
             IsFree = false;
             ZIndex = 0;
-            tags = new List<string>();
         }
 
         #endregion
@@ -32,28 +31,6 @@ namespace BrewmasterEngine.DataTypes
         public bool IsVisible { get; set; }
         public bool IsFree { get; set; }
         public int ZIndex { get; set; }
-
-        private readonly List<string> tags;
-        public List<string> Tags
-        {
-            get { return tags.ToList(); }
-        }
-
-        public string[] AddTags
-        {
-            set { tags.AddRange(value); }
-        }
-
-        public string[] RemoveTags
-        {
-            set
-            {
-                foreach (var flag in value)
-                {
-                    tags.Remove(flag);
-                }
-            }
-        }
 
         protected SpriteBatch spriteBatch
         {
