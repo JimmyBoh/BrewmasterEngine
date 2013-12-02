@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Linq;
+using BrewmasterEngine.GUI;
+using BrewmasterEngine.Graphics.Content;
 using SampleGame.Scenes.BouncingBall.Entities;
 using BrewmasterEngine.Framework;
 using BrewmasterEngine.Scenes;
@@ -11,7 +13,7 @@ namespace SampleGame.Scenes.BouncingBall
     {
         #region Constants
 
-        private const string MENU_TAG = "menu";
+
 
         #endregion
 
@@ -27,7 +29,8 @@ namespace SampleGame.Scenes.BouncingBall
         #region Properties
 
         private BallManager ballMgr;
-        private BallGameGui ballGui;
+        private Layout ballGui;
+        private Text totalCount;
 
         #endregion
 
@@ -36,40 +39,52 @@ namespace SampleGame.Scenes.BouncingBall
         protected override void Load()
         {
             Add(ballMgr = new BallManager());
-            Add(ballGui = new BallGameGui());
-           
-            //this.Add(new MenuButton("Quit", new Vector2(CurrentGame.Window.ClientBounds.Width/2.0f, 600),
-            //                        (button, releasedOn) =>
-            //                            {
-            //                                button.Scale = Vector2.One;
 
-            //                                if (releasedOn)
-            //                                    CurrentGame.SceneManager.Load("main");
-            //                            }, onButtonDown) {AddTags = new[] {MENU_TAG}});
+            totalCount = new Text("DebugFont", "Total:0000");
 
-            this.ForEachEntity(o => o.Tags.Contains(MENU_TAG), o => o.IsVisible = false);
+            ballGui = new Layout();
+
+            ballGui.CreateHorizontalLayout(
+                root => root.AddVerticalPanel(2, 1, 1, col =>
+                                                       col.AddVerticalPanel(1, 1, 6, center =>
+                                                                                     center.AddChild(totalCount)))
+                            .AddVerticalPanel(1, right =>
+                                                 right.AddVerticalPanel(0, 1, 1, menu =>
+                                                                                 menu.AddChild(new GameGuiButton("Pause", (btn) =>
+                                                                                 {
+                                                                                     CurrentGame.TogglePauseCurrentScene();
+                                                                                     btn.Text = new StaticText(btn.Text.FontName, CurrentGame.IsPaused ? "Unpause" : "Pause");
+                                                                                 }))
+                                                                                    .AddChild(new AlterButton(-1000))
+                                                                                    .AddChild(new AlterButton(-100))
+                                                                                    .AddChild(new AlterButton(100))
+                                                                                    .AddChild(new AlterButton(1000)))
+                                                     ));
+
+            Add(ballGui);
         }
 
         public void PauseScene()
         {
             CurrentGame.SceneManager.PauseCurrentScene();
-            this.ForEachEntity(o => o.Tags.Contains(MENU_TAG), o => o.Show());
         }
 
         public void UnpauseScene()
         {
             CurrentGame.SceneManager.UnpauseCurrentScene();
-            this.ForEachEntity(o => o.Tags.Contains(MENU_TAG), o => o.Hide());
         }
 
         public override void Update(GameTime gameTime)
         {
-            if(CurrentGame.IsPaused)
-                ForEachEntity(o => o.Tags.Contains(MENU_TAG), o => o.Update(gameTime));
-            else
-                ForEachEntity(o => !o.Tags.Contains(MENU_TAG), o => o.Update(gameTime));
+            ForEachEntity(o => o.Update(gameTime));
 
-            ballGui.UpdateTotalCount(ballMgr.TotalBalls);
+            UpdateTotalCount(ballMgr.TotalBalls);
+        }
+
+        public void UpdateTotalCount(int count)
+        {
+            totalCount.DisplayText = string.Format("Total:{0:n0}", count);
+            ballGui.Reflow();
         }
 
         public void AddBall(int count = 1)

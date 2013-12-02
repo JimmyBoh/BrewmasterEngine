@@ -45,7 +45,7 @@ namespace SampleGame.Scenes.BouncingBall.Entities
                         ball.IsFree = true;
                         ballCount++;
                     }
-                    else
+                    else if(!CurrentGame.IsPaused)
                     {
                         ball.Update(gameTime);
                     }
@@ -55,7 +55,8 @@ namespace SampleGame.Scenes.BouncingBall.Entities
 
             if (ballCount > 0)
             {
-                var required = Math.Min(25, ballCount);
+                // Add a maximum of 25 balls per update.
+                var required = Math.Min(ballCount, 25);
 
                 for (var i = 0; i < required; i++)
                     balls.Add(balls.GetNew());

@@ -19,8 +19,6 @@ namespace SampleGame.Scenes.BouncingBall.Entities
 
             Rotation = CurrentGame.Random.Next(-3, 3) / 100.0f;
             Scale = Vector2.One;
-
-            AddTags = new []{"menu"};
         }
 
         public StaticText Text { get; set; }

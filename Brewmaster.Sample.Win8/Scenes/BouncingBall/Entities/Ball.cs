@@ -179,7 +179,7 @@ namespace SampleGame.Scenes.BouncingBall.Entities
             Radius = CurrentGame.Random.Next(4, MAX_RADIUS);
             ZIndex = (int) radius - 32;
             Color = new Color((float)CurrentGame.Random.NextDouble(), (float)CurrentGame.Random.NextDouble(), (float)CurrentGame.Random.NextDouble());
-            darkness = radius/32;
+            darkness = radius/16.0f;
 
             Position = new Vector2(CurrentGame.Window.ClientBounds.GetRandomPoint().X, CurrentGame.Window.ClientBounds.Height - CurrentGame.Random.Next(50, 100));
 
