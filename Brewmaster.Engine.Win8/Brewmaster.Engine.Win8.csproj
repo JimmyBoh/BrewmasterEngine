@@ -137,8 +137,6 @@
     <Compile Include="DataTypes\IPoolable.cs" />
     <Compile Include="DataTypes\ObjectPool.cs" />
     <Compile Include="DataTypes\PriorityDictionary.cs" />
-    <Compile Include="Events\EventManager.cs" />
-    <Compile Include="Events\GameEventArgs.cs" />
     <Compile Include="Extensions\MathExtensions.cs" />
     <Compile Include="Extensions\PrimitivesExtension.cs" />
     <Compile Include="Extensions\XnaExtensions.cs" />
@@ -169,7 +167,9 @@
     <Compile Include="Tools\FpsCounter.cs" />
     <Compile Include="Tools\Profiler.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Events\" />
+  </ItemGroup>
   <PropertyGroup Condition=" '$(VisualStudioVersion)' == '' or '$(VisualStudioVersion)' &lt; '12.0' ">
     <VisualStudioVersion>12.0</VisualStudioVersion>
   </PropertyGroup>
