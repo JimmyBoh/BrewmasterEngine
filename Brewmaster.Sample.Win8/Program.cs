@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace SampleGame
+namespace Brewmaster.Sample.Win8
 {
     /// <summary>
     /// The main class.

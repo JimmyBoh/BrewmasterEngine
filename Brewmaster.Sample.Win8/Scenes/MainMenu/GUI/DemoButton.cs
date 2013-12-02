@@ -8,7 +8,7 @@ using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Windows.UI.Popups;
 
-namespace SampleGame.Scenes.MainMenu.Entities
+namespace Brewmaster.Sample.Win8.Scenes.MainMenu.Entities
 {
     public class DemoButton : Button
     {

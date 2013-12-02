@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace SampleGame
+namespace Brewmaster.Sample.Win8
 {
     public static class SceneNames
     {

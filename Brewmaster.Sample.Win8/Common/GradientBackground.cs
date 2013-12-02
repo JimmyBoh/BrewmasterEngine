@@ -6,7 +6,7 @@ using BrewmasterEngine.Graphics.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace SampleGame.Common
+namespace Brewmaster.Sample.Win8.Common
 {
     public class GradientBackground : GameObject
     {

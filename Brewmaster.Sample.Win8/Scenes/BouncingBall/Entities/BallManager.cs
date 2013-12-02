@@ -6,7 +6,7 @@ using BrewmasterEngine.Graphics;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
-namespace SampleGame.Scenes.BouncingBall.Entities
+namespace Brewmaster.Sample.Win8.Scenes.BouncingBall.Entities
 {
     public class BallManager : GameObject
     {

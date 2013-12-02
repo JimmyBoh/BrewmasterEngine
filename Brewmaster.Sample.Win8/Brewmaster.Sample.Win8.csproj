@@ -132,7 +132,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="SceneNames.cs" />
+    <Compile Include="Common\SceneNames.cs" />
     <Compile Include="Scenes\BouncingBall\Entities\Ball.cs" />
     <Compile Include="Scenes\BouncingBall\Entities\BallManager.cs" />
     <Compile Include="Common\GradientBackground.cs" />
@@ -146,6 +146,7 @@
     <Compile Include="Scenes\MainMenu\GUI\DemoButton.cs" />
     <Compile Include="Scenes\MainMenu\GUI\MainMenuLayout.cs" />
     <Compile Include="Scenes\MainMenu\MainMenuScene.cs" />
+    <Compile Include="Scenes\TouchInput\TouchInputScene.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">

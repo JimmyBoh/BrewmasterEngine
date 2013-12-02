@@ -9,10 +9,10 @@ using BrewmasterEngine.Scenes;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
-using SampleGame.Scenes.BouncingBall;
-using SampleGame.Scenes.MainMenu;
+using Brewmaster.Sample.Win8.Scenes.BouncingBall;
+using Brewmaster.Sample.Win8.Scenes.MainMenu;
 
-namespace SampleGame
+namespace Brewmaster.Sample.Win8
 {
     public class SampleExplorer : Game2D
     {

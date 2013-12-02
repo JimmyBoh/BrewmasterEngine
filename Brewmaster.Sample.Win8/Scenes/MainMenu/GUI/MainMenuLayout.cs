@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using BrewmasterEngine.GUI;
 
-namespace SampleGame.Scenes.MainMenu.Entities
+namespace Brewmaster.Sample.Win8.Scenes.MainMenu.Entities
 {
     public class MainMenuLayout : Layout
     {

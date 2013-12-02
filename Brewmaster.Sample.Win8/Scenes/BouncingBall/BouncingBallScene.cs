@@ -2,12 +2,12 @@
 using System.Linq;
 using BrewmasterEngine.GUI;
 using BrewmasterEngine.Graphics.Content;
-using SampleGame.Scenes.BouncingBall.Entities;
+using Brewmaster.Sample.Win8.Scenes.BouncingBall.Entities;
 using BrewmasterEngine.Framework;
 using BrewmasterEngine.Scenes;
 using Microsoft.Xna.Framework;
 
-namespace SampleGame.Scenes.BouncingBall
+namespace Brewmaster.Sample.Win8.Scenes.BouncingBall
 {
     public class BouncingBallScene : Scene
     {
