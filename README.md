@@ -1,5 +1,8 @@
 # Brewmaster Engine #
 
+**NOTE**: This project is no longer being actively developed. It exists only as a refernce and will be removed in the upcoming months. Please feel free to fork, modify, and release on your own! Thank you.
+
+
 ## Summary: ##
 
 Brewmaster is a 2D game engine designed for multiplatform games and apps. It is powered by MonoGame, an open source port of the XNA framework. Brewmaster encourages rapid development, easy maintainability, and logical scalability.
